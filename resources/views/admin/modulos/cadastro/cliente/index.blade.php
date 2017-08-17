@@ -1,15 +1,15 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Cliente')
+@section('title', __('views.admin.cliente.page.title'))
 
 @section('title-left')
-    {!! __('views.admin.clients.index.title') !!}
+    {!! __('views.admin.cliente.index.title') !!}
 @endsection
 
 @section('title-right')
     <a href="{!! route('cadastro.cliente.create') !!}" class="btn btn-app">
         <span class="badge bg-green">!</span>
-        <i class="fa fa-edit"></i> Cadastrar
+        <i class="fa fa-edit"></i> {{__('views.admin.cliente.index.create')}}
     </a>
 @endsection
 
@@ -19,13 +19,13 @@
             <div class="x_panel">
                 <div class="x_content">
                     <div class="col-md-12 table-responsive">
-                        <table width="100%" class="table table-striped table-bordered" id="clients-table" role="grid">
+                        <table width="100%" class="table table-striped table-bordered" id="cliente-table" role="grid">
                             <thead>
                             <tr>
-                                <th class="hidden">{{ __('views.admin.clients.index.table_header_0') }}</th>
-                                <th>{{ __('views.admin.clients.index.table_header_1') }}</th>
-                                <th>{{ __('views.admin.clients.index.table_header_2') }}</th>
-                                <th>{{ __('views.admin.clients.index.table_header_3') }}</th>
+                                <th class="hidden">{{ __('views.admin.cliente.index.table_header_0') }}</th>
+                                <th>{{ __('views.admin.cliente.index.table_header_1') }}</th>
+                                <th>{{ __('views.admin.cliente.index.table_header_2') }}</th>
+                                <th>{{ __('views.admin.cliente.index.table_header_3') }}</th>
                                 <th width="10%"></th>
                             </tr>
                             </thead>
@@ -40,7 +40,7 @@
 @push('scripts')
     <script>
         $(function () {
-            $('#clients-table').DataTable({
+            $('#cliente-table').DataTable({
                 processing: true,
                 serverSide: true,
                 language: {
@@ -49,8 +49,8 @@
                 ajax: '{!! route('cadastro.datatable.cliente') !!}',
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'phone', name: 'phone'},
+                    {data: 'nome', name: 'nome'},
+                    {data: 'telefone', name: 'telefone'},
                     {data: 'email', name: 'email'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ],

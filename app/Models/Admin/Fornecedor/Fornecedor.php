@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Fornecedor extends Model
 {
 
+    protected $table = 'fornecedores';
+
     protected $fillable = [
         'nome',
         'telefone',
@@ -17,8 +19,7 @@ class Fornecedor extends Model
         'numero',
         'bairro',
         'cidade',
-        'estado',
-
+        'estado'
     ];
 
     public function compras()

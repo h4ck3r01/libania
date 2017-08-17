@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Fornecedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Facades\Datatables;
 
-class FornecedoresController extends Controller
+class FornecedorController extends Controller
 {
 
     /**
@@ -85,5 +87,16 @@ class FornecedoresController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDatatable()
+    {
+        $fornecedores = Fornecedor::select(['id', 'nome', 'telefone', 'email', 'identificador', 'cep', DB::raw('CONCAT(rua, ", ", numero, " - ", cidade, "/", estado) AS endereco')]);
+
+        return Datatables::of($fornecedores)
+            ->addColumn('action', function ($fornecedor) {
+                return '<a href="/admin/fornecedor/' . $fornecedor->id . '" class="btn btn-xs btn-success"><i class="fa fa-eye"></i> ' . __('views.admin.fornecedor.index.show') . '</a>';
+            })
+            ->make(true);
     }
 }

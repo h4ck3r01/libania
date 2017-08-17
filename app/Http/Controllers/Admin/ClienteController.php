@@ -92,10 +92,11 @@ class ClienteController extends Controller
 
     public function getDatatable()
     {
-        $clients = Cliente::all();
-        return Datatables::of($clients)
-            ->addColumn('action', function ($client) {
-                return '<a href="/admin/cliente/'.$client->id.'" class="btn btn-xs btn-success"><i class="fa fa-eye"></i> Exibir</a>';
+        $clientes = Cliente::all();
+
+        return Datatables::of($clientes)
+            ->addColumn('action', function ($cliente) {
+                return '<a href="/admin/cliente/' . $cliente->id . '" class="btn btn-xs btn-success"><i class="fa fa-eye"></i> ' . __('views.admin.cliente.index.show') . '</a>';
             })
             ->make(true);
     }

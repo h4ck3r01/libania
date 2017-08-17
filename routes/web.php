@@ -69,9 +69,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
     Route::resource('cliente', 'ClienteController');
-    Route::get('datatable/cliente', 'ClienteController@getDatatable')->name('datatable.cliente');
     Route::resource('fornecedor', 'FornecedorController');
     Route::resource('produto', 'ProdutoController');
+
+    Route::get('datatable/cliente', 'ClienteController@getDatatable')->name('datatable.cliente');
+    Route::get('datatable/fornecedor', 'FornecedorController@getDatatable')->name('datatable.fornecedor');
 
 });
 
