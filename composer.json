@@ -30,7 +30,8 @@
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "5.4.*"
+        "laravelcollective/html": "5.4.*",
+        "yajra/laravel-datatables-oracle": "7.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -69,6 +70,8 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:meta",
             "php artisan optimize"
         ]
     },

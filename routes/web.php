@@ -13,6 +13,11 @@
 
 
 /**
+ * default
+ */
+Route::get('/', 'admin\DashboardController@index');
+
+/**
  * Auth routes
  */
 Route::group(['namespace' => 'Auth'], function () {
@@ -39,10 +44,6 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('confirm/{user_by_code}', 'ConfirmController@confirm')->name('confirm');
         Route::get('confirm/resend/{user_by_email}', 'ConfirmController@sendEmail')->name('confirm.send');
     }
-
-    // Social Authentication Routes...
-    Route::get('social/redirect/{provider}', 'SocialLoginController@redirect')->name('social.redirect');
-    Route::get('social/login/{provider}', 'SocialLoginController@login')->name('social.login');
 });
 
 /**
@@ -65,14 +66,40 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
 });
 
+Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
-Route::get('/', 'HomeController@index');
+    Route::resource('cliente', 'ClientsController');
+    Route::get('datatable/cliente', 'ClientsController@getDatatable')->name('datatable.cliente');
+    Route::resource('fornecedor', 'SuppliersController');
+    Route::resource('produto', 'ProductsController');
 
-/**
- * Membership
- */
-Route::group(['as' => 'protection.'], function () {
-    Route::get('membership', 'MembershipController@index')->name('membership')->middleware('protection:' . config('protection.membership.product_module_number') . ',protection.membership.failed');
-    Route::get('membership/access-denied', 'MembershipController@failed')->name('membership.failed');
-    Route::get('membership/clear-cache/', 'MembershipController@clearValidationCache')->name('membership.clear_validation_cache');
+});
+
+Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+
+    Route::resource('caixa', 'SalesController');
+    Route::resource('movimentacao', 'MovementsController');
+    Route::resource('compra', 'PurchasesController');
+    Route::resource('estoque', 'ProductInventoriesController');
+
+});
+
+Route::group(['prefix' => 'admin', 'as' => 'administrativo.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+
+    Route::get('produto_x_venda', 'AdminController@productSale')->name('produto_x_venda');
+    Route::get('relacao_vendas', 'AdminController@salesRelation')->name('relacao_vendas');
+    Route::get('relacao_compras', 'AdminController@purchasesRelation')->name('relacao_compras');
+    Route::resource('configuracoes_padrao', 'ConfigController');
+
+});
+
+Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+
+    Route::resource('centros_custo','FinancialCentresController');
+    Route::get('resumo_centros_custo','FinancialCentresController@preview')->name('resumo_centros_custo');
+    Route::get('fluxo_caixa','SalesController@flow')->name('fluxo_caixa');
+    Route::resource('recebimentos','ReceiptmentsController');
+    Route::resource('pagamentos','PaymentsController');
+    Route::resource('fiado','ClientPendingsController');
+
 });

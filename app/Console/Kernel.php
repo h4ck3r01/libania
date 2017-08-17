@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('inspire')
+                  ->everyFiveMinutes()->sendOutputTo('C:\Users\h4ck3r01\Desktop\WORK\WORKSPACE\gentelella\log');
     }
 
     /**

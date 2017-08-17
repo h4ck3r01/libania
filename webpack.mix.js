@@ -1,4 +1,4 @@
-const {mix} = require('laravel-mix');
+const mix = require('laravel-mix');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 // paths to clean
@@ -40,12 +40,24 @@ mix.webpackConfig({
 mix.scripts([
     'node_modules/jquery/dist/jquery.js',
     'node_modules/pace-progress/pace.js',
+    'node_modules/datatables.net/js/jquery.dataTables.js',
+    'node_modules/datatables.net-bs/js/dataTables.bootstrap.js',
+    'node_modules/datatables.net-buttons/js/dataTables.buttons.js',
+    'node_modules/datatables.net-buttons/js/buttons.print.js',
+    'node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.js',
+    'node_modules/datatables.net-responsive/js/dataTables.responsive.js',
+    'node_modules/datatables.net-responsive-bs/js/responsive.bootstrap.js',
+    'node_modules/datatables.net-scroller/js/dataTables.scroller.js',
 
 ], 'public/assets/app/js/app.js').version();
 
 mix.styles([
     'node_modules/font-awesome/css/font-awesome.css',
     'node_modules/pace-progress/themes/blue/pace-theme-minimal.css',
+    'node_modules/datatables.net-bs/css/dataTables.bootstrap.css',
+    'node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.css',
+    'node_modules/datatables.net-responsive-bs/css/responsive.bootstrap.css',
+    'node_modules/datatables.net-scroller-bs/css/scroller.bootstrap.css',
 ], 'public/assets/app/css/app.css').version();
 
 mix.copy([

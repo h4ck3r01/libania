@@ -9,13 +9,14 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         {{--Title and Meta--}}
+        <title>@yield('title')</title>
         @meta
 
         {{--Common App Styles--}}
         {{ Html::style(mix('assets/app/css/app.css')) }}
 
         {{--Styles--}}
-        @yield('styles')
+        @stack('styles')
 
         {{--Head--}}
         @yield('head')
@@ -33,6 +34,6 @@
         @tojs
 
         {{--Scripts--}}
-        @yield('scripts')
+        @stack('scripts')
     </body>
 </html>

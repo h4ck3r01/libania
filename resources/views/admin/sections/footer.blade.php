@@ -1,4 +1,4 @@
 <div class="pull-right">
-    &copy; {{ date('Y') }} {{ config('app.name') }}. {{ __('views.backend.section.footer.copyright') }}
+    &copy; {{ date('Y') }} Light Web. {{ __('views.backend.section.footer.copyright') }}
 </div>
 <div class="clearfix"></div>

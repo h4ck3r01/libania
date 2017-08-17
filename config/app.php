@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel 5 Labs64 Boilerplate'),
+    'name' => env('APP_NAME', 'Libânia Coffee'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    'locale' => env('APP_LOCALE', 'pt'),
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +91,7 @@ return [
     |
     */
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'pt'),
 
     /*
     |--------------------------------------------------------------------------
@@ -198,8 +198,8 @@ return [
         \App\Providers\ToJsServiceProvider::class,
         \App\Providers\MetaServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
-        \App\Providers\ProtectionProvider::class
-
+        \App\Providers\ProtectionProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
     ],
 
     /*
@@ -258,8 +258,8 @@ return [
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'ToJs' => \App\Helpers\ToJs\Facades\ToJsFacade::class,
-        'Meta' => \App\Helpers\Meta\Facades\MetaFacade::class
-
+        'Meta' => \App\Helpers\Meta\Facades\MetaFacade::class,
+        'Datatables' => yajra\Datatables\Datatables::class,
     ],
 
 ];

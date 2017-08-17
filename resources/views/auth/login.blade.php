@@ -46,36 +46,14 @@
 
                         <div class="clearfix"></div>
 
-                        <div class="separator">
-                            <span>{{ __('views.auth.login.message_0') }}</span>
-                            <div>
-                                <a href="{{ route('social.redirect', ['google']) }}" class="btn btn-success btn-google-plus">
-                                    <i class="fa fa-google-plus"></i>
-                                    Google+
-                                </a>
-                                <a href="{{ route('social.redirect', ['facebook']) }}" class="btn btn-success btn-facebook">
-                                    <i class="fa fa-facebook"></i>
-                                    Facebook
-                                </a>
-                                <a href="{{ route('social.redirect', ['twitter']) }}" class="btn btn-success btn-twitter">
-                                    <i class="fa fa-twitter"></i>
-                                    Twitter
-                                </a>
-                            </div>
-                        </div>
-
                         @if(config('auth.users.registration'))
                             <div class="separator">
-                                <p class="change_link">{{ __('views.auth.login.message_1') }}
-                                    <a href="{{ route('register') }}" class="to_register"> {{ __('views.auth.login.action_2') }} </a>
-                                </p>
-
                                 <div class="clearfix"></div>
                                 <br/>
 
                                 <div>
-                                    <div class="h1">{{ config('app.name') }}</div>
-                                    <p>&copy; {{ date('Y') }} {{ config('app.name') }}. {{ __('views.auth.login.copyright') }}</p>
+                                    <div class="h1"><i class="fa fa-coffee"></i> {{ config('app.name') }}</div>
+                                    <p>&copy; {{ date('Y') }} Light Web. {{ __('views.auth.login.copyright') }}</p>
                                 </div>
                             </div>
                         @endif
@@ -86,8 +64,6 @@
     </div>
 @endsection
 
-@section('styles')
-    @parent
-
+@push('styles')
     {{ Html::style(mix('assets/auth/css/login.css')) }}
-@endsection
+@endpush

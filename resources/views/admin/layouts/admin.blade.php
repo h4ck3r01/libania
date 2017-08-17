@@ -15,15 +15,12 @@
             <div class="right_col" role="main">
                 <div class="page-title">
                     <div class="title_left">
-                        <h1 class="h3">@yield('title')</h1>
+                        <h1>@yield('title-left')</h1>
+                        <hr/>
                     </div>
-                    @if(Breadcrumbs::exists())
-                        <div class="title_right">
-                            <div class="pull-right">
-                                {!! Breadcrumbs::render() !!}
-                            </div>
-                        </div>
-                    @endif
+                    <div class="title_right text-right">
+                        @yield('title-right')
+                    </div>
                 </div>
                 @yield('content')
             </div>
@@ -35,10 +32,10 @@
     </div>
 @stop
 
-@section('styles')
+@push('styles')
     {{ Html::style(mix('assets/admin/css/admin.css')) }}
-@endsection
+@endpush
 
-@section('scripts')
+@push('scripts')
     {{ Html::script(mix('assets/admin/js/admin.js')) }}
-@endsection
+@endpush
