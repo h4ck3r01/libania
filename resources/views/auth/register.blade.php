@@ -74,8 +74,6 @@
     </div>
 @endsection
 
-@section('styles')
-    @parent
-
+@push('styles')
     {{ Html::style(mix('assets/auth/css/register.css')) }}
-@endsection
+@endpush

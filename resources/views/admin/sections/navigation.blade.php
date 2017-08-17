@@ -53,7 +53,7 @@
                                 <a href="{{ route('operacional.caixa.index') }}">{{__('views.backend.section.navigation.menu_1_2')}}</a>
                             </li>
                             <li>
-                                <a href="{{ route('operacional.movimentacao.index') }}">{{__('views.backend.section.navigation.menu_1_3')}}</a>
+                                <a href="{{ route('operacional.movimento.index') }}">{{__('views.backend.section.navigation.menu_1_3')}}</a>
                             </li>
                             <li>
                                 <a href="{{ route('operacional.compra.index') }}">{{__('views.backend.section.navigation.menu_1_4')}}</a>

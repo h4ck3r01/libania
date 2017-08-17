@@ -68,19 +68,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
 Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
-    Route::resource('cliente', 'ClientsController');
-    Route::get('datatable/cliente', 'ClientsController@getDatatable')->name('datatable.cliente');
-    Route::resource('fornecedor', 'SuppliersController');
-    Route::resource('produto', 'ProductsController');
+    Route::resource('cliente', 'ClienteController');
+    Route::get('datatable/cliente', 'ClienteController@getDatatable')->name('datatable.cliente');
+    Route::resource('fornecedor', 'FornecedorController');
+    Route::resource('produto', 'ProdutoController');
 
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
-    Route::resource('caixa', 'SalesController');
-    Route::resource('movimentacao', 'MovementsController');
-    Route::resource('compra', 'PurchasesController');
-    Route::resource('estoque', 'ProductInventoriesController');
+    Route::resource('caixa', 'VendaController');
+    Route::resource('movimento', 'MovimentoController');
+    Route::resource('compra', 'CompraController');
+    Route::resource('estoque', 'EstoqueProdutoController');
 
 });
 
@@ -95,11 +95,11 @@ Route::group(['prefix' => 'admin', 'as' => 'administrativo.', 'namespace' => 'Ad
 
 Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
-    Route::resource('centros_custo','FinancialCentresController');
-    Route::get('resumo_centros_custo','FinancialCentresController@preview')->name('resumo_centros_custo');
-    Route::get('fluxo_caixa','SalesController@flow')->name('fluxo_caixa');
-    Route::resource('recebimentos','ReceiptmentsController');
-    Route::resource('pagamentos','PaymentsController');
-    Route::resource('fiado','ClientPendingsController');
+    Route::resource('centros_custo','FinanceiroCentroController');
+    Route::get('resumo_centros_custo','FinanceiroCentroController@resumo')->name('resumo_centros_custo');
+    Route::get('fluxo_caixa','VendaController@fluxo')->name('fluxo_caixa');
+    Route::resource('recebimentos','RecebimentosController');
+    Route::resource('pagamentos','PagamentosController');
+    Route::resource('fiado','FiadoClienteController');
 
 });

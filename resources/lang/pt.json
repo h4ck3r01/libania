@@ -216,5 +216,8 @@
   "views.membership.table_header_5": "Expires",
   "views.membership.table_header_6": "Actions",
   "views.membership.valid": "valid",
-  "views.membership.not_valid": "not valid"
+  "views.membership.not_valid": "not valid",
+  "**************************** Errors **********************": "Error i18n",
+  "views.errors.404.title": "Desculpe não conseguimos encontrar esta página",
+  "views.errors.404.body": "A página que você está procurando não existe"
 }
