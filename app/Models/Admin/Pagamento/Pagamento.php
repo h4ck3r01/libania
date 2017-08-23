@@ -11,7 +11,7 @@ class Pagamento extends Model
     protected $fillable = [
         'compra_id',
         'categoria_id',
-        'fornecedor_id',
+        'pessoa_id',
         'pagamento',
         'total'
     ];
@@ -26,8 +26,8 @@ class Pagamento extends Model
         return $this->belongsTo(FinanceiroCategoria::class, 'categoria_id');
     }
 
-    public function fornecedor()
+    public function pessoa()
     {
-        return $this->belongsTo(Fornecedor::class);
+        return $this->belongsTo(Pessoa::class);
     }
 }

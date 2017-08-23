@@ -16,11 +16,11 @@ class CreateVendasTable extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('fiado');
-            $table->integer('cliente_id')->index();
+            $table->integer('pessoa_id')->index();
             $table->float('total', 10, 2)->unsigned();
             $table->timestamps();
 
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('RESTRICT');
+            $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('RESTRICT');
         });
     }
 

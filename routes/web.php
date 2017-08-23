@@ -49,7 +49,7 @@ Route::group(['namespace' => 'Auth'], function () {
 /**
  * Backend routes
  */
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
     // Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard');
@@ -66,42 +66,43 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    Route::resource('cliente', 'ClienteController');
-    Route::resource('fornecedor', 'FornecedorController');
-    Route::resource('produto', 'ProdutoController');
-
-    Route::get('datatable/cliente', 'ClienteController@getDatatable')->name('datatable.cliente');
-    Route::get('datatable/fornecedor', 'FornecedorController@getDatatable')->name('datatable.fornecedor');
+    Route::resource('pessoa', 'PessoasController');
+    Route::resource('produto', 'ProdutosController');
 
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    Route::resource('caixa', 'VendaController');
-    Route::resource('movimento', 'MovimentoController');
-    Route::resource('compra', 'CompraController');
-    Route::resource('estoque', 'EstoqueProdutoController');
+    Route::resource('caixa', 'VendasController');
+    Route::resource('movimento', 'MovimentosController');
+    Route::resource('compra', 'ComprasController');
+    Route::resource('estoque', 'EstoqueProdutosController');
 
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'administrativo.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'administrativo.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
     Route::get('produto_x_venda', 'AdminController@productSale')->name('produto_x_venda');
     Route::get('relacao_vendas', 'AdminController@salesRelation')->name('relacao_vendas');
     Route::get('relacao_compras', 'AdminController@purchasesRelation')->name('relacao_compras');
-    Route::resource('configuracoes_padrao', 'ConfigController');
 
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    Route::resource('centros_custo','FinanceiroCentroController');
-    Route::get('resumo_centros_custo','FinanceiroCentroController@resumo')->name('resumo_centros_custo');
-    Route::get('fluxo_caixa','VendaController@fluxo')->name('fluxo_caixa');
+    Route::resource('centros_custo','FinanceiroCentrosController');
+    Route::get('resumo_centros_custo','FinanceiroCentrosController@resumo')->name('resumo_centros_custo');
+    Route::get('fluxo_caixa','VendasController@fluxo')->name('fluxo_caixa');
     Route::resource('recebimentos','RecebimentosController');
     Route::resource('pagamentos','PagamentosController');
-    Route::resource('fiado','FiadoClienteController');
+    Route::resource('fiado','FiadoPessoasController');
+
+});
+
+Route::group(['prefix' => 'admin', 'as' => 'configuracao.', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+
+    Route::resource('configuracao', 'ConfigController');
 
 });

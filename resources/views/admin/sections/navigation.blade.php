@@ -1,4 +1,4 @@
-<div class="col-md-3 left_col">
+<div class="col-md-3 left_col menu_fixed">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
             <a href="{{ route('admin.dashboard') }}" class="site_title">
@@ -23,25 +23,24 @@
         <!-- /menu profile quick info -->
 
         <br/>
-
         <div class="clearfix"></div>
         <div class="separator hidden-small"></div>
+        <br/>
 
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
+                <h3>{{__('views.backend.section.navigation.sub_header_0')}}</h3>
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-edit"></i> {{__('views.backend.section.navigation.menu_0_1')}}
+                    <li class="{{activeMenu(['pessoa', 'produto'])}}">
+                        <a><i class="fa fa-edit"></i> {{__('views.backend.section.navigation.menu_0_1')}}
                             <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li>
-                                <a href="{{ route('cadastro.cliente.index') }}">{{__('views.backend.section.navigation.menu_0_2')}}</a>
+                        <ul class="nav child_menu" style="{{blockMenu(['pessoa', 'produto'])}}">
+                            <li class="{{currentMenu(['pessoa'])}}">
+                                <a href="{{ route('cadastro.pessoa.index') }}">{{__('views.backend.section.navigation.menu_0_2')}}</a>
                             </li>
-                            <li>
-                                <a href="{{ route('cadastro.fornecedor.index') }}">{{__('views.backend.section.navigation.menu_0_3')}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('cadastro.produto.index') }}">{{__('views.backend.section.navigation.menu_0_4')}}</a>
+                            <li class="{{currentMenu(['produto'])}}">
+                                <a href="{{ route('cadastro.produto.index') }}">{{__('views.backend.section.navigation.menu_0_3')}}</a>
                             </li>
                         </ul>
                     </li>
@@ -77,12 +76,6 @@
                             <li>
                                 <a href="{{ route('administrativo.relacao_compras') }}">{{__('views.backend.section.navigation.menu_2_4')}}</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.users') }}">{{__('views.backend.section.navigation.menu_2_5')}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('administrativo.configuracoes_padrao.index') }}">{{__('views.backend.section.navigation.menu_2_6')}}</a>
-                            </li>
                         </ul>
                     </li>
 
@@ -112,6 +105,23 @@
 
                 </ul>
             </div>
+            @if(Auth::user()->hasRole('administrator'))
+                <div class="menu_section">
+                    <h3>{{__('views.backend.section.navigation.sub_header_1')}}</h3>
+                    <ul class="nav side-menu">
+                        <li>
+                            <a href="{{ route('admin.users') }}"><i
+                                        class="fa fa-user"></i> {{__('views.backend.section.navigation.menu_4_0')}}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('configuracao.configuracao.index') }}"><i
+                                        class="fa fa-wrench"></i> {{__('views.backend.section.navigation.menu_4_1')}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            @endif
+
         </div>
         <!-- /sidebar menu -->
     </div>

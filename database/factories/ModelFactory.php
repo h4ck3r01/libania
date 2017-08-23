@@ -37,27 +37,28 @@ $factory->define(App\Produto::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Cliente::class, function (Faker\Generator $faker) {
+$factory->define(App\Pessoa::class, function (Faker\Generator $faker) {
     return [
         'nome' => $faker->name,
         'telefone' => $faker->phoneNumber,
         'email' => $faker->safeEmail,
+        'tipo_id' => $faker->numberBetween(1, 2)
     ];
 });
 
-$factory->define(App\FiadoCliente::class, function (Faker\Generator $faker) {
+$factory->define(App\FiadoPessoa::class, function (Faker\Generator $faker) {
     return [
-        'cliente_id' => function () {
-            return factory(App\Client::class)->create()->id;
+        'pessoa_id' => function () {
+            return factory(App\Pessoa::class)->create()->id;
         },
-        'total' => $faker->randomFloat(2,0,1000000),
+        'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 
 $factory->define(App\FinanceiroCategoria::class, function (Faker\Generator $faker) {
     return [
         'centro_id' => function () {
-            return factory(App\FinancialCentre::class)->create()->id;
+            return factory(App\FinanceiroCentro::class)->create()->id;
         },
         'nome' => $faker->name,
         'fluxo' => $faker->randomNumber(),
@@ -97,11 +98,11 @@ $factory->define(App\Pagamento::class, function (Faker\Generator $faker) {
         'categoria_id' => function () {
             return factory(App\FinanceiroCategoria::class)->create()->id;
         },
-        'fornecedor_id' => function () {
-            return factory(App\Fornecedor::class)->create()->id;
+        'pessoa_id' => function () {
+            return factory(App\Pessoa::class)->create()->id;
         },
         'pagamento' => $faker->date(),
-        'total' => $faker->randomFloat(2,0,1000000),
+        'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 
@@ -119,10 +120,10 @@ $factory->define(App\EstoqueProduto::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Compra::class, function (Faker\Generator $faker) {
     return [
-        'fornecedor_id' => function () {
-            return factory(App\Fornecedor::class)->create()->id;
+        'pessoa_id' => function () {
+            return factory(App\Pessoa::class)->create()->id;
         },
-        'total' => $faker->randomFloat(2,0,1000000),
+        'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 
@@ -134,9 +135,9 @@ $factory->define(App\CompraProduto::class, function (Faker\Generator $faker) {
         'produto_id' => function () {
             return factory(App\Produto::class)->create()->id;
         },
-        'preco' => $faker->randomFloat(2,0,1000000),
+        'preco' => $faker->randomFloat(2, 0, 1000000),
         'quantidade' => $faker->randomNumber(),
-        'total' => $faker->randomFloat(2,0,1000000),
+        'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 
@@ -148,21 +149,21 @@ $factory->define(App\Recebimento::class, function (Faker\Generator $faker) {
         'categoria_id' => function () {
             return factory(App\FinanceiroCategoria::class)->create()->id;
         },
-        'cliente_id' => function () {
-            return factory(App\Cliente::class)->create()->id;
+        'pessoa_id' => function () {
+            return factory(App\Pessoa::class)->create()->id;
         },
         'pagamento' => $faker->date(),
-        'total' => $faker->randomFloat(2,0,1000000),
+        'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 
 $factory->define(App\Venda::class, function (Faker\Generator $faker) {
     return [
         'fiado' => $faker->boolean,
-        'cliente_id' => function () {
-            return factory(App\Cliente::class)->create()->id;
+        'pessoa_id' => function () {
+            return factory(App\Pessoa::class)->create()->id;
         },
-        'total' => $faker->randomFloat(2,0,1000000),
+        'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 
@@ -174,24 +175,9 @@ $factory->define(App\VendaProduto::class, function (Faker\Generator $faker) {
         'produto_id' => function () {
             return factory(App\Produto::class)->create()->id;
         },
-        'preco' => $faker->randomFloat(2,0,1000000),
+        'preco' => $faker->randomFloat(2, 0, 1000000),
         'quantidade' => $faker->randomNumber(),
-        'total' => $faker->randomFloat(2,0,1000000),
-    ];
-});
-
-$factory->define(App\Fornecedor::class, function (Faker\Generator $faker) {
-    return [
-        'nome' => $faker->name,
-        'telefone' => $faker->phoneNumber,
-        'email' => $faker->safeEmail,
-        'identificador' => $faker->word,
-        'cep' => $faker->word,
-        'rua' => $faker->streetName,
-        'numero' => $faker->randomNumber(),
-        'bairro' => $faker->word,
-        'cidade' => $faker->city,
-        'estado' => $faker->word,
+        'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 

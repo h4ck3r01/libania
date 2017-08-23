@@ -21,11 +21,17 @@
     },
     "require": {
         "php": ">=5.6.4",
+        "DomPDF/DomPDF": "0.6.2",
         "albertcht/invisible-recaptcha": "^1.4",
         "arcanedev/log-viewer": "~4.0",
         "barryvdh/laravel-ide-helper": "^2.4",
+        "barryvdh/laravel-snappy": "^0.3.3",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-i386": "0.12.x",
+        "knplabs/knp-snappy": "^0.5.0",
         "kyslik/column-sortable": "^5.4",
         "labs64/netlicensingclient-php": "^2.3",
         "laravel/framework": "5.4.*",
@@ -33,6 +39,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.4.*",
         "mpociot/laravel-test-factory-helper": "^0.4.0",
+        "yajra/laravel-datatables-buttons": "1.0",
         "yajra/laravel-datatables-oracle": "7.5"
     },
     "require-dev": {

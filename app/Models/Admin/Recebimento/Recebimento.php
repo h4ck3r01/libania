@@ -10,7 +10,7 @@ class Recebimento extends Model
     protected $fillable = [
         'venda_id',
         'categoria_id',
-        'cliente_id',
+        'pessoa_id',
         'pagamento',
         'total',
     ];
@@ -25,8 +25,8 @@ class Recebimento extends Model
         return $this->belongsTo(FinanceiroCategoria::class, 'categoria_id');
     }
 
-    public function client()
+    public function pessoa()
     {
-        return $this->belongsTo('App\Cliente');
+        return $this->belongsTo(Pessoa::class);
     }
 }

@@ -9,13 +9,13 @@ class Venda extends Model
 
     protected $fillable = [
         'fiado',
-        'cliente_id',
+        'pessoa_id',
         'total',
     ];
 
-    public function cliente()
+    public function pessoa()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Pessoa::class);
     }
 
     public function produtos()

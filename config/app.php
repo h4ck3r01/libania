@@ -200,7 +200,10 @@ return [
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         \App\Providers\ProtectionProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\Datatables\HtmlServiceProvider::class,
+        Yajra\Datatables\ButtonsServiceProvider::class,
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
     ],
 
     /*
@@ -261,6 +264,8 @@ return [
         'ToJs' => \App\Helpers\ToJs\Facades\ToJsFacade::class,
         'Meta' => \App\Helpers\Meta\Facades\MetaFacade::class,
         'Datatables' => yajra\Datatables\Datatables::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
     ],
 
 ];

@@ -12,17 +12,18 @@
 
             @yield('left-sidebar')
 
-            <div class="right_col" role="main">
-                <div class="page-title">
-                    <div class="title_left">
-                        <h1>@yield('title-left')</h1>
-                        <hr/>
+            <div class="content">
+                <div class="right_col" role="main">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>@yield('title-left')</h3>
+                        </div>
+                        <div class="title_right text-right">
+                            @yield('title-right')
+                        </div>
                     </div>
-                    <div class="title_right text-right">
-                        @yield('title-right')
-                    </div>
+                    @yield('content')
                 </div>
-                @yield('content')
             </div>
 
             <footer>
@@ -34,8 +35,12 @@
 
 @push('styles')
     {{ Html::style(mix('assets/admin/css/admin.css')) }}
+
+    @stack('page-styles')
 @endpush
 
 @push('scripts')
     {{ Html::script(mix('assets/admin/js/admin.js')) }}
+
+    @stack('page-scripts')
 @endpush

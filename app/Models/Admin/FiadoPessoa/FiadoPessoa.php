@@ -4,21 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Compra extends Model
+class FiadoPessoa extends Model
 {
-
     protected $fillable = [
         'pessoa_id',
-        'total',
+        'total'
     ];
 
-    public function pessoa()
-    {
+    public function pessoa(){
         return $this->belongsTo(Pessoa::class);
-    }
-
-    public function produtos()
-    {
-        return $this->hasMany(CompraProduto::class);
     }
 }

@@ -1,3 +1,5 @@
+{!! header('Content-Type: text/html; charset=utf-8') !!}
+
 @extends('layouts.app')
 
 @section('body_class','nav-md')

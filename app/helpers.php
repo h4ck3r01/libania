@@ -121,3 +121,43 @@ if (!function_exists('protection_validate')) {
         return app('netlicensing')->validate($user);
     }
 }
+
+if (!function_exists('activeMenu')) {
+
+    function activeMenu(Array $routes, $output = 'active')
+    {
+        foreach ($routes as $route) {
+
+            if (Request::is(Request::segment(1) . '/' . $route . '/*') || Request::is(Request::segment(1) . '/' . $route) || Request::is($route)) {
+                return $output;
+            }
+        }
+    }
+
+}
+
+if (!function_exists('blockMenu')) {
+
+    function blockMenu(Array $routes, $output = 'display: block')
+    {
+        foreach ($routes as $route) {
+
+            if (Request::is(Request::segment(1) . '/' . $route . '/*') || Request::is(Request::segment(1) . '/' . $route) || Request::is($route)) {
+                return $output;
+            }
+        }
+    }
+}
+
+if (!function_exists('currentMenu')) {
+
+    function currentMenu(Array $routes, $output = 'current-page')
+    {
+        foreach ($routes as $route) {
+
+            if (Request::is(Request::segment(1) . '/' . $route . '/*') || Request::is(Request::segment(1) . '/' . $route) || Request::is($route)) {
+                return $output;
+            }
+        }
+    }
+}

@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProdutosTable extends Migration
+class CreateFiadoPessoasTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -14,13 +13,13 @@ class CreateProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::create('produtos', function (Blueprint $table) {
+        Schema::create('fiado_pessoas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome');
-            $table->integer('categoria_id')->index();
+            $table->integer('pessoa_id')->unique();
+            $table->float('total', 10, 2)->unsigned()->default(0);
             $table->timestamps();
 
-            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('SET NULL');
+            $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('RESTRICT');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('fiado_clientes');
     }
 }
