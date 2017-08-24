@@ -14,7 +14,8 @@ class Pessoa extends Model
         'tipo_id',
     ];
 
-    public function tipo(){
+    public function tipo()
+    {
         return $this->belongsTo(PessoaTipo::class, 'tipo_id');
     }
 
@@ -31,5 +32,15 @@ class Pessoa extends Model
     public function compras()
     {
         return $this->hasMany(Compra::class);
+    }
+
+    protected function setNomeAttribute($nome)
+    {
+        return $this->attributes['nome'] = ucwords(strtolower($nome));
+    }
+
+    protected function setEmailAttribute($nome)
+    {
+        return $this->attributes['email'] = strtolower($nome);
     }
 }

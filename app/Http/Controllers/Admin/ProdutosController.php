@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Produto;
+use App\ProdutoCategoria;
+use App\ProdutosDatatable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProdutosController extends Controller
 {
@@ -12,13 +15,14 @@ class ProdutosController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param ProdutosDatatable $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ProdutosDatatable $dataTable)
     {
-        $products = Produto::all();
+        $categorias = ProdutoCategoria::orderBy('nome')->pluck('nome', 'nome')->all();
 
-        return view('admin.modulos.cadastro.produto.index', compact('products'));
+        return $dataTable->render('admin.modulos.cadastro.produto.index', compact('categorias'));
     }
 
     /**
@@ -28,7 +32,9 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = ProdutoCategoria::orderBy('nome')->pluck('nome', 'id')->all();
+
+        return view('admin.modulos.cadastro.produto.create', compact('categorias'));
     }
 
     /**
@@ -39,7 +45,28 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if (is_numeric($request->categoria_id)) {
+            $produto = Produto::create($request->all());
+        } else {
+
+            $categoria = ProdutoCategoria::whereNome($request->categoria_id)->get();
+            if (!$categoria->count()) {
+
+                $categoria = ProdutoCategoria::create(['nome' => $request->categoria_id]);
+            }
+
+            $input = $request->all();
+
+            $input['categoria_id'] = $categoria->id;
+
+            $produto = Produto::create($input);
+
+        }
+
+        Session::flash('created', __('views.admin.flash.created'));
+
+        return redirect(route('cadastro.produto.edit', $produto->id));
     }
 
     /**
@@ -61,7 +88,11 @@ class ProdutosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+
+        $categorias = ProdutoCategoria::orderBy('nome')->pluck('nome', 'id')->all();
+
+        return view('admin.modulos.cadastro.produto.edit', compact('produto', 'categorias'));
     }
 
     /**
@@ -73,7 +104,11 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Produto::findOrFail($id)->update($request->all());
+
+        Session::flash('updated', __('views.admin.flash.updated'));
+
+        return redirect()->back();
     }
 
     /**
@@ -84,6 +119,10 @@ class ProdutosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Produto::findOrFail($id)->delete();
+
+        Session::flash('deleted', __('views.admin.flash.deleted'));
+
+        return redirect(route('cadastro.produto.index'));
     }
 }

@@ -9,7 +9,7 @@
 @section('title-right')
     <a href="{!! route('cadastro.pessoa.create') !!}" class="btn btn-app">
         <span class="badge bg-green">!</span>
-        <i class="fa fa-edit"></i> {{__('views.admin.pessoa.button.create')}}
+        <i class="fa fa-edit"></i> {{__('views.admin.button.create')}}
     </a>
 @endsection
 
@@ -18,7 +18,7 @@
         <div class="col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-
+                    @include('admin.messages.form')
                     <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
                         <div class="panel">
                             <div class="panel-heading collapsed" role="tab">

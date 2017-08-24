@@ -47,11 +47,11 @@ class PessoasController extends Controller
      */
     public function store(Request $request)
     {
-        Pessoa::create($request->all());
+        $pessoa = Pessoa::create($request->all());
 
         Session::flash('created', __('views.admin.flash.created'));
 
-        return redirect()->back();
+        return redirect(route('cadastro.pessoa.edit', $pessoa->id));
     }
 
     /**
@@ -104,6 +104,10 @@ class PessoasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pessoa::findOrFail($id)->delete();
+
+        Session::flash('deleted', __('views.admin.flash.deleted'));
+
+        return redirect(route('cadastro.pessoa.index'));
     }
 }

@@ -32,4 +32,9 @@ class Produto extends Model
     {
         return $this->hasOne(CompraProduto::class);
     }
+
+    protected function setNomeAttribute($nome)
+    {
+        return $this->attributes['nome'] = ucwords(strtolower($nome));
+    }
 }

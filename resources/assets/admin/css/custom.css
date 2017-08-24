@@ -1,11 +1,13 @@
 .nav_menu {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
-.input-group{
-    margin-bottom:0px;
+.input-group {
+  margin-bottom: 0px;
 }
 
-.dataTables_filter{
-    width:100%;
+@media (min-width: 768px) {
+  .pull-right-sm {
+    float: right;
+  }
 }

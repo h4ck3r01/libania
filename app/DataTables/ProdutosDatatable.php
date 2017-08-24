@@ -10,25 +10,23 @@ namespace App;
 
 use Yajra\Datatables\Services\DataTable;
 
-class PessoasDatatable extends Datatable
+class ProdutosDatatable extends Datatable
 {
 
-    protected $printPreview = 'admin.modulos.cadastro.pessoa.print';
+    protected $printPreview = 'admin.modulos.cadastro.produto.print';
 
     protected function getColumns()
     {
         return [
+            'id' => [
+                'title' => __('views.admin.produto.index.table_header_0'),
+                'width' => '10%',
+            ],
             'nome' => [
-                'title' => __('views.admin.pessoa.index.table_header_1')
+                'title' => __('views.admin.produto.index.table_header_1')
             ],
-            'telefone' => [
-                'title' => __('views.admin.pessoa.index.table_header_2')
-            ],
-            'email' => [
-                'title' => __('views.admin.pessoa.index.table_header_3')
-            ],
-            'tipo.nome' => [
-                'title' => __('views.admin.pessoa.index.table_header_4')
+            'categoria.nome' => [
+                'title' => __('views.admin.produto.index.table_header_2')
             ],
             'action' => [
                 'name' => 'action',
@@ -52,14 +50,14 @@ class PessoasDatatable extends Datatable
             'language' => [
                 'url' => '//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json',
                 'buttons' => [
-                    'copyTitle' => __('views.admin.pessoa.index.button.copiar.title'),
+                    'copyTitle' => __('views.admin.produto.index.button.copiar.title'),
                     'copySuccess' => [
-                        '_' => __('views.admin.pessoa.index.button.copiar.success._'),
-                        '1' => __('views.admin.pessoa.index.button.copiar.success.1')
+                        '_' => __('views.admin.produto.index.button.copiar.success._'),
+                        '1' => __('views.admin.produto.index.button.copiar.success.1')
                     ]
                 ]
             ],
-            'initComplete' => 'admin.modulos.cadastro.pessoa.scripts.init-complete'
+            'initComplete' => 'admin.modulos.cadastro.produto.scripts.init-complete'
         ];
     }
 
@@ -70,7 +68,7 @@ class PessoasDatatable extends Datatable
             [
                 'extend' => 'print',
                 'className' => 'form-control',
-                'text' => '<i class="fa fa-print"></i> ' . __('views.admin.pessoa.index.button.imprimir')
+                'text' => '<i class="fa fa-print"></i> ' . __('views.admin.produto.index.button.imprimir')
             ],
             [
                 'extend' => 'excel',
@@ -82,7 +80,7 @@ class PessoasDatatable extends Datatable
 
     protected function filename()
     {
-        return time() . '_pessoas';
+        return time() . '_produtos';
     }
 
     public function ajax()
@@ -90,16 +88,16 @@ class PessoasDatatable extends Datatable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($query) {
-                return '<a href="' . route('cadastro.pessoa.edit', $query->id) . '" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> ' . __('views.admin.pessoa.index.button.edit') . '</a>';
+                return '<a href="' . route('cadastro.produto.edit', $query->id) . '" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> ' . __('views.admin.produto.index.button.edit') . '</a>';
             })
             ->make(true);
     }
 
     public function query()
     {
-        $pessoas = Pessoa::select('pessoas.*')->with('tipo');
+        $produtos = Produto::select('produtos.*')->with('categoria');
 
-        return $this->applyScopes($pessoas);
+        return $this->applyScopes($produtos);
     }
 
     public function html()

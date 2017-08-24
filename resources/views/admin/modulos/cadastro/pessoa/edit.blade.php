@@ -9,11 +9,11 @@
 @section('title-right')
     <a href="{!! route('cadastro.pessoa.create') !!}" class="btn btn-app">
         <span class="badge bg-green">!</span>
-        <i class="fa fa-edit"></i> {{__('views.admin.pessoa.button.create')}}
+        <i class="fa fa-edit"></i> {{__('views.admin.button.create')}}
     </a>
     <a href="{!! route('cadastro.pessoa.index') !!}" class="btn btn-app">
         <span class="badge bg-blue">!</span>
-        <i class="fa fa-search"></i> {{__('views.admin.pessoa.button.index')}}
+        <i class="fa fa-search"></i> {{__('views.admin.button.index')}}
     </a>
 @endsection
 
@@ -101,12 +101,18 @@
                     <hr/>
 
                     <div class="form-group">
-                        {!! link_to(route('cadastro.pessoa.index'), __('views.admin.pessoa.cancel'), ['class' => 'btn btn-primary']) !!}
-                        {!! Form::reset(__('views.admin.pessoa.reset'), ['class' => 'btn btn-primary']) !!}
-                        {!! Form::submit(__('views.admin.pessoa.save'), ['class' => 'btn btn-success']) !!}
-                    </div>
+                        {!! link_to(route('cadastro.pessoa.index'), __('views.admin.button.cancel'), ['class' => 'btn btn-primary col-xs-5 col-sm-2 col-lg-1']) !!}
+                        {!! Form::reset(__('views.admin.button.reset'), ['class' => 'btn btn-primary col-xs-5 col-sm-2 col-lg-1']) !!}
+                        {!! Form::submit(__('views.admin.button.save'), ['class' => 'btn btn-success col-xs-5 col-sm-2 col-lg-1']) !!}
 
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
+
+                        {!! Form::open(['method'=>'DELETE', 'action'=> ['Admin\PessoasController@destroy', $pessoa->id]]) !!}
+
+                        {!! Form::submit(__('views.admin.button.delete'), ['class' => 'btn btn-danger col-xs-5 col-sm-2 col-lg-1 pull-right-sm']) !!}
+
+                        {!! Form::close() !!}
+                    </div>
 
                 </div>
             </div>

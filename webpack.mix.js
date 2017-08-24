@@ -95,7 +95,10 @@ mix.scripts([
     'node_modules/gentelella/vendors/jszip/dist/jszip.min.js',
     'node_modules/gentelella/vendors/datatables.net-responsive/js/dataTables.responsive.min.js',
     'node_modules/gentelella/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js',
-    'resources/assets/admin/js/buttons.server-side.js'
+    'resources/assets/admin/js/buttons.server-side.js',
+    'node_modules/select2/dist/js/select2.full.min.js',
+    'node_modules/select2/dist/js/i18n/pt-BR.js',
+    'resources/assets/admin/js/custom.js'
 ], 'public/assets/admin/js/admin.js').version();
 
 mix.styles([
@@ -105,6 +108,7 @@ mix.styles([
     'node_modules/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css',
     'node_modules/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css',
     'node_modules/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css',
+    'node_modules/select2/dist/css/select2.css',
     'resources/assets/admin/css/custom.css',
 ], 'public/assets/admin/css/admin.css').version();
 

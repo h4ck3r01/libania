@@ -9,17 +9,16 @@
 @section('title-right')
     <a href="{!! route('cadastro.produto.create') !!}" class="btn btn-app">
         <span class="badge bg-green">!</span>
-        <i class="fa fa-edit"></i> {{__('views.admin.produto.button.create')}}
+        <i class="fa fa-edit"></i> {{__('views.admin.button.create')}}
     </a>
 @endsection
 
 @section('content')
-
     <div class="row">
         <div class="col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-
+                    @include('admin.messages.form')
                     <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
                         <div class="panel">
                             <div class="panel-heading collapsed" role="tab">
@@ -38,15 +37,11 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="form-group col-xs-8 col-sm-4 col-lg-2">
-                                            {!! Form::label('tipo', 'Tipo:', ['class' => 'control-label']) !!}
-                                            {!! Form::select('tipo', [''=>__('views.admin.produto.tipo_0'),
-                                                                      '1'=>__('views.admin.produto.tipo_1'),
-                                                                      '2'=>__('views.admin.produto.tipo_2'),
-                                                                      '3'=>__('views.admin.produto.tipo_3')
-                                                                      ],
+                                            {!! Form::label('categoria', 'Categoria:', ['class' => 'control-label']) !!}
+                                            {!! Form::select('categoria', [''=> __('views.admin.produto.categoria_0')] + $categorias,
                                                       null,
                                                        ['class' => 'form-control input-sm',
-                                                       'id' => 'tipo']) !!}
+                                                       'id' => 'categoria']) !!}
                                         </div>
                                     </div>
                                 </div>

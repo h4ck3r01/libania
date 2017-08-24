@@ -13,4 +13,9 @@ class ProdutoCategoria extends Model
     public function produtos(){
         return $this->hasOne(Produto::class, 'categoria_id');
     }
+
+    protected function setNomeAttribute($nome)
+    {
+        return $this->attributes['nome'] = ucwords(strtolower($nome));
+    }
 }
