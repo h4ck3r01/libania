@@ -16,9 +16,9 @@ class CreateRecebimentosTable extends Migration
     {
         Schema::create('recebimentos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('venda_id')->index();
-            $table->integer('categoria_id')->index();
-            $table->integer('pessoa_id')->index()->nullable();
+            $table->integer('venda_id')->unsigned();
+            $table->integer('categoria_id')->unsigned();
+            $table->integer('pessoa_id')->unsigned()->nullable();
             $table->date('pagamento')->nullable();
             $table->float('total', 10, 2)->unsigned();
             $table->timestamps();

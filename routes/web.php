@@ -71,6 +71,8 @@ Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 
     Route::resource('pessoa', 'PessoasController');
     Route::resource('produto', 'ProdutosController');
 
+    Route::post('categoria/destroy', 'ProdutosController@destroyCategoria')->name('categoria.destroy');
+
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {

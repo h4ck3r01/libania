@@ -88,7 +88,7 @@ class ProdutosDatatable extends Datatable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($query) {
-                return '<a href="' . route('cadastro.produto.edit', $query->id) . '" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> ' . __('views.admin.produto.index.button.edit') . '</a>';
+                return '<a href="' . route('cadastro.produto.edit', $query->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> ' . __('views.admin.produto.index.button.edit') . '</a>';
             })
             ->make(true);
     }

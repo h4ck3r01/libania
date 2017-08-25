@@ -16,8 +16,8 @@ class CreateCompraProdutosTable extends Migration
     {
         Schema::create('compra_produtos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('compra_id')->index();
-            $table->integer('produto_id')->index();
+            $table->integer('compra_id')->unsigned();
+            $table->integer('produto_id')->unsigned();
             $table->float('preco', 10, 2)->unsigned();
             $table->integer('quantidade')->unsigned();
             $table->float('total', 10, 2)->unsigned();

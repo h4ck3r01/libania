@@ -69,17 +69,22 @@
                                 ] + $categorias,
                                 null,
                                 [
+                                    'id' => 'categoria_id',
                                     'class' => 'form-control select2',
-                                    'required' => 'required'
+                                    'required' => 'required',
+                                    'data-parsley-errors-container' => '#categoria-errors'
                                 ]
                             ) !!}
 
                         </div>
                         <div class="form-group col-xs-4 col-sm-8 col-lg-10">
+                            {!! Form::label('', '&nbsp;', ['class' => 'control-label']) !!}
                             <br>
-                            {!! Form::button("<i class='fa fa-times-circle'></i>", ['class' => 'btn btn-danger btn-sm btn-round pull-left align-bottom']) !!}
+                            {!! Form::button("<i class='fa fa-times-circle'></i>", ['id' => 'categoria_delete',
+                                                                                   'class' => 'btn btn-danger btn-sm btn-round text-left']) !!}
                         </div>
                     </div>
+                    <div id="categoria-errors"></div>
 
                     <hr/>
 
@@ -104,5 +109,5 @@
 @stop
 
 @push('page-scripts')
-    @include('admin.modulos.cadastro.produto.scripts.create')
+    @include('admin.modulos.cadastro.produto.scripts.app')
 @endpush

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Produto;
 use App\ProdutoCategoria;
 use App\ProdutosDatatable;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -46,23 +47,9 @@ class ProdutosController extends Controller
     public function store(Request $request)
     {
 
-        if (is_numeric($request->categoria_id)) {
-            $produto = Produto::create($request->all());
-        } else {
+        $input = $this->getInput($request);
 
-            $categoria = ProdutoCategoria::whereNome($request->categoria_id)->get();
-            if (!$categoria->count()) {
-
-                $categoria = ProdutoCategoria::create(['nome' => $request->categoria_id]);
-            }
-
-            $input = $request->all();
-
-            $input['categoria_id'] = $categoria->id;
-
-            $produto = Produto::create($input);
-
-        }
+        $produto = Produto::create($input);
 
         Session::flash('created', __('views.admin.flash.created'));
 
@@ -104,7 +91,10 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Produto::findOrFail($id)->update($request->all());
+
+        $input = $this->getInput($request);
+
+        Produto::findOrFail($id)->update($input);
 
         Session::flash('updated', __('views.admin.flash.updated'));
 
@@ -124,5 +114,41 @@ class ProdutosController extends Controller
         Session::flash('deleted', __('views.admin.flash.deleted'));
 
         return redirect(route('cadastro.produto.index'));
+    }
+
+    protected function getInput($request)
+    {
+
+        $input = $request->all();
+
+        if (!is_numeric($request->categoria_id)) {
+
+            $categoria = ProdutoCategoria::whereNome($request->categoria_id)->get();
+
+            if (!$categoria->count()) {
+
+                $categoria = ProdutoCategoria::create(['nome' => $request->categoria_id]);
+
+                $input['categoria_id'] = $categoria->id;
+            }
+
+        }
+
+        return $input;
+    }
+
+    public function destroyCategoria(Request $request)
+    {
+        try {
+            ProdutoCategoria::findOrFail($request->id)->delete();
+
+            return ['status' => 'sucesso', 'title' => __('views.admin.notify.success'), 'message' => __('views.admin.produto.categoria.delete.success')];
+
+        } catch (QueryException $e) {
+
+            if ($e->getCode() == "23000") {
+                return ['status' => 'error', 'title' => __('views.admin.notify.error'), 'message' => __('views.admin.produto.categoria.delete.error_0')];
+            }
+        }
     }
 }

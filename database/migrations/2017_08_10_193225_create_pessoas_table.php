@@ -14,15 +14,21 @@ class CreatePessoasTable extends Migration
      */
     public function up()
     {
+        Schema::create('pessoa_tipos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nome');
+        });
+
         Schema::create('pessoas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
             $table->string('telefone');
             $table->string('email')->nullable();
-            $table->integer('tipo_id');
+            $table->integer('tipo_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('tipo_id')->references('id')->on('tipo_pessoas')->onDelete('RESTRICT');
+            $table->foreign('tipo_id')->references('id')->on('pessoa_tipos')->onDelete('RESTRICT');
         });
     }
 
@@ -34,5 +40,6 @@ class CreatePessoasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('clientes');
+        Schema::dropIfExists('pessoa_tipos');
     }
 }

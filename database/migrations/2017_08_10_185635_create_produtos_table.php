@@ -15,12 +15,14 @@ class CreateProdutosTable extends Migration
     public function up()
     {
         Schema::create('produtos', function (Blueprint $table) {
+
             $table->increments('id');
             $table->string('nome');
-            $table->integer('categoria_id')->index();
+            $table->integer('categoria_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('SET NULL');
+            $table->foreign('categoria_id')->references('id')->on('produto_categorias')->onDelete('RESTRICT');
         });
     }
 

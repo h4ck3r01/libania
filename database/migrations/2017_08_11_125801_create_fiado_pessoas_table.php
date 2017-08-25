@@ -15,7 +15,7 @@ class CreateFiadoPessoasTable extends Migration
     {
         Schema::create('fiado_pessoas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pessoa_id')->unique();
+            $table->integer('pessoa_id')->unsigned();
             $table->float('total', 10, 2)->unsigned()->default(0);
             $table->timestamps();
 

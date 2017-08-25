@@ -16,7 +16,7 @@ class CreateVendasTable extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('fiado');
-            $table->integer('pessoa_id')->index();
+            $table->integer('pessoa_id')->unsigned();
             $table->float('total', 10, 2)->unsigned();
             $table->timestamps();
 

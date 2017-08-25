@@ -98,6 +98,7 @@ mix.scripts([
     'resources/assets/admin/js/buttons.server-side.js',
     'node_modules/select2/dist/js/select2.full.min.js',
     'node_modules/select2/dist/js/i18n/pt-BR.js',
+    'node_modules/jquery-confirm/dist/jquery-confirm.min.js',
     'resources/assets/admin/js/custom.js'
 ], 'public/assets/admin/js/admin.js').version();
 
@@ -109,6 +110,7 @@ mix.styles([
     'node_modules/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css',
     'node_modules/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css',
     'node_modules/select2/dist/css/select2.css',
+    'node_modules/jquery-confirm/dist/jquery-confirm.min.css',
     'resources/assets/admin/css/custom.css',
 ], 'public/assets/admin/css/admin.css').version();
 

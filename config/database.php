@@ -51,7 +51,7 @@ return [
             'collation' => 'latin1_swedish_ci',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
+            'engine' => 'InnoDB',
         ],
 
         'pgsql' => [
