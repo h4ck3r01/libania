@@ -33,6 +33,7 @@ $factory->define(App\Produto::class, function (Faker\Generator $faker) {
     return [
         'nome' => $faker->name,
         'categoria_id' => $faker->numberBetween(1, 20),
+        'preco' => $faker->randomFloat(2, 0, 1000000),
     ];
 });
 
@@ -72,6 +73,9 @@ $factory->define(App\FinanceiroCentro::class, function (Faker\Generator $faker) 
 
 $factory->define(App\Movimento::class, function (Faker\Generator $faker) {
     return [
+        'data' => $faker->dateTime(),
+
+        'fluxo' => $faker->numberBetween(1, 2),
         'obs' => $faker->text,
     ];
 });
@@ -162,6 +166,7 @@ $factory->define(App\Venda::class, function (Faker\Generator $faker) {
         'pessoa_id' => function () {
             return factory(App\Pessoa::class)->create()->id;
         },
+        'forma_id' => $faker->numberBetween(1, 3),
         'total' => $faker->randomFloat(2, 0, 1000000),
     ];
 });

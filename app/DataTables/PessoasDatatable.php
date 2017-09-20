@@ -47,7 +47,7 @@ class PessoasDatatable extends Datatable
     {
         return [
             'responsive' => 'true',
-            'dom' => 'Bfrtip',
+            'dom' => 'Bftip',
             'buttons' => $this->getButtons(),
             'language' => [
                 'url' => '//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json',

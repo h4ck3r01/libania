@@ -38,7 +38,7 @@
                                     <div class="row">
                                         <div class="form-group col-xs-8 col-sm-4 col-lg-2">
                                             {!! Form::label('tipo', 'Tipo:', ['class' => 'control-label']) !!}
-                                            {!! Form::select('tipo', [''=> __('views.admin.pessoa.tipo_0')] + $tipos,
+                                            {!! Form::select('tipo', [''=> __('views.admin.select.default')] + $tipos,
                                                       null,
                                                        ['class' => 'form-control input-sm',
                                                        'id' => 'tipo']) !!}
@@ -50,7 +50,11 @@
                     </div>
                     <br/>
 
-                    {!! $dataTable->table(['class' => 'table table-bordered table-striped nowrap', 'id' => 'table-pessoas', 'width' => '100%']) !!}
+                    <div class="table-responsive">
+
+                        {!! $dataTable->table(['class' => 'table table-bordered table-striped nowrap', 'id' => 'table-pessoas', 'width' => '100%']) !!}
+
+                    </div>
                 </div>
             </div>
         </div>

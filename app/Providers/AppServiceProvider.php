@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
@@ -25,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
         // Set the default string length for Laravel5.4
         // https://laravel-news.com/laravel-5-4-key-too-long-error
         Schema::defaultStringLength(191);
+
+        //set Carbon locale
+        Carbon::setLocale(config('app.locale'));
     }
 
     /**

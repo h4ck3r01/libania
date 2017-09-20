@@ -28,6 +28,9 @@ class ProdutosDatatable extends Datatable
             'categoria.nome' => [
                 'title' => __('views.admin.produto.index.table_header_2')
             ],
+            'preco' => [
+                'title' => __('views.admin.produto.index.table_header_3'),
+            ],
             'action' => [
                 'name' => 'action',
                 'title' => '',
@@ -44,8 +47,9 @@ class ProdutosDatatable extends Datatable
     protected function getParameters()
     {
         return [
+            'processing' => 'false',
             'responsive' => 'true',
-            'dom' => 'Bfrtip',
+            'dom' => 'Bftip',
             'buttons' => $this->getButtons(),
             'language' => [
                 'url' => '//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json',
@@ -57,7 +61,7 @@ class ProdutosDatatable extends Datatable
                     ]
                 ]
             ],
-            'initComplete' => 'admin.modulos.cadastro.produto.scripts.init-complete'
+            'initComplete' => 'admin.modulos.cadastro.produto.scripts.init-complete',
         ];
     }
 
@@ -89,6 +93,12 @@ class ProdutosDatatable extends Datatable
             ->eloquent($this->query())
             ->addColumn('action', function ($query) {
                 return '<a href="' . route('cadastro.produto.edit', $query->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> ' . __('views.admin.produto.index.button.edit') . '</a>';
+            })
+            ->editColumn('preco', function ($query) {
+                return parseMoney($query->preco);
+            })
+            ->filterColumn('preco', function ($query, $keyword) {
+                $query->whereRaw("produtos.preco like ?", ["%" . formatMoney($keyword) . "%"]);
             })
             ->make(true);
     }

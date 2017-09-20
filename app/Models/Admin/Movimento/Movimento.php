@@ -8,11 +8,25 @@ class Movimento extends Model
 {
 
     protected $fillable = [
-      'obs'
+        'data',
+        'fluxo',
+        'obs',
     ];
 
-    public function productos()
+    protected $dates = [
+        'data',
+    ];
+
+    public function produtos()
     {
         return $this->hasMany(MovimentoProduto::class);
+    }
+
+    protected function getFluxoAttribute($fluxo)
+    {
+
+        ($fluxo == '1') ? $fluxo = __('views.admin.movimento.fluxo_1') : $fluxo = __('views.admin.movimento.fluxo_2');
+
+        return $fluxo;
     }
 }

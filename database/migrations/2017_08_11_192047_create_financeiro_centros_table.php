@@ -19,6 +19,14 @@ class CreateFinanceiroCentrosTable extends Migration
             $table->string('nome');
             $table->timestamps();
         });
+
+        DB::table('financeiro_centros')->insert(
+            array(
+                'nome' => utf8_decode('Padrão'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            )
+        );
     }
 
     /**

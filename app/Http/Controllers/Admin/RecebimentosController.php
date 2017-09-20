@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-
-class FiadoClienteController extends Controller
+class RecebimentosController extends Controller
 {
 
     /**

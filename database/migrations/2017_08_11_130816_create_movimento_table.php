@@ -15,6 +15,8 @@ class CreateMovimentoTable extends Migration
     {
         Schema::create('movimentos', function (Blueprint $table) {
             $table->increments('id');
+            $table->date('data');
+            $table->integer('fluxo');
             $table->text('obs');
             $table->timestamps();
         });

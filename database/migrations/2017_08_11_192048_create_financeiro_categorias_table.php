@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateFinanceiroCategoriasTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -22,6 +23,26 @@ class CreateFinanceiroCategoriasTable extends Migration
 
             $table->foreign('centro_id')->references('id')->on('financeiro_centros')->onDelete('RESTRICT');
         });
+
+        DB::table('financeiro_categorias')->insert(
+            array(
+                'centro_id' => '1',
+                'nome' => 'Venda',
+                'fluxo' => '1',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            )
+        );
+
+        DB::table('financeiro_categorias')->insert(
+            array(
+                'centro_id' => '1',
+                'nome' => 'Compra',
+                'fluxo' => '2',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            )
+        );
     }
 
     /**

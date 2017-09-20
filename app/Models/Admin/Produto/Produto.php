@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Produto extends Model
 {
-    use SoftDeletes;
 
     protected $fillable = [
         'nome',
         'categoria_id',
+        'preco',
     ];
 
     public function categoria()
@@ -39,4 +39,10 @@ class Produto extends Model
     {
         return $this->attributes['nome'] = ucwords(strtolower($nome));
     }
+
+    protected function setPrecoAttribute($preco)
+    {
+        return $this->attributes['preco'] = formatMoney($preco);
+    }
+
 }

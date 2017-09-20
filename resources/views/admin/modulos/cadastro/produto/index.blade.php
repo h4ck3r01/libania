@@ -38,7 +38,7 @@
                                     <div class="row">
                                         <div class="form-group col-xs-8 col-sm-4 col-lg-2">
                                             {!! Form::label('categoria', 'Categoria:', ['class' => 'control-label']) !!}
-                                            {!! Form::select('categoria', [''=> __('views.admin.produto.categoria_0')] + $categorias,
+                                            {!! Form::select('categoria', [''=> __('views.admin.select.default')] + $categorias,
                                                       null,
                                                        ['class' => 'form-control input-sm',
                                                        'id' => 'categoria']) !!}
@@ -50,7 +50,11 @@
                     </div>
                     <br/>
 
-                    {!! $dataTable->table(['class' => 'table table-bordered table-striped nowrap', 'id' => 'table-produtos', 'width' => '100%']) !!}
+                    <div class="table-responsive">
+
+                        {!! $dataTable->table(['class' => 'table table-hover table-bordered table-striped nowrap', 'id' => 'table-produtos', 'width' => '100%']) !!}
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,4 +63,6 @@
 
 @push('page-scripts')
     {!! $dataTable->scripts() !!}
+
+    @include('admin.modulos.cadastro.produto.scripts.app')
 @endpush

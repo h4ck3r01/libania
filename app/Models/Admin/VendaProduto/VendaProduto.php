@@ -8,9 +8,9 @@ class VendaProduto extends Model
 {
 
     protected $fillable = [
+        'venda_id',
         'compra_id',
         'produto_id',
-        'preco',
         'quantidade',
         'total',
     ];

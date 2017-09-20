@@ -19,6 +19,18 @@ class CreatePessoasTable extends Migration
             $table->string('nome');
         });
 
+        DB::table('pessoa_tipos')->insert(
+            array(
+                'nome' => 'Cliente',
+            )
+        );
+
+        DB::table('pessoa_tipos')->insert(
+            array(
+                'nome' => 'Fornecedor',
+            )
+        );
+
         Schema::create('pessoas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');

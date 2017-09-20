@@ -4,7 +4,10 @@
 
 @section('page')
     <div class="container body">
-        <div class="main_container">
+        <div id="loading" class="media media-middle collapse">
+            <span id="spinner" class="fa fa-spin fa-spinner fa-5x"></span>
+        </div>
+        <div class="main_container" id="content">
             @section('header')
                 @include('admin.sections.navigation')
                 @include('admin.sections.header')
@@ -17,6 +20,7 @@
                     <div class="page-title">
                         <div class="title_left">
                             <h3>@yield('title-left')</h3>
+                            <hr/>
                         </div>
                         <div class="title_right text-right">
                             @yield('title-right')

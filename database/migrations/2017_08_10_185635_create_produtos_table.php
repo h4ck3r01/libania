@@ -19,6 +19,7 @@ class CreateProdutosTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->integer('categoria_id')->unsigned();
+            $table->float('preco', 10, 2)->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

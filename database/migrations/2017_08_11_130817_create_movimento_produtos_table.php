@@ -19,7 +19,6 @@ class CreateMovimentoProdutosTable extends Migration
             $table->integer('movimento_id')->unsigned();
             $table->integer('produto_id')->unsigned();
             $table->integer('quantidade')->unsigned();
-            $table->integer('fluxo')->unsigned();
             $table->timestamps();
 
             $table->foreign('movimento_id')->references('id')->on('movimentos')->onDelete('CASCADE');

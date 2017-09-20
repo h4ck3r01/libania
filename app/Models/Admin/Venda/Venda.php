@@ -10,6 +10,8 @@ class Venda extends Model
     protected $fillable = [
         'fiado',
         'pessoa_id',
+        'forma_id',
+        'desconto',
         'total',
     ];
 
@@ -21,5 +23,10 @@ class Venda extends Model
     public function produtos()
     {
         return $this->hasMany(VendaProduto::class);
+    }
+
+    public function forma()
+    {
+        return $this->belongsTo(VendaForma::class, 'forma_id');
     }
 }

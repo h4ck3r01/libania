@@ -65,7 +65,7 @@
                             {!! Form::label('categoria_id', __('views.admin.produto.categoria'), ['class' => 'control-label']) !!}
                             {!! Form::select('categoria_id',
                                 [
-                                    ''  =>  __('views.admin.produto.categoria_0')
+                                    ''  =>  __('views.admin.select.default')
                                 ] + $categorias,
                                 null,
                                 [
@@ -86,6 +86,22 @@
                     </div>
                     <div id="categoria-errors"></div>
 
+                    <div class="row">
+                        <div class="form-group col-xs-8 col-sm-4 col-lg-2">
+                            {!! Form::label('preco', __('views.admin.produto.preco'), ['class' => 'control-label']) !!}
+                            <div class="input-group">
+                                <span class="input-group-addon">R$</span>
+                                {!! Form::text('preco', null, [
+                                    'class' => 'form-control money',
+                                    'data-parsley-errors-container' => "#preco-errors",
+                                    'required' => 'required',
+                                    ]
+                                ) !!}
+                            </div>
+                            <div id="preco-errors"></div>
+                        </div>
+                    </div>
+
                     <hr/>
 
                     <div class="form-group">
@@ -95,7 +111,7 @@
 
                         {!! Form::close() !!}
 
-                        {!! Form::open(['method'=>'DELETE', 'action'=> ['Admin\ProdutosController@destroy', $produto->id]]) !!}
+                        {!! Form::open(['id' => 'form-delete', 'method'=>'DELETE', 'action'=> ['Admin\ProdutosController@destroy', $produto->id]]) !!}
 
                         {!! Form::submit(__('views.admin.button.delete'), ['class' => 'btn btn-danger col-xs-5 col-sm-2 col-lg-1 pull-right-sm']) !!}
 

@@ -23,7 +23,7 @@ class CreateRecebimentosTable extends Migration
             $table->float('total', 10, 2)->unsigned();
             $table->timestamps();
 
-            $table->foreign('venda_id')->references('id')->on('vendas')->onDelete('RESTRICT');
+            $table->foreign('venda_id')->references('id')->on('vendas')->onDelete('CASCADE');
             $table->foreign('categoria_id')->references('id')->on('financeiro_categorias')->onDelete('RESTRICT');
             $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('RESTRICT');
         });

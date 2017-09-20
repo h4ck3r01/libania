@@ -17,10 +17,11 @@ class CreateEstoqueProdutosTable extends Migration
         Schema::create('estoque_produtos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('produto_id')->unsigned();
-            $table->integer('movimento_entrada')->unsigned();
-            $table->integer('movimento_saida')->unsigned();
-            $table->integer('venda')->unigned();
-            $table->integer('total')->unigned();
+            $table->integer('movimento_entrada')->default(0);
+            $table->integer('movimento_saida')->default(0);
+            $table->integer('compra')->default(0);
+            $table->integer('venda')->default(0);
+            $table->integer('total')->default(0);
             $table->timestamps();
 
             $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('CASCADE');

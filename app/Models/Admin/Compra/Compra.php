@@ -8,8 +8,14 @@ class Compra extends Model
 {
 
     protected $fillable = [
+        'data',
         'pessoa_id',
+        'obs',
         'total',
+    ];
+
+    protected $dates = [
+        'data',
     ];
 
     public function pessoa()
@@ -20,5 +26,10 @@ class Compra extends Model
     public function produtos()
     {
         return $this->hasMany(CompraProduto::class);
+    }
+
+    public function setTotalAttribute($total)
+    {
+        $this->attributes['total'] = formatMoney($total);
     }
 }

@@ -8,7 +8,7 @@
 
 @section('title-right')
     <a href="{!! route('cadastro.pessoa.index') !!}" class="btn btn-app">
-        <span class="badge bg-green">!</span>
+        <span class="badge bg-blue">!</span>
         <i class="fa fa-search"></i> {{__('views.admin.button.index')}}
     </a>
 @endsection
@@ -45,7 +45,7 @@
                             {!! Form::label('telefone', __('views.admin.pessoa.telefone'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 {!! Form::text('telefone', null, [
-                                    'class' => 'form-control telefone',
+                                    'class' => 'form-control phone',
                                     'minlength' => 13,
                                     'data-parsley-minlength-message' => 'Digite um telefone válido',
                                     'data-parsley-errors-container' => "#telefone-errors",
@@ -80,7 +80,7 @@
                                 {!! Form::label('tipo_id', __('views.admin.pessoa.tipo'), ['class' => 'control-label']) !!}
                                 {!! Form::select('tipo_id',
                                     [
-                                        ''  =>  __('views.admin.pessoa.tipo_0'),
+                                        ''  =>  __('views.admin.select.default'),
                                     ] + $tipos,
                                     null,
                                     [
@@ -115,5 +115,5 @@
 @stop
 
 @push('page-scripts')
-    @include('admin.modulos.cadastro.pessoa.scripts.create')
+    @include('admin.modulos.cadastro.pessoa.scripts.app')
 @endpush

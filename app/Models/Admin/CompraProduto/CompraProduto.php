@@ -24,4 +24,14 @@ class CompraProduto extends Model
     {
         return $this->belongsTo(Produto::class);
     }
+
+    public function setPrecoAttribute($preco)
+    {
+        $this->attributes['preco'] = formatMoney($preco);
+    }
+
+    public function setTotalAttribute($total)
+    {
+        $this->attributes['total'] = formatMoney($total);
+    }
 }

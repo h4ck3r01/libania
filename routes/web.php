@@ -71,13 +71,15 @@ Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 
     Route::resource('pessoa', 'PessoasController');
     Route::resource('produto', 'ProdutosController');
 
-    Route::post('categoria/destroy', 'ProdutosController@destroyCategoria')->name('categoria.destroy');
+    Route::post('ajax/categoria/destroy', 'ProdutosController@categoriaDestroy')->name('produto.categoria.destroy');
 
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    Route::resource('caixa', 'VendasController');
+    Route::resource('venda', 'VendasController');
+    Route::get('ajax/produto/attributes', 'VendasController@produtoAttributes')->name('venda.produto.attributes');
+
     Route::resource('movimento', 'MovimentosController');
     Route::resource('compra', 'ComprasController');
     Route::resource('estoque', 'EstoqueProdutosController');

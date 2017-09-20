@@ -50,7 +50,7 @@
                             {!! Form::label('telefone', __('views.admin.pessoa.telefone'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 {!! Form::text('telefone', null, [
-                                    'class' => 'form-control telefone',
+                                    'class' => 'form-control phone',
                                     'minlength' => 13,
                                     'data-parsley-minlength-message' => 'Digite um telefone válido',
                                     'data-parsley-errors-container' => "#telefone-errors",
@@ -85,7 +85,7 @@
                                 {!! Form::label('tipo_id', __('views.admin.pessoa.tipo'), ['class' => 'control-label']) !!}
                                 {!! Form::select('tipo_id',
                                     [
-                                        ''  =>  __('views.admin.pessoa.tipo_0')
+                                        ''  =>  __('views.admin.select.default')
                                     ] + $tipos,
                                     null,
                                     [
@@ -107,9 +107,9 @@
 
                         {!! Form::close() !!}
 
-                        {!! Form::open(['method'=>'DELETE', 'action'=> ['Admin\PessoasController@destroy', $pessoa->id]]) !!}
+                        {!! Form::open(['id' => 'form-delete', 'method'=>'DELETE', 'action'=> ['Admin\PessoasController@destroy', $pessoa->id]]) !!}
 
-                        {!! Form::submit(__('views.admin.button.delete'), ['class' => 'btn btn-danger col-xs-5 col-sm-2 col-lg-1 pull-right-sm']) !!}
+                        {!! Form::submit(__('views.admin.button.delete'), ['class' => 'btn btn-danger col-xs-5 col-sm-2 col-lg-1  pull-right-sm']) !!}
 
                         {!! Form::close() !!}
                     </div>
@@ -121,5 +121,5 @@
 @stop
 
 @push('page-scripts')
-    @include('admin.modulos.cadastro.pessoa.scripts.create')
+    @include('admin.modulos.cadastro.pessoa.scripts.app')
 @endpush

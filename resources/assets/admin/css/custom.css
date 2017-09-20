@@ -1,13 +1,24 @@
 .nav_menu {
-  padding-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .input-group {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#loading {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+}
+
+.z-index {
+    position: relative;
+    z-index: -1;
 }
 
 @media (min-width: 768px) {
-  .pull-right-sm {
-    float: right;
-  }
+    .pull-right-sm {
+        float: right;
+    }
 }

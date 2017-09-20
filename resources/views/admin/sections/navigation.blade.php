@@ -45,19 +45,20 @@
                         </ul>
                     </li>
 
-                    <li><a><i class="fa fa-gear"></i> {{__('views.backend.section.navigation.menu_1_1')}}
+                    <li class="{{activeMenu(['venda', 'movimento', 'compra', 'estoque'])}}">
+                        <a><i class="fa fa-gear"></i> {{__('views.backend.section.navigation.menu_1_1')}}
                             <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li>
-                                <a href="{{ route('operacional.caixa.index') }}">{{__('views.backend.section.navigation.menu_1_2')}}</a>
+                        <ul class="nav child_menu" style="{{blockMenu(['venda', 'movimento', 'compra', 'estoque'])}}">
+                            <li class="{{currentMenu(['venda'])}}">
+                                <a href="{{ route('operacional.venda.index') }}">{{__('views.backend.section.navigation.menu_1_2')}}</a>
                             </li>
-                            <li>
+                            <li class="{{currentMenu(['movimento'])}}">
                                 <a href="{{ route('operacional.movimento.index') }}">{{__('views.backend.section.navigation.menu_1_3')}}</a>
                             </li>
-                            <li>
+                            <li class="{{currentMenu(['compra'])}}">
                                 <a href="{{ route('operacional.compra.index') }}">{{__('views.backend.section.navigation.menu_1_4')}}</a>
                             </li>
-                            <li>
+                            <li class="{{currentMenu(['estoque'])}}">
                                 <a href="{{ route('operacional.estoque.index') }}">{{__('views.backend.section.navigation.menu_1_5')}}</a>
                             </li>
 

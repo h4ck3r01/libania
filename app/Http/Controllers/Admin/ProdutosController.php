@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\EstoqueProduto;
 use App\Http\Controllers\Controller;
 use App\Produto;
 use App\ProdutoCategoria;
 use App\ProdutosDatatable;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class ProdutosController extends Controller
@@ -47,13 +49,22 @@ class ProdutosController extends Controller
     public function store(Request $request)
     {
 
-        $input = $this->getInput($request);
+        $produto_id = DB::transaction(function () use ($request) {
 
-        $produto = Produto::create($input);
+            $produto = Produto::create($request->all());
+
+            $produto_id = $produto->id;
+
+            EstoqueProduto::create(['produto_id' => $produto_id]);
+
+            return $produto_id;
+
+        });
 
         Session::flash('created', __('views.admin.flash.created'));
 
-        return redirect(route('cadastro.produto.edit', $produto->id));
+        return redirect(route('cadastro.produto.edit', $produto_id));
+
     }
 
     /**
@@ -137,7 +148,7 @@ class ProdutosController extends Controller
         return $input;
     }
 
-    public function destroyCategoria(Request $request)
+    public function categoriaDestroy(Request $request)
     {
         try {
             ProdutoCategoria::findOrFail($request->id)->delete();

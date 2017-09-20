@@ -161,3 +161,19 @@ if (!function_exists('currentMenu')) {
         }
     }
 }
+
+if (!function_exists('parseMoney')) {
+
+    function parseMoney($val)
+    {
+        return number_format($val, 2, ',', '.');
+    }
+}
+
+if (!function_exists('formatMoney')) {
+
+    function formatMoney($val)
+    {
+        return str_replace(',', '.', str_replace('.', '', $val));
+    }
+}

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pessoa extends Model
 {
 
-    use SoftDeletes;
-
     protected $fillable = [
         'nome',
         'telefone',

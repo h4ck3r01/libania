@@ -15,12 +15,14 @@ class CreateVendaProdutosTable extends Migration
     {
         Schema::create('venda_produtos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('venda_id')->index();
-            $table->integer('produto_id')->index();
-            $table->float('preco', 10, 2)->unsigned();
+            $table->integer('venda_id')->unsigned();
+            $table->integer('produto_id')->unsigned();
             $table->integer('quantidade')->unsigned();
             $table->float('total', 10, 2)->unsigned();
             $table->timestamps();
+
+            $table->foreign('venda_id')->references('id')->on('vendas')->onDelete('CASCADE');
+            $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('RESTRICT');
         });
     }
 
