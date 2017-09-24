@@ -29,9 +29,9 @@
 
                     <div class="row">
                         <div class="form-group col-xs-6 col-sm-2">
-                            {!! Form::label('data', __('views.admin.compra.data'), ['class' => 'control-label']) !!}
+                            {!! Form::label('vencimento', __('views.admin.compra.vencimento'), ['class' => 'control-label']) !!}
                             <div class="input-group">
-                                {!! Form::date('data', null, [
+                                {!! Form::date('vencimento', null, [
                                     'class' => 'form-control',
                                     'required' => 'required',
                                     'data-parsley-required-message' => '',

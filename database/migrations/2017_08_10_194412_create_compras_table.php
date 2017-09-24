@@ -16,7 +16,7 @@ class CreateComprasTable extends Migration
     {
         Schema::create('compras', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('data');
+            $table->date('vencimento');
             $table->integer('pessoa_id')->unsigned();
             $table->text('obs');
             $table->float('total', 10, 2)->unsigned();

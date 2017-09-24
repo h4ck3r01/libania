@@ -8,23 +8,18 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
 
-    public function productSale()
+    public function productsRelation()
     {
-        return true;
-    }
-
-    public function productPurchase()
-    {
-        return true;
+        return '';
     }
 
     public function salesRelation()
     {
-        return true;
+        return '';
     }
 
     public function purchasesRelation()
     {
-        return true;
+        return '';
     }
 }

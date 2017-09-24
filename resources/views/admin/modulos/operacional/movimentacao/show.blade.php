@@ -31,7 +31,7 @@
                 <div class="x_content">
 
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-4">
+                        <div class="form-group col-xs-12 col-sm-2">
                             {!! Form::label('data', __('views.admin.movimento.data'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 {!! Form::date('data', $movimento->data, [
@@ -46,14 +46,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-3">
+                        <div class="form-group col-xs-12 col-sm-6">
                             {!! Form::label('fluxo', __('views.admin.movimento.fluxo'), ['class' => 'control-label']) !!}
                             {!! Form::text('fluxo', $movimento->fluxo, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-xs-6 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-6">
                             <div class="form-group">
                                 {!! Form::label('obs', 'Obs:', ['class' => 'control-label']) !!}
                                 {!! Form::textarea('obs', $movimento->obs, [
@@ -92,7 +92,7 @@
                                 {!! Form::text('produto[]', $produto->produto->nome, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
                             </div>
 
-                            <div class="form-group col-xs-2">
+                            <div class="form-group col-xs-3 col-sm-2 col-lg-1">
                                 {!! Form::label('quantidade', __('views.admin.movimento.quantidade'), ['class' => 'control-label']) !!}
                                 {!! Form::text('quantidade[]', $produto->quantidade, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                             </div>

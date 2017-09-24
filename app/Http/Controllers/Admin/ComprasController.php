@@ -6,6 +6,7 @@ use App\Compra;
 use App\CompraProduto;
 use App\ComprasDatatable;
 use App\Http\Controllers\Controller;
+use App\Pagamento;
 use App\Pessoa;
 use App\Produto;
 use Illuminate\Http\Request;
@@ -54,7 +55,17 @@ class ComprasController extends Controller
 
             $compra = Compra::create($compra_input);
 
+            $pagamento['compra_id'] = $compra->id;
+            $pagamento['categoria_id'] = 2;
+            $pagamento['pessoa_id'] = $compra->pessoa_id;
+            $pagamento['vencimento'] = $compra->vencimento;
+            $pagamento['total'] = $compra->total;
+
+            Pagamento::create($pagamento);
+
             $produto_input['compra_id'] = $compra->id;
+
+            $estoque = new EstoqueProdutosController();
 
             $produtos = $request->only('produto', 'quantidade', 'preco', 'produto_total');
 
@@ -69,6 +80,7 @@ class ComprasController extends Controller
 
                     CompraProduto::create($produto_input);
 
+                    $estoque->compra($produto_input['produto_id'], $produto_input['quantidade'], 'insert');
                 }
 
             }
@@ -124,7 +136,23 @@ class ComprasController extends Controller
      */
     public function destroy($id)
     {
-        Compra::findOrFail($id)->delete();
+        DB::transaction(function () use ($id) {
+
+            $produtos = CompraProduto::where('compra_id', $id)->get();
+
+            if ($produtos->count() > 0) {
+
+                $estoque = new EstoqueProdutosController();
+
+                foreach ($produtos as $produto) {
+
+                    $estoque->compra($produto['produto_id'], $produto['quantidade'], 'delete');
+
+                }
+            }
+
+            Compra::findOrFail($id)->delete();
+        });
 
         Session::flash('deleted', __('views.admin.flash.deleted'));
 

@@ -8,14 +8,14 @@ class Compra extends Model
 {
 
     protected $fillable = [
-        'data',
+        'vencimento',
         'pessoa_id',
         'obs',
         'total',
     ];
 
     protected $dates = [
-        'data',
+        'vencimento',
     ];
 
     public function pessoa()

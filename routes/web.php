@@ -88,7 +88,7 @@ Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin
 
 Route::group(['prefix' => 'admin', 'as' => 'administrativo.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    Route::get('produto_x_venda', 'AdminController@productSale')->name('produto_x_venda');
+    Route::get('relacao_produtos', 'AdminController@productsRelation')->name('relacao_produtos');
     Route::get('relacao_vendas', 'AdminController@salesRelation')->name('relacao_vendas');
     Route::get('relacao_compras', 'AdminController@purchasesRelation')->name('relacao_compras');
 
@@ -96,12 +96,14 @@ Route::group(['prefix' => 'admin', 'as' => 'administrativo.', 'namespace' => 'Ad
 
 Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    Route::resource('centros_custo','FinanceiroCentrosController');
-    Route::get('resumo_centros_custo','FinanceiroCentrosController@resumo')->name('resumo_centros_custo');
-    Route::get('fluxo_caixa','VendasController@fluxo')->name('fluxo_caixa');
-    Route::resource('recebimentos','RecebimentosController');
-    Route::resource('pagamentos','PagamentosController');
-    Route::resource('fiado','FiadoPessoasController');
+    Route::resource('centros_custo', 'FinanceiroCentrosController');
+    Route::resource('categorias', 'FinanceiroCategoriasController');
+    Route::get('ajax/table-categorias/{id}', 'FinanceiroCategoriasController@getDataTable')->name('ajax.table-categorias');
+    Route::get('resumo_centros_custo', 'FinanceiroCentrosController@resumo')->name('resumo_centros_custo');
+    Route::get('fluxo_caixa', 'VendasController@fluxo')->name('fluxo_caixa');
+    Route::resource('recebimentos', 'RecebimentosController');
+    Route::resource('pagamentos', 'PagamentosController');
+    Route::resource('fiado', 'FiadoPessoasController');
 
 });
 

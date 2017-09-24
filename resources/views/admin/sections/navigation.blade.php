@@ -69,7 +69,7 @@
                             <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="{{ route('administrativo.produto_x_venda') }}">{{__('views.backend.section.navigation.menu_2_2')}}</a>
+                                <a href="{{ route('administrativo.relacao_produtos') }}">{{__('views.backend.section.navigation.menu_2_2')}}</a>
                             </li>
                             <li>
                                 <a href="{{ route('administrativo.relacao_vendas') }}">{{__('views.backend.section.navigation.menu_2_3')}}</a>
@@ -86,9 +86,9 @@
                             <li>
                                 <a href="{{ route('financeiro.centros_custo.index') }}">{{__('views.backend.section.navigation.menu_3_2')}}</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="{{ route('financeiro.resumo_centros_custo') }}">{{__('views.backend.section.navigation.menu_3_3')}}</a>
-                            </li>
+                            </li>-->
                             <li>
                                 <a href="{{ route('financeiro.pagamentos.index') }}">{{__('views.backend.section.navigation.menu_3_4')}}</a>
                             </li>
@@ -98,9 +98,9 @@
                             <li>
                                 <a href="{{ route('financeiro.fluxo_caixa') }}">{{__('views.backend.section.navigation.menu_3_6')}}</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="{{ route('financeiro.fiado.index') }}">{{__('views.backend.section.navigation.menu_3_7')}}</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
 

@@ -11,8 +11,12 @@ class Recebimento extends Model
         'venda_id',
         'categoria_id',
         'pessoa_id',
-        'pagamento',
+        'data',
         'total',
+    ];
+
+    protected $dates = [
+        'data'
     ];
 
     public function venda()

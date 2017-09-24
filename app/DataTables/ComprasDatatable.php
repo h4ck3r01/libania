@@ -23,7 +23,7 @@ class ComprasDatatable extends Datatable
                 'title' => __('views.admin.compra.index.table_header_0'),
                 'width' => '10%'
             ],
-            'data' => [
+            'vencimento' => [
                 'title' => __('views.admin.compra.index.table_header_1'),
                 'width' => '10%',
                 'searchable' => false,
@@ -104,8 +104,8 @@ class ComprasDatatable extends Datatable
             ->addColumn('action', function ($query) {
                 return '<a href="' . route('operacional.compra.show', $query->id) . '" class="btn btn-xs btn-success"><i class="fa fa-eye"></i> ' . __('views.admin.compra.index.button.show') . '</a>';
             })
-            ->editColumn('data', function ($query) {
-                return $query->data->format('d/m/Y');
+            ->editColumn('vencimento', function ($query) {
+                return $query->vencimento->format('d/m/Y');
             })
             ->editColumn('total', function($query){
                 return parseMoney($query->total);

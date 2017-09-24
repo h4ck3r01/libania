@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,9 +23,9 @@ class CreateFinanceiroCentrosTable extends Migration
 
         DB::table('financeiro_centros')->insert(
             array(
-                'nome' => utf8_decode('Padrão'),
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'nome' => 'Padrão',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             )
         );
     }

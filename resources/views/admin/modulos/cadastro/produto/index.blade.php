@@ -36,11 +36,11 @@
                                  aria-labelledby="filter">
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="form-group col-xs-8 col-sm-4 col-lg-2">
+                                        <div class="form-group col-xs-8 col-sm-4 col-lg-3">
                                             {!! Form::label('categoria', 'Categoria:', ['class' => 'control-label']) !!}
                                             {!! Form::select('categoria', [''=> __('views.admin.select.default')] + $categorias,
                                                       null,
-                                                       ['class' => 'form-control input-sm',
+                                                       ['class' => 'form-control select2',
                                                        'id' => 'categoria']) !!}
                                         </div>
                                     </div>

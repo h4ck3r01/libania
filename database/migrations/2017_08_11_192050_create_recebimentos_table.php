@@ -19,7 +19,7 @@ class CreateRecebimentosTable extends Migration
             $table->integer('venda_id')->unsigned();
             $table->integer('categoria_id')->unsigned();
             $table->integer('pessoa_id')->unsigned()->nullable();
-            $table->date('pagamento')->nullable();
+            $table->date('data');
             $table->float('total', 10, 2)->unsigned();
             $table->timestamps();
 

@@ -51,11 +51,11 @@
 
                             <label class="radio-inline">
                                 {!!  Form::radio('fluxo', '1', true); !!}
-                                Entrada
+                                {{__("views.admin.movimento.fluxo_1")}}
                             </label>
                             <label class="radio-inline">
                                 {!!  Form::radio('fluxo', '2', false); !!}
-                                Saída
+                                {{__("views.admin.movimento.fluxo_2")}}
                             </label>
 
                         </div>

@@ -10,6 +10,7 @@ use App\Venda;
 use App\VendaForma;
 use App\VendaProduto;
 use App\VendasDatatable;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -54,23 +55,19 @@ class VendasController extends Controller
 
         DB::transaction(function () use ($request) {
 
-            $request['pessoa_id'] = null;
-            $request['fiado'] = false;
-
-            $venda = Venda::create($request->except('produtos'));
+            $venda = Venda::create($request->only('forma_id', 'desconto', 'total'));
 
             $recebimento['venda_id'] = $venda->id;
             $recebimento['categoria_id'] = 1;
-            $recebimento['total'] = $venda->total;
+            $recebimento['data'] = Carbon::now();
+            $recebimento['total'] = '0';
 
             Recebimento::create($recebimento);
-
-            $request['venda_id'] = $venda->id;
 
             $estoque = new EstoqueProdutosController();
 
             foreach ($request['produtos'] as $produto) {
-                $produto_venda['venda_id'] = $request['venda_id'];
+                $produto_venda['venda_id'] = $venda->id;
                 $produto_venda['produto_id'] = $produto['produto_id'];
                 $produto_venda['quantidade'] = $produto['produto_quantidade'];
                 $produto_venda['total'] = $produto['produto_total'];

@@ -11,6 +11,7 @@ class EstoqueProduto extends Model
         'produto_id',
         'movimento_entrada',
         'movimento_saida',
+        'compra',
         'venda',
         'total',
     ];

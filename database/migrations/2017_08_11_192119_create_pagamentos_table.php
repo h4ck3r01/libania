@@ -18,12 +18,13 @@ class CreatePagamentosTable extends Migration
             $table->increments('id');
             $table->integer('compra_id')->unsigned();
             $table->integer('categoria_id')->unsigned();
-            $table->integer('pessoa_id')->unsigned()->nullable();
+            $table->integer('pessoa_id')->unsigned();
+            $table->date('vencimento');
             $table->date('pagamento')->nullable();
             $table->float('total', 10, 2)->unsigned();
             $table->timestamps();
 
-            $table->foreign('compra_id')->references('id')->on('compras')->onDelete('RESTRICT');
+            $table->foreign('compra_id')->references('id')->on('compras')->onDelete('CASCADE');
             $table->foreign('categoria_id')->references('id')->on('financeiro_categorias')->onDelete('RESTRICT');
             $table->foreign('pessoa_id')->references('id')->on('pessoas')->onDelete('RESTRICT');
         });

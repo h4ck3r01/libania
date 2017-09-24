@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\EstoqueProdutosDatatable;
 use App\EstoqueProduto;
 use App\Http\Controllers\Controller;
+use App\ProdutoCategoria;
 use Illuminate\Http\Request;
 
 class EstoqueProdutosController extends Controller
@@ -12,11 +14,15 @@ class EstoqueProdutosController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param EstoqueProdutosDatatable $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(EstoqueProdutosDatatable $dataTable)
     {
-        //
+
+        $categorias = ProdutoCategoria::orderBy('nome')->pluck('nome', 'nome')->all();
+
+        return $dataTable->render('admin.modulos.operacional.estoque.index', compact('categorias'));
     }
 
     /**

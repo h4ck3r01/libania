@@ -57,13 +57,6 @@ class MovimentosDatatable extends Datatable
             'buttons' => $this->getButtons(),
             'language' => [
                 'url' => '//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json',
-                'buttons' => [
-                    'copyTitle' => __('views.admin.movimento.index.button.copiar.title'),
-                    'copySuccess' => [
-                        '_' => __('views.admin.movimento.index.button.copiar.success._'),
-                        '1' => __('views.admin.movimento.index.button.copiar.success.1')
-                    ]
-                ]
             ],
             'order' => [['1', 'desc'], ['0', 'desc']],
             'initComplete' => 'admin.modulos.operacional.movimentacao.scripts.init-complete'

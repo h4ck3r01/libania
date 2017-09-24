@@ -57,6 +57,8 @@ class MovimentosController extends Controller
 
             $produtos = $request->only('produto', 'quantidade');
 
+            $estoque = new EstoqueProdutosController();
+
             foreach ($produtos['produto'] as $key => $produto) {
 
                 if ($produto != '') {
@@ -65,6 +67,12 @@ class MovimentosController extends Controller
                     $produto_input['quantidade'] = $produtos['quantidade'][$key];
 
                     MovimentoProduto::create($produto_input);
+
+                    if ($movimento_input['fluxo'] == 1) {
+                        $estoque->movimento_entrada($produto_input['produto_id'], $produto_input['quantidade'], 'insert');
+                    } else if ($movimento_input['fluxo'] == 2) {
+                        $estoque->movimento_saida($produto_input['produto_id'], $produto_input['quantidade'], 'insert');
+                    }
 
                 }
 
@@ -121,7 +129,31 @@ class MovimentosController extends Controller
      */
     public function destroy($id)
     {
-        Movimento::findOrFail($id)->delete();
+
+        DB::transaction(function () use ($id) {
+
+            $movimento = Movimento::findOrFail($id);
+
+            $produtos = MovimentoProduto::where('movimento_id', $id)->get();
+
+            if ($produtos->count() > 0) {
+
+                $estoque = new EstoqueProdutosController();
+
+                foreach ($produtos as $produto) {
+
+                    if ($movimento->fluxo == __('views.admin.movimento.fluxo_1')) {
+                        $estoque->movimento_entrada($produto['produto_id'], $produto['quantidade'], 'delete');
+                    } else if ($movimento->fluxo == __('views.admin.movimento.fluxo_2')) {
+                        $estoque->movimento_saida($produto['produto_id'], $produto['quantidade'], 'delete');
+                    }
+
+                }
+            }
+
+            $movimento->delete();
+
+        });
 
         Session::flash('deleted', __('views.admin.flash.deleted'));
 

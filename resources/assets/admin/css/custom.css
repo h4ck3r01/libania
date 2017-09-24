@@ -22,3 +22,7 @@
         float: right;
     }
 }
+
+tr.selected{
+    background: #DCF4EF;
+}

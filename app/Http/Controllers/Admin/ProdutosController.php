@@ -51,6 +51,13 @@ class ProdutosController extends Controller
 
         $produto_id = DB::transaction(function () use ($request) {
 
+            if(!is_int($request->categoria_id)) {
+
+                $categoria = ProdutoCategoria::create(['nome' => $request->categoria_id]);
+
+                $request['categoria_id'] = $categoria->id;
+            }
+
             $produto = Produto::create($request->all());
 
             $produto_id = $produto->id;
@@ -102,6 +109,12 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!is_int($request->categoria_id)) {
+
+            $categoria = ProdutoCategoria::create(['nome' => $request->categoria_id]);
+
+            $request['categoria_id'] = $categoria->id;
+        }
 
         $input = $this->getInput($request);
 

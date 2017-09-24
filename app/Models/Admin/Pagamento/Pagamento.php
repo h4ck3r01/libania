@@ -12,7 +12,7 @@ class Pagamento extends Model
         'compra_id',
         'categoria_id',
         'pessoa_id',
-        'pagamento',
+        'vencimento',
         'total'
     ];
 

@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -29,8 +30,8 @@ class CreateFinanceiroCategoriasTable extends Migration
                 'centro_id' => '1',
                 'nome' => 'Venda',
                 'fluxo' => '1',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             )
         );
 
@@ -39,8 +40,8 @@ class CreateFinanceiroCategoriasTable extends Migration
                 'centro_id' => '1',
                 'nome' => 'Compra',
                 'fluxo' => '2',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             )
         );
     }
