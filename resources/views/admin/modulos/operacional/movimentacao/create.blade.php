@@ -89,7 +89,7 @@
                 </div>
                 <div class="x_content">
 
-                    @for ($i = 0; $i < 10; $i++)
+                    @for ($i = 0; $i < 100; $i++)
 
                         <div id="{{$i}}" class="row @if($i != 0 ) hidden @endif">
                             <div class="form-group col-xs-6">

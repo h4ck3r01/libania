@@ -12,6 +12,7 @@ class Produto extends Model
         'nome',
         'categoria_id',
         'preco',
+        'compra',
     ];
 
     public function categoria()
@@ -43,6 +44,11 @@ class Produto extends Model
     protected function setPrecoAttribute($preco)
     {
         return $this->attributes['preco'] = formatMoney($preco);
+    }
+
+    protected function setCompraAttribute($compra)
+    {
+        return $this->attributes['compra'] = formatMoney($compra);
     }
 
 }

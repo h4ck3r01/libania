@@ -3,7 +3,7 @@
 @section('title', __('views.admin.produto.title'))
 
 @section('title-left')
-    <i class='fa fa-user fa-fw'></i> {!! __('views.admin.produto.title') !!}
+    <i class='fa fa-barcode fa-fw'></i> {!! __('views.admin.produto.title') !!}
 @endsection
 
 @section('title-right')
@@ -91,7 +91,7 @@
                             {!! Form::label('preco', __('views.admin.produto.preco'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 <span class="input-group-addon">R$</span>
-                                {!! Form::text('preco', null, [
+                                {!! Form::tel('preco', null, [
                                     'class' => 'form-control money',
                                     'data-parsley-errors-container' => "#preco-errors",
                                     'required' => 'required',
@@ -99,6 +99,20 @@
                                 ) !!}
                             </div>
                             <div id="preco-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-xs-8 col-sm-4 col-lg-2">
+                            {!! Form::label('compra', __('views.admin.produto.compra'), ['class' => 'control-label']) !!}
+                            <div class="input-group">
+                                <span class="input-group-addon">R$</span>
+                                {!! Form::tel('compra', null, [
+                                    'class' => 'form-control money',
+                                    'readonly' => 'readonly',
+                                    ]
+                                ) !!}
+                            </div>
                         </div>
                     </div>
 

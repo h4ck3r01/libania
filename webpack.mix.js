@@ -99,6 +99,7 @@ mix.scripts([
     'node_modules/select2/dist/js/select2.full.min.js',
     'node_modules/select2/dist/js/i18n/pt-BR.js',
     'node_modules/jquery-confirm/dist/jquery-confirm.min.js',
+    'node_modules/jquery-price-format/jquery.priceformat.min.js',
     'resources/assets/admin/js/custom.js'
 ], 'public/assets/admin/js/admin.js').version();
 

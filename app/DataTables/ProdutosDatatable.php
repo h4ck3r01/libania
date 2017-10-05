@@ -30,6 +30,7 @@ class ProdutosDatatable extends Datatable
             ],
             'preco' => [
                 'title' => __('views.admin.produto.index.table_header_3'),
+                'className' => 'text-right'
             ],
             'action' => [
                 'name' => 'action',

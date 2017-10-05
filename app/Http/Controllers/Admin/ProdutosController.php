@@ -49,9 +49,9 @@ class ProdutosController extends Controller
     public function store(Request $request)
     {
 
-        $produto_id = DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request) {
 
-            if(!is_int($request->categoria_id)) {
+            if(!is_numeric($request->categoria_id)) {
 
                 $categoria = ProdutoCategoria::create(['nome' => $request->categoria_id]);
 
@@ -70,7 +70,7 @@ class ProdutosController extends Controller
 
         Session::flash('created', __('views.admin.flash.created'));
 
-        return redirect(route('cadastro.produto.edit', $produto_id));
+        return redirect(route('cadastro.produto.index'));
 
     }
 
@@ -109,7 +109,7 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!is_int($request->categoria_id)) {
+        if(!is_numeric($request->categoria_id)) {
 
             $categoria = ProdutoCategoria::create(['nome' => $request->categoria_id]);
 
@@ -122,7 +122,7 @@ class ProdutosController extends Controller
 
         Session::flash('updated', __('views.admin.flash.updated'));
 
-        return redirect()->back();
+        return redirect(route('cadastro.produto.index'));
     }
 
     /**
@@ -133,11 +133,21 @@ class ProdutosController extends Controller
      */
     public function destroy($id)
     {
-        Produto::findOrFail($id)->delete();
 
-        Session::flash('deleted', __('views.admin.flash.deleted'));
+        try {
+            Produto::findOrFail($id)->delete();
+
+            Session::flash('deleted', __('views.admin.flash.deleted'));
+
+        } catch (QueryException $e) {
+
+            if ($e->getCode() == "23000") {
+                Session::flash('constraint', __('views.admin.flash.constraint'));
+            }
+        }
 
         return redirect(route('cadastro.produto.index'));
+
     }
 
     protected function getInput($request)

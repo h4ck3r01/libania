@@ -3,7 +3,7 @@
 @section('title', __('views.admin.produto.title'))
 
 @section('title-left')
-    <i class='fa fa-user fa-fw'></i> {!! __('views.admin.produto.title') !!}
+    <i class='fa fa-barcode fa-fw'></i> {!! __('views.admin.produto.title') !!}
 @endsection
 
 @section('title-right')

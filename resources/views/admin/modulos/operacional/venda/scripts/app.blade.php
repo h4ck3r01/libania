@@ -32,7 +32,7 @@
                         $("#add").prop("disabled", false);
 
                     },
-                    error: function (xhr, textStatus, errorThrown) {
+                    error: function (xhr) {
                         alert(xhr.responseText);
                     },
                 });
@@ -66,6 +66,9 @@
 
                 $("#subtotal").val(subtotal);
                 $("#total").val(total);
+
+                $("#recebido").val('0');
+                $("#troco").val('0');
 
                 $('#table-produtos tbody').append(
                     `<tr>

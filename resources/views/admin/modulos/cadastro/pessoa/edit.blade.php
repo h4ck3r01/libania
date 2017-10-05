@@ -49,7 +49,7 @@
                         <div class="form-group col-xs-8 col-sm-4 col-lg-2">
                             {!! Form::label('telefone', __('views.admin.pessoa.telefone'), ['class' => 'control-label']) !!}
                             <div class="input-group">
-                                {!! Form::text('telefone', null, [
+                                {!! Form::tel('telefone', null, [
                                     'class' => 'form-control phone',
                                     'minlength' => 13,
                                     'data-parsley-minlength-message' => 'Digite um telefone válido',

@@ -2,6 +2,7 @@
     $(document).ready(function () {
 
         let count = 0;
+        let count_max = 99;
 
         $("#add").on('click', function(){
 
@@ -9,7 +10,7 @@
 
             $('#'+count).removeClass('hidden');
 
-            if(count == 9)
+            if(count == count_max)
                 $(this).attr('disabled', true);
 
         });

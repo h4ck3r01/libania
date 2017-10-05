@@ -70,3 +70,29 @@ function parseMoney(str) {
 
     return str;
 }
+
+//datatable filter
+function filter(val, column) {
+    val = $.fn.dataTable.util.escapeRegex(
+        val
+    );
+
+    column
+        .search(val ? '^' + val + '$' : '', true, false)
+        .draw();
+
+}
+
+//datatable sum
+$.fn.dataTable.Api.register('sum()', function ( ) {
+    return this.flatten().reduce(function (a, b) {
+        if (typeof a === 'string') {
+            a = a.replace(/[^\d.-]/g, '') * 1;
+        }
+        if (typeof b === 'string') {
+            b = b.replace(/[^\d.-]/g, '') * 1;
+        }
+
+        return a + b;
+    }, 0);
+});

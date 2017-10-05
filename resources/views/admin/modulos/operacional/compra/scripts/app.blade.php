@@ -2,6 +2,28 @@
     $(document).ready(function () {
 
         let count = 0;
+        let count_max = 99;
+
+        function getProdutoPreco(id, input) {
+
+            let url = '{{  route('operacional.compra.produto.preco') }}';
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    id: id
+                },
+                success: function (data) {
+
+                    (data > 0) ? input.val(data) : input.val('');
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                },
+            });
+
+        }
 
         $("#add").on('click', function () {
 
@@ -9,7 +31,7 @@
 
             $('#' + count).removeClass('hidden');
 
-            if (count == 9)
+            if (count == count_max)
                 $(this).attr('disabled', true);
 
         });
@@ -75,6 +97,9 @@
                 $("input[name='preco[" + id + "]']").prop('required', false);
             }
 
+            let input = $("input[name='preco[" + id + "]']");
+
+            getProdutoPreco($(this).val(), input);
         });
 
     });

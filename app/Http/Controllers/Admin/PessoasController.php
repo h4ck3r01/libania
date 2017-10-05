@@ -47,11 +47,11 @@ class PessoasController extends Controller
      */
     public function store(Request $request)
     {
-        $pessoa = Pessoa::create($request->all());
+        Pessoa::create($request->all());
 
         Session::flash('created', __('views.admin.flash.created'));
 
-        return redirect(route('cadastro.pessoa.edit', $pessoa->id));
+        return redirect(route('cadastro.pessoa.index'));
     }
 
     /**
@@ -93,7 +93,7 @@ class PessoasController extends Controller
 
         Session::flash('updated', __('views.admin.flash.updated'));
 
-        return redirect()->back();
+        return redirect(route('cadastro.pessoa.index'));
     }
 
     /**

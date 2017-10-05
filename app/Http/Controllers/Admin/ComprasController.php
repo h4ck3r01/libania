@@ -81,6 +81,8 @@ class ComprasController extends Controller
                     CompraProduto::create($produto_input);
 
                     $estoque->compra($produto_input['produto_id'], $produto_input['quantidade'], 'insert');
+
+                    Produto::findOrFail($produto_input['produto_id'])->update(['compra' => $produto_input['preco']]);
                 }
 
             }
@@ -157,5 +159,18 @@ class ComprasController extends Controller
         Session::flash('deleted', __('views.admin.flash.deleted'));
 
         return redirect(route('operacional.compra.index'));
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function produtoPreco(Request $request)
+    {
+
+        $produto = Produto::findOrFail($request->id);
+
+        return $produto->compra;
+
     }
 }

@@ -55,7 +55,7 @@
                             {!! Form::label('valor', __('views.admin.venda.valor'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 <span class="input-group-addon">R$</span>
-                                {!! Form::text('valor', null, [
+                                {!! Form::tel('valor', null, [
                                     'id' => 'valor',
                                     'class' => 'form-control money',
                                     'data-parsley-required-message' => "",
@@ -109,7 +109,7 @@
                             {!! Form::label('subtotal', __('views.admin.venda.subtotal'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 <span class="input-group-addon">R$</span>
-                                {!! Form::text('subtotal', '0', [
+                                {!! Form::tel('subtotal', '0', [
                                     'id' => 'subtotal',
                                     'class' => 'form-control money',
                                     'readonly' => 'readonly',
@@ -122,7 +122,7 @@
                             {!! Form::label('desconto', __('views.admin.venda.desconto'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 <span class="input-group-addon">R$</span>
-                                {!! Form::text('desconto', '0', [
+                                {!! Form::tel('desconto', '0', [
                                     'id' => 'desconto',
                                     'class' => 'form-control money',
                                     ]
@@ -134,7 +134,7 @@
                             {!! Form::label('total', __('views.admin.venda.total'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 <span class="input-group-addon">R$</span>
-                                {!! Form::text('total', '0', [
+                                {!! Form::tel('total', '0', [
                                     'id' => 'total',
                                     'class' => 'form-control money',
                                     'readonly' => 'readonly'
@@ -167,7 +167,7 @@
                                 {!! Form::label('recebido', __('views.admin.venda.recebido'), ['class' => 'control-label']) !!}
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    {!! Form::text('recebido', null, [
+                                    {!! Form::tel('recebido', null, [
                                         'id' => 'recebido',
                                         'class' => 'form-control money',
                                         'data-parsley-required-message' => "",
@@ -181,7 +181,7 @@
                                 {!! Form::label('troco', __('views.admin.venda.troco'), ['class' => 'control-label']) !!}
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    {!! Form::text('troco', '0', [
+                                    {!! Form::tel('troco', '0', [
                                         'id' => 'troco',
                                         'class' => 'form-control money',
                                         'readonly' => 'readonly'

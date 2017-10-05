@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Scopes\centroID;
+use App\DataTables\Scopes\financeiroCategoriasScope;
 use App\FinanceiroCategoria;
 use App\FinanceiroCategoriasDatatable;
 use App\Http\Controllers\Controller;
@@ -99,7 +99,7 @@ class FinanceiroCategoriasController extends Controller
             $title = __('views.admin.notify.error');
 
             if ($exception->getCode() == 23000) {
-                $message = __('views.admin.notify.destroy.constraint.message');
+                $message = __('views.admin.flash.constraint');
             } else {
                 $message = __('views.admin.notify.error.message');
             }
@@ -109,13 +109,17 @@ class FinanceiroCategoriasController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param FinanceiroCategoriasDatatable $dataTable
-     * @param $id
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     * @internal param $id
      * @internal param FinanceiroCategoriasDatatable $datatable
      */
-    public function getDataTable(FinanceiroCategoriasDatatable $dataTable, $id)
+    public function getDataTable(Request $request, FinanceiroCategoriasDatatable $dataTable)
     {
-        return $dataTable->addScope(new centroID($id))->render('admin.modulos.financeiro.centros_custo.index');
+
+        $id = $request->id;
+
+        return $dataTable->addScope(new FinanceiroCategoriasScope($id))->render('admin.modulos.financeiro.centros_custo.index');
     }
 }

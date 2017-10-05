@@ -1,10 +1,23 @@
 <script>
     $(document).ready(function () {
 
-        function categoriasDatatable(id) {
+        function categoriasDisable() {
+            $("#categoria_insert").attr('disabled', true);
+            $("#categoria_update").attr('disabled', true);
+            $("#categoria_delete").attr('disabled', true);
 
-            let url = '{!!  route('financeiro.ajax.table-categorias', array(':id'))!!}';
-            url = url.replace(':id', id);
+            $('#table-categorias tbody tr').remove();
+
+            $('#table-categorias tbody').append(`<tr id="default">
+                    <td colspan="3" class="text-center">
+                        {{ __('views.admin.cc.index.table_2.default') }}
+                </td>
+            </tr>`);
+        }
+
+        function categoriasDatatable() {
+
+            let url = '{!! route('financeiro.ajax.table-categorias')!!}';
 
             if (!$.fn.dataTable.isDataTable('#table-categorias')) {
                 $('#table-categorias').DataTable({
@@ -16,16 +29,21 @@
                     language: {
                         url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json'
                     },
-                    ajax: url,
+                    ajax: {
+                        type: 'GET',
+                        url: url,
+                        data: function (d) {
+                            d.id = $("#table-centros tr.active").find('td').eq(0).text();
+                        }
+                    },
                     columns: [
                         {data: 'id', name: 'financeiro_categorias.id', className: 'text-center', width: '10%'},
                         {data: 'nome', name: 'financeiro_categorias.nome'},
                         {data: 'fluxo', name: 'financeiro_categorias.fluxo'},
                     ],
                 });
-            }
-            else {
-                $('#table-categorias').DataTable().ajax.url(url).load();
+            } else {
+                $('#table-categorias').DataTable().ajax.reload();
             }
         }
 
@@ -35,7 +53,7 @@
 
             if ($(this).hasClass('active')) {
                 $("#centro_update").attr('disabled', false);
-                $("#centro_deletedelete").attr('disabled', false);
+                $("#centro_delete").attr('disabled', false);
                 $("#categoria_insert").attr('disabled', false);
 
                 let id = $(this).find('td').eq(0).text();
@@ -46,24 +64,13 @@
                 $('#centro_id').val(id);
                 $('#categoria_centro').val(nome);
 
-                categoriasDatatable(id);
+                categoriasDatatable();
             }
             else {
                 $("#centro_update").attr('disabled', true);
                 $("#centro_delete").attr('disabled', true);
-                $("#categoria_insert").attr('disabled', true);
-                $("#categoria_update").attr('disabled', true);
-                $("#categoria_delete").attr('disabled', true);
 
-                $('#table-categorias tbody tr').remove();
-
-                $('#table-categorias tbody').append(`
-                <tr>
-                    <td colspan="3" class="text-center">
-                        {{ __('views.admin.cc.index.table_2.default') }}
-                    </td>
-                </tr>
-                `);
+                categoriasDisable();
             }
 
 
@@ -130,19 +137,8 @@
 
                         $("#centro_update").attr('disabled', true);
                         $("#centro_delete").attr('disabled', true);
-                        $("#categoria_insert").attr('disabled', true);
-                        $("#categoria_update").attr('disabled', true);
-                        $("#categoria_delete").attr('disabled', true);
 
-                        $('#table-categorias tbody tr').remove();
-
-                        $('#table-categorias tbody').append(`
-                                                            <tr>
-                                                                <td colspan="3" class="text-center">
-                                                                    {{ __('views.admin.cc.index.table_2.default') }}
-                                                                </td>
-                                                            </tr>
-                                                            `);
+                        categoriasDisable();
 
                         $('#table-centros').DataTable().draw(false);
                     },
@@ -203,9 +199,11 @@
                                     $("#centro_update").attr('disabled', true);
                                     $("#centro_delete").attr('disabled', true);
 
+                                    categoriasDisable();
+
                                     $('#table-centros').DataTable().draw(false);
                                 },
-                                error: function (xhr) {
+                                error: function () {
 
                                     $.alert({
                                         backgroundDismiss: true,
@@ -221,6 +219,24 @@
                     '{{__('views.admin.button.cancel')}}': {}
                 }
             });
+        });
+
+        $('#modal-centro').on('shown.bs.modal', function () {
+
+            $("#centro_nome").focus();
+        });
+
+        $("input[aria-controls='table-centros']").on('keydown', function () {
+
+            if ($("#default").length == 0) {
+
+                $("#centro_update").attr('disabled', true);
+                $("#centro_delete").attr('disabled', true);
+
+                categoriasDisable();
+
+            }
+
         });
 
     });

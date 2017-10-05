@@ -172,5 +172,18 @@
             });
         });
 
+        $('#modal-categoria').on('shown.bs.modal', function () {
+
+            $("#categoria_nome").focus();
+        });
+
+        $(document).on('keydown', "input[aria-controls='table-categorias']", function () {
+
+            if ($("#categoria_update").attr('disabled') != 'disabled' && $("#categoria_delete").attr('disabled') != 'disabled') {
+                $("#categoria_update").attr('disabled', true);
+                $("#categoria_delete").attr('disabled', true);
+            }
+        });
+
     });
 </script>

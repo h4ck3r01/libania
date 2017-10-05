@@ -99,7 +99,7 @@ class FinanceiroCentrosController extends Controller
             $title = __('views.admin.notify.error');
 
             if ($exception->getCode() == 23000) {
-                $message = __('views.admin.notify.destroy.constraint.message');
+                $message = __('views.admin.flash.constraint');
             } else {
                 $message = __('views.admin.notify.error.message');
             }

@@ -60,7 +60,7 @@ class VendasController extends Controller
             $recebimento['venda_id'] = $venda->id;
             $recebimento['categoria_id'] = 1;
             $recebimento['data'] = Carbon::now();
-            $recebimento['total'] = '0';
+            $recebimento['total'] = $request->total;
 
             Recebimento::create($recebimento);
 
@@ -151,6 +151,10 @@ class VendasController extends Controller
         return redirect(route('operacional.venda.index'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function produtoAttributes(Request $request)
     {
 

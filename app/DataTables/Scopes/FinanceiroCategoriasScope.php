@@ -4,12 +4,10 @@ namespace App\DataTables\Scopes;
 
 use Yajra\Datatables\Contracts\DataTableScopeContract;
 
-class centroID implements DataTableScopeContract
+class FinanceiroCategoriasScope implements DataTableScopeContract
 {
 
-    protected $id;
-
-    protected $relation;
+    protected $id, $relation;
 
     /**
      * Apply a query scope.
@@ -24,7 +22,6 @@ class centroID implements DataTableScopeContract
         $this->id = $id;
         $this->relation = $relation;
     }
-
 
     public function apply($query)
     {

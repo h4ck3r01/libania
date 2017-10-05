@@ -15,7 +15,7 @@
 /**
  * default
  */
-Route::get('/', 'admin\DashboardController@index');
+Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
 
 /**
  * Auth routes
@@ -51,9 +51,6 @@ Route::group(['namespace' => 'Auth'], function () {
  */
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    // Dashboard
-    Route::get('/', 'DashboardController@index')->name('dashboard');
-
     //Users
     Route::get('users', 'UserController@index')->name('users');
     Route::get('users/{user}', 'UserController@show')->name('users.show');
@@ -62,8 +59,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
     Route::get('permissions', 'PermissionController@index')->name('permissions');
     Route::get('permissions/{user}/repeat', 'PermissionController@repeat')->name('permissions.repeat');
-    Route::get('dashboard/log-chart', 'DashboardController@getLogChartData')->name('dashboard.log.chart');
-    Route::get('dashboard/registration-chart', 'DashboardController@getRegistrationChartData')->name('dashboard.registration.chart');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'cadastro.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
@@ -81,7 +76,10 @@ Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin
     Route::get('ajax/produto/attributes', 'VendasController@produtoAttributes')->name('venda.produto.attributes');
 
     Route::resource('movimento', 'MovimentosController');
+
     Route::resource('compra', 'ComprasController');
+    Route::get('ajax/compra/produto/preco', 'ComprasController@produtoPreco')->name('compra.produto.preco');
+
     Route::resource('estoque', 'EstoqueProdutosController');
 
 });
@@ -98,10 +96,11 @@ Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin'
 
     Route::resource('centros_custo', 'FinanceiroCentrosController');
     Route::resource('categorias', 'FinanceiroCategoriasController');
-    Route::get('ajax/table-categorias/{id}', 'FinanceiroCategoriasController@getDataTable')->name('ajax.table-categorias');
+    Route::get('ajax/table-categorias', 'FinanceiroCategoriasController@getDataTable')->name('ajax.table-categorias');
     Route::get('resumo_centros_custo', 'FinanceiroCentrosController@resumo')->name('resumo_centros_custo');
     Route::get('fluxo_caixa', 'VendasController@fluxo')->name('fluxo_caixa');
     Route::resource('recebimentos', 'RecebimentosController');
+    Route::get('ajax/table-recebimentos', 'RecebimentosController@getDataTable')->name('ajax.table-recebimentos');
     Route::resource('pagamentos', 'PagamentosController');
     Route::resource('fiado', 'FiadoPessoasController');
 

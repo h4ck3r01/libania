@@ -6,8 +6,16 @@
             {{session('created')}}
         @elseif(Session::has('updated'))
             {{session('updated')}}
-        @else
+        @elseif(Session::has('deleted'))
             {{session('deleted')}}
         @endif
     </div>
+
+@elseif(Session::has('constraint'))
+
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{session('constraint')}}
+    </div>
+
 @endif

@@ -60,7 +60,7 @@
                 <div class="x_content">
                     <div class="table-responsive">
 
-                        <table class="table table-hover table-bordered nowrap" id="table-categorias">
+                        <table class="table table-hover table-bordered nowrap" id="table-categorias" width="100%">
                             <thead>
                             <tr>
                                 <th>{{ __('views.admin.cc.index.table_2_header_0') }}</th>

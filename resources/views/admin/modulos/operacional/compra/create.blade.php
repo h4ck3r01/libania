@@ -90,7 +90,7 @@
                     <div class="form-group col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">R$</span>
-                            {!! Form::text('total', 0, [
+                            {!! Form::tel('total', 0, [
                                 'id' => 'total',
                                 'class' => 'form-control money',
                                 'readonly' => 'readonly',
@@ -114,7 +114,7 @@
                 </div>
                 <div class="x_content">
 
-                    @for ($i = 0; $i < 50; $i++)
+                    @for ($i = 0; $i < 100; $i++)
 
                         <div id="{{$i}}" class="row @if($i != 0 ) hidden @endif">
                             <div class="form-group col-xs-4">
@@ -144,7 +144,7 @@
                                 {!! Form::label('preco', __('views.admin.compra.preco'), ['class' => 'control-label']) !!}
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    {!! Form::text('preco[' . $i . ']', null, [
+                                    {!! Form::tel('preco[' . $i . ']', null, [
                                         'class' => 'form-control money preco',
                                         'data-parsley-required-message' => "",
                                         ]
@@ -156,7 +156,7 @@
                                 {!! Form::label('produto_total', __('views.admin.compra.total'), ['class' => 'control-label']) !!}
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    {!! Form::text('produto_total[' . $i . ']', null, [
+                                    {!! Form::tel('produto_total[' . $i . ']', null, [
                                         'class' => 'form-control money produto_total',
                                         'readonly' => 'readonly',
                                         ]
