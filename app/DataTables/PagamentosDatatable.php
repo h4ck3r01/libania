@@ -10,21 +10,21 @@ namespace App;
 
 use Yajra\Datatables\Services\DataTable;
 
-class RecebimentosDatatable extends Datatable
+class PagamentosDatatable extends Datatable
 {
-
+    
     public function ajax()
     {
         return $this->datatables
             ->eloquent($this->query())
-            ->editColumn('data', function ($query) {
-                return $query->data->format('d/m/Y');
+            ->editColumn('vencimento', function ($query) {
+                return $query->vencimento->format('d/m/Y');
             })
-            ->editColumn('recebimentos.total', function ($query) {
+            ->editColumn('pagamentos.total', function($query){
                 return parseMoney($query->total);
             })
-            ->filterColumn('recebimentos.total', function ($query, $keyword) {
-                $query->whereRaw("recebimentos.total like ?", ["%" . formatMoney($keyword) . "%"]);
+            ->filterColumn('pagamentos.total', function($query, $keyword) {
+                $query->whereRaw("pagamentos.total like ?", ["%". formatMoney($keyword) . "%"]);
             })
             ->with('sum', $this->sum())
             ->make(true);
@@ -35,14 +35,14 @@ class RecebimentosDatatable extends Datatable
      */
     public function query()
     {
-        $recebimentos = Recebimento::select('recebimentos.*')->with(['categoria', 'pessoa', 'forma']);
+        $pagamentos = Pagamento::select('pagamentos.*')->with(['categoria', 'pessoa']);
 
-        return $this->applyScopes($recebimentos);
+        return $this->applyScopes($pagamentos);
     }
 
     public function sum()
     {
-        $total = Recebimento::select('total');
+        $total = Pagamento::select('total');
 
         $sum = $this->applyScopes($total);
 

@@ -8,15 +8,18 @@ class ProdutoCategoria extends Model
 {
 
     protected $fillable = [
-      'nome',
+        'nome',
     ];
 
-    public function produtos(){
+    public function produtos()
+    {
         return $this->hasOne(Produto::class, 'categoria_id');
     }
 
     protected function setNomeAttribute($nome)
     {
-        return $this->attributes['nome'] = ucwords(strtolower($nome));
+        $nome = capitalizeName($nome);
+
+        return $this->attributes['nome'] = $nome;
     }
 }

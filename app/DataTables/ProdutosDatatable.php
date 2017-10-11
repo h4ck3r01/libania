@@ -62,6 +62,7 @@ class ProdutosDatatable extends Datatable
                     ]
                 ]
             ],
+            'order' => [1, 'asc'],
             'initComplete' => 'admin.modulos.cadastro.produto.scripts.init-complete',
         ];
     }

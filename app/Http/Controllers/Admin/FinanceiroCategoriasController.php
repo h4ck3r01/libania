@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\Scopes\financeiroCategoriasScope;
+use App\DataTables\Scopes\FinanceiroCategoriasScope;
 use App\FinanceiroCategoria;
 use App\FinanceiroCategoriasDatatable;
 use App\Http\Controllers\Controller;
@@ -117,7 +117,6 @@ class FinanceiroCategoriasController extends Controller
      */
     public function getDataTable(Request $request, FinanceiroCategoriasDatatable $dataTable)
     {
-
         $id = $request->id;
 
         return $dataTable->addScope(new FinanceiroCategoriasScope($id))->render('admin.modulos.financeiro.centros_custo.index');

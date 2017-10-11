@@ -11,36 +11,34 @@ namespace App;
 use Carbon\Carbon;
 use Yajra\Datatables\Services\DataTable;
 
-class VendasDatatable extends Datatable
+class FiadoPessoasDatatable extends Datatable
 {
 
-    protected $printPreview = 'admin.modulos.operacional.venda.print';
+    protected $printPreview = 'admin.modulos.financeiro.fiado.print';
 
     protected function getColumns()
     {
         return [
-            'id' => [
-                'title' => __('views.admin.venda.index.table_header_0'),
-                'width' => '10%',
-            ],
-            'data' => [
-                'title' => __('views.admin.venda.index.table_header_1'),
-                'searchable' => 'false'
-            ],
-            'forma.nome' => [
-                'title' => __('views.admin.venda.index.table_header_2')
-            ],
             'pessoa.nome' => [
-                'title' => __('views.admin.venda.index.table_header_3'),
+                'title' => __('views.admin.fiado.index.table_header_0'),
+                'width' => '60%'
+            ],
+            'data_ultimo' => [
+                'title' => __('views.admin.fiado.index.table_header_1'),
+                'className' => 'text-center',
+                'searchable' => 'false',
                 'defaultContent' => ''
             ],
-            'desconto' => [
-                'title' => __('views.admin.venda.index.table_header_4'),
-                'className' => 'text-right'
+            'total_ultimo' => [
+                'title' => __('views.admin.fiado.index.table_header_2'),
+                'className' => 'text-right',
+                'width' => '10%',
+                'defaultContent' => ''
             ],
             'total' => [
-                'title' => __('views.admin.venda.index.table_header_5'),
-                'className' => 'text-right'
+                'title' => __('views.admin.fiado.index.table_header_3'),
+                'className' => 'text-right',
+                'width' => '10%'
             ],
             'action' => [
                 'name' => 'action',
@@ -71,7 +69,7 @@ class VendasDatatable extends Datatable
                     ]
                 ]
             ],
-            'order' => [[1, 'desc'], [0, 'desc']]
+            'order' => [0, 'desc']
         ];
     }
 
@@ -94,7 +92,7 @@ class VendasDatatable extends Datatable
 
     protected function filename()
     {
-        return time() . '_vendas';
+        return time() . '_fiado';
     }
 
     public function ajax()
@@ -102,31 +100,32 @@ class VendasDatatable extends Datatable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($query) {
-                return '<a href="' . route('operacional.venda.show', $query->id) . '" class="btn btn-xs btn-success"><i class="fa fa-eye"></i> ' . __('views.admin.venda.index.button.show') . '</a>';
+                return '<a href="' . route('financeiro.fiado.show', $query->id) . '" class="btn btn-xs btn-success"><i class="fa fa-eye"></i> ' . __('views.admin.fiado.index.button.show') . '</a>';
             })
-            ->editColumn('data', function ($query) {
-                return $query->data->format('d/m/Y');
+            ->editColumn('data_ultimo', function ($query) {
+                if ($query->data != '')
+                    return $query->data->format('d/m/Y');
             })
-            ->editColumn('desconto', function($query){
-                return parseMoney($query->desconto);
+            ->editColumn('total_ultimo', function ($query) {
+                return parseMoney($query->total_ultimo);
             })
-            ->filterColumn('desconto', function($query, $keyword) {
-                $query->whereRaw("vendas.desconto like ?", ["%". formatMoney($keyword). "%"]);
+            ->filterColumn('total_ultimo', function ($query, $keyword) {
+                $query->whereRaw("fiado_pessoas.total_ultimo like ?", ["%" . formatMoney($keyword) . "%"]);
             })
-            ->editColumn('total', function($query){
+            ->editColumn('total', function ($query) {
                 return parseMoney($query->total);
             })
-            ->filterColumn('total', function($query, $keyword) {
-                $query->whereRaw("vendas.total like ?", ["%". formatMoney($keyword) . "%"]);
+            ->filterColumn('total', function ($query, $keyword) {
+                $query->whereRaw("fiado_pessoas.total like ?", ["%" . formatMoney($keyword) . "%"]);
             })
             ->make(true);
     }
 
     public function query()
     {
-        $venda = Venda::select('vendas.*')->with(['forma', 'pessoa']);
+        $fiado = FiadoPessoa::select('fiado_pessoas.*')->with(['pessoa']);
 
-        return $this->applyScopes($venda);
+        return $this->applyScopes($fiado);
     }
 
     public function html()

@@ -177,3 +177,26 @@ if (!function_exists('formatMoney')) {
         return str_replace(',', '.', str_replace('.', '', $val));
     }
 }
+
+if (!function_exists('capitalizeName')) {
+
+    function capitalizeName($val)
+    {
+        $exceptions = array("e", "da", "de", "do", "dos", "das", "com", "sem", "no", "na");
+
+        $words = explode(' ', $val);
+
+        $new_val = array();
+
+        foreach ($words as $word) {
+            if (!in_array($word, $exceptions)) {
+                $word = ucfirst($word);
+            }
+            array_push($new_val, $word);
+        }
+
+        $val = join(' ', $new_val);
+
+        return $val;
+    }
+}

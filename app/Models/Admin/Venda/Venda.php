@@ -8,11 +8,15 @@ class Venda extends Model
 {
 
     protected $fillable = [
-        'fiado',
         'pessoa_id',
         'forma_id',
         'desconto',
         'total',
+        'data'
+    ];
+
+    protected $dates = [
+        'data',
     ];
 
     public function pessoa()

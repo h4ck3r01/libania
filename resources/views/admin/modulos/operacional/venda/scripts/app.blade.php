@@ -47,6 +47,18 @@
 
         });
 
+        $("#forma_id").change(function () {
+
+            if ($("option:selected", this).val() == 4) {
+                $("#pessoa_id").prop('required', true);
+            } else {
+                $("#pessoa_id").prop('required', false);
+            }
+
+            $('#form-finalizar').parsley().reset();
+
+        });
+
         $("#form-add").on('submit', function (e) {
 
             e.preventDefault();
@@ -155,6 +167,9 @@
 
                 });
 
+                let pessoa_id = $('#pessoa_id option:selected').val();
+
+                let data = $('#data').val();
                 let total = formatMoney($('#total').val());
                 let desconto = formatMoney($('#desconto').val());
                 let forma_id = $('#forma_id').val();
@@ -167,6 +182,8 @@
                     data: {
                         _token: '{{ csrf_token() }}',
                         produtos: produtos,
+                        pessoa_id: pessoa_id,
+                        data: data,
                         total: total,
                         desconto: desconto,
                         forma_id: forma_id,
@@ -207,6 +224,20 @@
             $('#quantidade').val('');
             $('#valor').val('');
 
+            $('#pessoa_id').val('').trigger('change');
+
+            if ($(".forma_id").hasClass('hidden'))
+                $(".forma_id").removeClass('hidden');
+
+            var d = new Date();
+            var month = d.getMonth() + 1;
+            var day = d.getDate();
+
+            var data = d.getFullYear() + '-' +
+                (month < 10 ? '0' : '') + month + '-' +
+                (day < 10 ? '0' : '') + day;
+
+            $("#data").val(data);
             $("#subtotal").val('0');
             $("#desconto").val('0');
             $("#total").val('0');

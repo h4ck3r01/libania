@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\FiadoPessoa;
 use App\Http\Controllers\Controller;
+use App\Pessoa;
 use App\Produto;
 use App\Recebimento;
 use App\Venda;
 use App\VendaForma;
 use App\VendaProduto;
 use App\VendasDatatable;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -22,11 +23,10 @@ class VendasController extends Controller
      * Display a listing of the resource.
      *
      * @param VendasDatatable $dataTable
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index(VendasDatatable $dataTable)
     {
-
         return $dataTable->render('admin.modulos.operacional.venda.index');
     }
 
@@ -41,7 +41,9 @@ class VendasController extends Controller
 
         $formas = VendaForma::pluck('nome', 'id')->all();
 
-        return view('admin.modulos.operacional.venda.create', compact('produtos', 'formas'));
+        $pessoas = Pessoa::where('tipo_id', 1)->orderBy('nome')->pluck('nome', 'id')->all();
+
+        return view('admin.modulos.operacional.venda.create', compact('produtos', 'formas', 'pessoas'));
     }
 
     /**
@@ -55,14 +57,24 @@ class VendasController extends Controller
 
         DB::transaction(function () use ($request) {
 
-            $venda = Venda::create($request->only('forma_id', 'desconto', 'total'));
+            $venda = Venda::create($request->only('pessoa_id', 'data', 'forma_id', 'desconto', 'total'));
 
-            $recebimento['venda_id'] = $venda->id;
-            $recebimento['categoria_id'] = 1;
-            $recebimento['data'] = Carbon::now();
-            $recebimento['total'] = $request->total;
+            if ($request->forma_id != 4) {
 
-            Recebimento::create($recebimento);
+                $recebimento['pessoa_id'] = $venda->pessoa_id;
+                $recebimento['venda_id'] = $venda->id;
+                $recebimento['categoria_id'] = 1;
+                $recebimento['data'] = $request->data;
+                $recebimento['total'] = $request->total;
+                $recebimento['forma_id'] = $request->forma_id;
+
+                Recebimento::create($recebimento);
+            } else {
+
+                $fiado = FiadoPessoa::wherePessoaId($venda->pessoa_id)->firstOrFail();
+                $total = $fiado->total + $request->total;
+                $fiado->update(['total' => $total]);
+            }
 
             $estoque = new EstoqueProdutosController();
 
@@ -138,11 +150,19 @@ class VendasController extends Controller
                 foreach ($produtos as $produto) {
 
                     $estoque->venda($produto['produto_id'], $produto['quantidade'], 'delete');
-
                 }
             }
 
-            Venda::findOrFail($id)->delete();
+            $venda = Venda::findOrFail($id);
+
+            if ($venda->forma_id == 4) {
+
+                $fiado = FiadoPessoa::wherePessoaId($venda->pessoa_id)->firstOrFail();
+                $total = formatMoney($fiado->total) - formatMoney($venda->total);
+                $fiado->update(['total' => $total]);
+            }
+
+            $venda->delete();
 
         });
 

@@ -44,6 +44,16 @@ class CreateFinanceiroCategoriasTable extends Migration
                 'updated_at' => Carbon::now(),
             )
         );
+
+        DB::table('financeiro_categorias')->insert(
+            array(
+                'centro_id' => '1',
+                'nome' => 'Fiado',
+                'fluxo' => '1',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            )
+        );
     }
 
     /**

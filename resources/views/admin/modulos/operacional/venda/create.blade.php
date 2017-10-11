@@ -101,10 +101,50 @@
         </div>
 
         <div class="col-xs-12 col-lg-3">
+            {!! Form::open(['id' => 'form-finalizar', 'data-parsley-validate']) !!}
             <div class="x_panel">
                 <div class="x_content">
-                    {!! Form::open(['id' => 'form-finalizar', 'data-parsley-validate']) !!}
                     <div class="row">
+                        <div class="form-group col-xs-6 col-sm-4 col-lg-12">
+                            {!! Form::label('pessoa_id', __('views.admin.venda.cliente'), ['class' => 'control-label']) !!}
+                            {!! Form::select('pessoa_id',
+                                    [
+                                        ''  =>  __('views.admin.select.default'),
+                                    ] + $pessoas,
+                                    null,
+                                    [
+                                        'id' => 'pessoa_id',
+                                        'class' => 'form-control',
+                                        'data-parsley-required-message' => "",
+                                    ]
+                                ) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-4 col-lg-12">
+                                    {!! Form::label('data', __('views.admin.venda.data'), ['class' => 'control-label']) !!}
+                                    <div class="input-group">
+                                        {!! Form::date('data', date('Y-m-d'), [
+                                            'class' => 'form-control',
+                                            'data-parsley-errors-container' => "#data-errors",
+                                            'required' => 'required',
+                                            ]
+                                        ) !!}
+                                        <span class="input-group-addon" aria-hidden="true"><i
+                                                    class="fa fa-calendar-o"></i></span>
+                                    </div>
+                                    <div id="data-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group col-xs-4 col-lg-12">
                             {!! Form::label('subtotal', __('views.admin.venda.subtotal'), ['class' => 'control-label']) !!}
                             <div class="input-group">
@@ -143,51 +183,55 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-xs-4 col-lg-12">
-                            <hr/>
-                            {!! Form::label('forma_id', __('views.admin.venda.forma'), ['class' => 'control-label']) !!}
-                            {!! Form::select('forma_id',
-                                    [
-                                        ''  =>  __('views.admin.select.default'),
-                                    ] + $formas,
-                                    null,
-                                    [
-                                        'id' => 'forma_id',
-                                        'class' => 'form-control',
-                                        'required' => 'required',
-                                        'data-parsley-required-message' => "",
-                                    ]
-                                ) !!}
-                        </div>
-
-                        <div id="div_troco" class="hidden">
+                        <div class="forma_id">
 
                             <div class="form-group col-xs-4 col-lg-12">
-                                <hr class="hidden-lg"/>
-                                {!! Form::label('recebido', __('views.admin.venda.recebido'), ['class' => 'control-label']) !!}
-                                <div class="input-group">
-                                    <span class="input-group-addon">R$</span>
-                                    {!! Form::tel('recebido', null, [
-                                        'id' => 'recebido',
-                                        'class' => 'form-control money',
-                                        'data-parsley-required-message' => "",
+                                <hr/>
+                                {!! Form::label('forma_id', __('views.admin.venda.forma'), ['class' => 'control-label']) !!}
+                                {!! Form::select('forma_id',
+                                        [
+                                            ''  =>  __('views.admin.select.default'),
+                                        ] + $formas,
+                                        null,
+                                        [
+                                            'id' => 'forma_id',
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                            'data-parsley-required-message' => "",
                                         ]
                                     ) !!}
-                                </div>
                             </div>
 
-                            <div class="form-group col-xs-4 col-lg-12">
-                                <hr class="hidden-lg"/>
-                                {!! Form::label('troco', __('views.admin.venda.troco'), ['class' => 'control-label']) !!}
-                                <div class="input-group">
-                                    <span class="input-group-addon">R$</span>
-                                    {!! Form::tel('troco', '0', [
-                                        'id' => 'troco',
-                                        'class' => 'form-control money',
-                                        'readonly' => 'readonly'
-                                        ]
-                                    ) !!}
+                            <div id="div_troco" class="hidden">
+
+                                <div class="form-group col-xs-4 col-lg-12">
+                                    <hr class="hidden-lg"/>
+                                    {!! Form::label('recebido', __('views.admin.venda.recebido'), ['class' => 'control-label']) !!}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">R$</span>
+                                        {!! Form::tel('recebido', null, [
+                                            'id' => 'recebido',
+                                            'class' => 'form-control money',
+                                            'data-parsley-required-message' => "",
+                                            ]
+                                        ) !!}
+                                    </div>
                                 </div>
+
+                                <div class="form-group col-xs-4 col-lg-12">
+                                    <hr class="hidden-lg"/>
+                                    {!! Form::label('troco', __('views.admin.venda.troco'), ['class' => 'control-label']) !!}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">R$</span>
+                                        {!! Form::tel('troco', '0', [
+                                            'id' => 'troco',
+                                            'class' => 'form-control money',
+                                            'readonly' => 'readonly'
+                                            ]
+                                        ) !!}
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -206,9 +250,9 @@
                     </div>
 
                 </div>
-                {!! Form::close() !!}
 
             </div>
+            {!! Form::close() !!}
         </div>
 
     </div>

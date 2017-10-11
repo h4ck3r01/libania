@@ -7,6 +7,7 @@ use App\FinanceiroCategoria;
 use App\Http\Controllers\Controller;
 use App\Pessoa;
 use App\RecebimentosDatatable;
+use App\VendaForma;
 use Illuminate\Http\Request;
 
 class RecebimentosController extends Controller
@@ -20,11 +21,13 @@ class RecebimentosController extends Controller
      */
     public function index(RecebimentosDatatable $dataTable)
     {
-        $categorias = FinanceiroCategoria::where('fluxo', 1)->orderBy('nome')->pluck('nome', 'nome')->all();
+        $categorias = FinanceiroCategoria::where('fluxo', 1)->orderBy('nome')->pluck('nome', 'id')->all();
 
-        $pessoas = Pessoa::where('tipo_id', 1)->orderBy('nome')->pluck('nome', 'nome')->all();
+        $pessoas = Pessoa::where('tipo_id', 1)->orderBy('nome')->pluck('nome', 'id')->all();
 
-        return $dataTable->render('admin.modulos.financeiro.recebimentos.index', compact('categorias', 'pessoas'));
+        $formas = VendaForma::orderBy('nome')->pluck('nome', 'id')->all();
+
+        return $dataTable->render('admin.modulos.financeiro.recebimentos.index', compact('categorias', 'pessoas', 'formas'));
     }
 
     /**
@@ -103,7 +106,10 @@ class RecebimentosController extends Controller
     {
         $data_inicial = $request->data_inicial;
         $data_final = $request->data_final;
+        $categoria = $request->categoria;
+        $cliente = $request->cliente;
+        $forma = $request->forma;
 
-        return $dataTable->addScope(new RecebimentosScope($data_inicial, $data_final))->render('admin.modulos.financeiro.recebimentos.index');
+        return $dataTable->addScope(new RecebimentosScope($data_inicial, $data_final, $categoria, $cliente, $forma))->render('admin.modulos.financeiro.recebimentos.index');
     }
 }

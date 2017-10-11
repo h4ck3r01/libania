@@ -39,7 +39,7 @@ $(".money").inputmask('decimal', {
     'digits': 2,
     'radixPoint': ",",
     'digitsOptional': false,
-    'allowMinus': false,
+    'allowMinus': true,
     'placeholder': ''
 });
 

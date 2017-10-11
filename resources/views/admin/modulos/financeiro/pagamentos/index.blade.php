@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', __('views.admin.recebimentos.title'))
+@section('title', __('views.admin.pagamentos.title'))
 
 @section('title-left')
     <i class='fa fa-money fa-fw'></i> {!! __('views.admin.pagamentos.title') !!}
@@ -67,18 +67,18 @@
 
                             <div class="row">
                                 <div class="form-group col-xs-8 col-sm-4 col-lg-3">
-                                    {!! Form::label('categoria', 'Categoria:', ['class' => 'control-label']) !!}
+                                    {!! Form::label('categoria', __('views.admin.pagamentos.categoria') . ':', ['class' => 'control-label']) !!}
                                     {!! Form::select('categoria', [''=> __('views.admin.select.default')] + $categorias,
                                               null,
                                                ['class' => 'form-control select2',
                                                'id' => 'categoria']) !!}
                                 </div>
                                 <div class="form-group col-xs-8 col-sm-4 col-lg-3">
-                                    {!! Form::label('cliente', 'Cliente:', ['class' => 'control-label']) !!}
-                                    {!! Form::select('cliente', [''=> __('views.admin.select.default')] + $pessoas,
+                                    {!! Form::label('fornecedor', __('views.admin.pagamentos.pessoa') . ':', ['class' => 'control-label']) !!}
+                                    {!! Form::select('fornecedor', [''=> __('views.admin.select.default')] + $pessoas,
                                               null,
                                                ['class' => 'form-control select2',
-                                               'id' => 'cliente']) !!}
+                                               'id' => 'fornecedor']) !!}
                                 </div>
                             </div>
 
@@ -103,6 +103,7 @@
                                 <th>{{ __('views.admin.pagamentos.index.table_header_2') }}</th>
                                 <th>{{ __('views.admin.pagamentos.index.table_header_3') }}</th>
                                 <th>{{ __('views.admin.pagamentos.index.table_header_4') }}</th>
+                                <th>{{ __('views.admin.pagamentos.index.table_header_5') }}</th>
                                 <th class="hidden"></th>
                             </tr>
                             </thead>

@@ -26,7 +26,7 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2><h2><i class="fa fa-barcode"></i> {{__('views.admin.venda.create.panel_1')}}</h2>
-                    <div class="clearfix"></div>
+                        <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                     <table class="table table-bordered table-striped nowrap" id="table-produtos">
@@ -54,9 +54,41 @@
         </div>
 
         <div class="col-xs-12 col-lg-3">
+
+            @if(!empty($venda->pessoa->nome))
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="form-group col-xs-6 col-sm-4 col-lg-12">
+                                {!! Form::label('pessoa_id', __('views.admin.venda.cliente'), ['class' => 'control-label']) !!}
+                                {!! Form::text('pessoa_id', $venda->pessoa->nome, [
+                                        'id' => 'pessoa_id',
+                                        'class' => 'form-control',
+                                        'readonly' => 'readonly'
+                                        ]
+                                    ) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="x_panel">
                 <div class="x_content">
                     <div class="row">
+                        <div class="form-group col-xs-4 col-lg-12">
+                            {!! Form::label('data', __('views.admin.venda.data'), ['class' => 'control-label']) !!}
+                            <div class="input-group">
+                                {!! Form::date('data', $venda->data, [
+                                    'class' => 'form-control',
+                                    'readonly' => 'readonly',
+                                    ]
+                                ) !!}
+                                <span class="input-group-addon" aria-hidden="true"><i
+                                            class="fa fa-calendar-o"></i></span>
+                            </div>
+                        </div>
+
                         <div class="form-group col-xs-4 col-lg-12">
                             {!! Form::label('subtotal', __('views.admin.venda.subtotal'), ['class' => 'control-label']) !!}
                             <div class="input-group">

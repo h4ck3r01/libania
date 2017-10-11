@@ -98,11 +98,15 @@ Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin'
     Route::resource('categorias', 'FinanceiroCategoriasController');
     Route::get('ajax/table-categorias', 'FinanceiroCategoriasController@getDataTable')->name('ajax.table-categorias');
     Route::get('resumo_centros_custo', 'FinanceiroCentrosController@resumo')->name('resumo_centros_custo');
-    Route::get('fluxo_caixa', 'VendasController@fluxo')->name('fluxo_caixa');
     Route::resource('recebimentos', 'RecebimentosController');
     Route::get('ajax/table-recebimentos', 'RecebimentosController@getDataTable')->name('ajax.table-recebimentos');
     Route::resource('pagamentos', 'PagamentosController');
+    Route::get('ajax/table-pagamentos', 'PagamentosController@getDataTable')->name('ajax.table-pagamentos');
+    Route::resource('caixa', 'CaixaController');
     Route::resource('fiado', 'FiadoPessoasController');
+    Route::get('ajax/table-fiado-vendas', 'FiadoPessoasController@getVendasDataTable')->name('ajax.table-fiado-vendas');
+    Route::get('ajax/table-fiado-recebimentos', 'FiadoPessoasController@getRecebimentosDataTable')->name('ajax.table-fiado-recebimentos');
+    Route::get('ajax/table-fiado-recebimentos/destroy/{id}', 'FiadoPessoasController@recebimentoDestroy')->name('ajax.table-fiado-recebimentos.destroy');
 
 });
 

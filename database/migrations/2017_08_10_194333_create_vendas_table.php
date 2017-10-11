@@ -37,6 +37,12 @@ class CreateVendasTable extends Migration
             )
         );
 
+        DB::table('venda_formas')->insert(
+            array(
+                'nome' => 'Fiado',
+            )
+        );
+
         Schema::create('vendas', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('fiado')->nullable();

@@ -2,58 +2,58 @@
 
     $(document).ready(function () {
 
-        let table = $("#table-recebimentos");
+        let table = $("#table-pagamentos");
 
-        $('#data_inicial, #data_final').on('change', function () {
+        $('#data_inicial, #data_final, #categoria, #fornecedor').on('change', function () {
             table.DataTable().ajax.reload();
         });
 
         table.DataTable({
             processing: true,
             serverSide: true,
-            order: [[2, 'desc']],
+            order: [[2, 'desc'], ['1', 'desc']],
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json'
             },
             ajax: {
                 type: 'GET',
-                url: '{!!  route('financeiro.ajax.table-recebimentos')!!}',
+                url: '{!!  route('financeiro.ajax.table-pagamentos')!!}',
                 data: function (d) {
                     d.data_inicial = $("#data_inicial").val(),
-                        d.data_final = $("#data_final").val()
+                        d.data_final = $("#data_final").val(),
+                        d.categoria = $("#categoria option:selected").val(),
+                        d.fornecedor = $("#fornecedor option:selected").val()
                 }
             },
             columns: [
-                {data: 'id', name: 'recebimentos.id', className: 'hidden'},
-                {data: 'venda_id', name: 'recebimentos.venda_id', className: 'text-center', width: '10%'},
-                {data: 'data', name: 'recebimentos.data', className: 'text-center', width: '10%', 'searchable': false},
+                {data: 'id', name: 'pagamentos.id', className: 'hidden'},
+                {data: 'compra_id', name: 'pagamentos.compra_id', className: 'text-center', width: '10%'},
+                {
+                    data: 'vencimento',
+                    name: 'pagamentos.vencimento',
+                    className: 'text-center',
+                    width: '10%',
+                    'searchable': false
+                },
+                {
+                    data: 'pagamento',
+                    name: 'pagamentos.pagamento',
+                    className: 'text-center',
+                    width: '10%',
+                    'searchable': false
+                },
                 {data: 'categoria.nome', name: 'categoria.nome', width: '20%'},
-                {data: 'pessoa.nome', name: 'pessoa.nome', width: '50%', defaultContent: ''},
-                {data: 'recebimentos.total', name: 'recebimentos.total', className: 'text-right', width: '10%'},
+                {data: 'pessoa.nome', name: 'pessoa.nome', width: '40%', defaultContent: ''},
+                {data: 'pagamentos.total', name: 'pagamentos.total', className: 'text-right', width: '10%'},
                 {data: 'total', name: 'sum', className: 'hidden'}
             ],
-            initComplete: function () {
-
-                let categoria_column = this.api().columns(3);
-                let cliente_column = this.api().columns(4);
-
-                $('#categoria')
-                    .on('change', function () {
-
-                        filter($(this).val(), categoria_column);
-                    });
-
-                $('#cliente')
-                    .on('change', function () {
-
-                        filter($(this).val(), cliente_column);
-                    });
-            },
             fnDrawCallback: function () {
 
-                var total = $("#table-recebimentos").DataTable().column(6, {"page": "applied"}).data().sum();
+                var api = this.api();
+                var json = api.ajax.json();
+                var sum = parseMoney(JSON.parse(json.sum));
 
-                $("#total").html('{{__("views.admin.recebimentos.index.footer")}}' + parseMoney(total));
+                $("#total").html('{{__("views.admin.pagamentos.index.footer")}}' + sum);
             }
         });
 

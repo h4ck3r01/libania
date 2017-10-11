@@ -67,14 +67,14 @@
 
                             <div class="row">
                                 <div class="form-group col-xs-8 col-sm-4 col-lg-3">
-                                    {!! Form::label('categoria', 'Categoria:', ['class' => 'control-label']) !!}
+                                    {!! Form::label('categoria', __('views.admin.recebimentos.categoria') . ':', ['class' => 'control-label']) !!}
                                     {!! Form::select('categoria', [''=> __('views.admin.select.default')] + $categorias,
                                               null,
                                                ['class' => 'form-control select2',
                                                'id' => 'categoria']) !!}
                                 </div>
                                 <div class="form-group col-xs-8 col-sm-4 col-lg-3">
-                                    {!! Form::label('cliente', 'Cliente:', ['class' => 'control-label']) !!}
+                                    {!! Form::label('cliente', __('views.admin.recebimentos.pessoa') . ':', ['class' => 'control-label']) !!}
                                     {!! Form::select('cliente', [''=> __('views.admin.select.default')] + $pessoas,
                                               null,
                                                ['class' => 'form-control select2',
@@ -103,7 +103,7 @@
                                 <th>{{ __('views.admin.recebimentos.index.table_header_2') }}</th>
                                 <th>{{ __('views.admin.recebimentos.index.table_header_3') }}</th>
                                 <th>{{ __('views.admin.recebimentos.index.table_header_4') }}</th>
-                                <th class="hidden"></th>
+                                <th>{{ __('views.admin.recebimentos.index.table_header_5') }}</th>
                             </tr>
                             </thead>
                             <tbody>

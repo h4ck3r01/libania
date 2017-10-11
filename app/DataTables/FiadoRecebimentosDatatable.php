@@ -8,9 +8,10 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Yajra\Datatables\Services\DataTable;
 
-class RecebimentosDatatable extends Datatable
+class FiadoRecebimentosDatatable extends Datatable
 {
 
     public function ajax()
@@ -26,7 +27,9 @@ class RecebimentosDatatable extends Datatable
             ->filterColumn('recebimentos.total', function ($query, $keyword) {
                 $query->whereRaw("recebimentos.total like ?", ["%" . formatMoney($keyword) . "%"]);
             })
-            ->with('sum', $this->sum())
+            ->addColumn('action', function ($query) {
+                return '<a href="' . route('financeiro.ajax.table-fiado-recebimentos.destroy', $query->id) . '" class="btn btn-xs btn-danger"><i class="fa fa-times-circle fa-fw"></i> ' . __('views.admin.fiado.index.button.destroy') . '</a>';
+            })
             ->make(true);
     }
 
@@ -35,18 +38,8 @@ class RecebimentosDatatable extends Datatable
      */
     public function query()
     {
-        $recebimentos = Recebimento::select('recebimentos.*')->with(['categoria', 'pessoa', 'forma']);
+        $recebimentos = Recebimento::select('recebimentos.*')->with(['forma']);
 
         return $this->applyScopes($recebimentos);
     }
-
-    public function sum()
-    {
-        $total = Recebimento::select('total');
-
-        $sum = $this->applyScopes($total);
-
-        return $sum->sum('total');
-    }
-
 }

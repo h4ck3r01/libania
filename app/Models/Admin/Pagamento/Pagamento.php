@@ -13,7 +13,13 @@ class Pagamento extends Model
         'categoria_id',
         'pessoa_id',
         'vencimento',
+        'pagamento',
         'total'
+    ];
+
+    protected $dates = [
+        'vencimento',
+        'pagamento'
     ];
 
     public function compra()

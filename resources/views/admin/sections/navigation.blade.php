@@ -96,11 +96,11 @@
                                 <a href="{{ route('financeiro.recebimentos.index') }}">{{__('views.backend.section.navigation.menu_3_5')}}</a>
                             </li>
                             <li>
-                                <a href="{{ route('financeiro.fluxo_caixa') }}">{{__('views.backend.section.navigation.menu_3_6')}}</a>
+                                <a href="{{ route('financeiro.caixa.index') }}">{{__('views.backend.section.navigation.menu_3_6')}}</a>
                             </li>
-                            <!--<li>
+                            <li>
                                 <a href="{{ route('financeiro.fiado.index') }}">{{__('views.backend.section.navigation.menu_3_7')}}</a>
-                            </li>-->
+                            </li>
                         </ul>
                     </li>
 

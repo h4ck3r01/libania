@@ -37,7 +37,9 @@ class Pessoa extends Model
 
     protected function setNomeAttribute($nome)
     {
-        return $this->attributes['nome'] = ucwords(strtolower($nome));
+        $nome = capitalizeName($nome);
+
+        return $this->attributes['nome'] = $nome;
     }
 
     protected function setEmailAttribute($nome)

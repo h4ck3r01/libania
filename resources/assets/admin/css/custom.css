@@ -26,3 +26,7 @@
 tr.selected{
     background: #DCF4EF;
 }
+
+.checkbox-lg {
+    width: 25px; height: 25px;
+}

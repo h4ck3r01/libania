@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', __('views.admin.produto.title'))
+@section('title', __('views.admin.estoque.title'))
 
 @section('title-left')
     <i class='fa fa-dropbox fa-fw'></i> {!! __('views.admin.estoque.title') !!}

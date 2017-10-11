@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\FiadoPessoa;
 use App\Http\Controllers\Controller;
 use App\Pessoa;
 use App\PessoasDatatable;
 use App\PessoaTipo;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -47,7 +49,14 @@ class PessoasController extends Controller
      */
     public function store(Request $request)
     {
-        Pessoa::create($request->all());
+
+        DB::transaction(function () use ($request) {
+
+            $pessoa = Pessoa::create($request->all());
+
+            if ($request->tipo_id == 1)
+                FiadoPessoa::create(['pessoa_id' => $pessoa->id, 'total' => 0]);
+        });
 
         Session::flash('created', __('views.admin.flash.created'));
 
@@ -77,7 +86,7 @@ class PessoasController extends Controller
 
         $tipos = PessoaTipo::pluck('nome', 'id')->all();
 
-        return view('admin.modulos.cadastro.pessoa.edit', compact( 'pessoa', 'tipos'));
+        return view('admin.modulos.cadastro.pessoa.edit', compact('pessoa', 'tipos'));
     }
 
     /**
