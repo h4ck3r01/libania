@@ -2,6 +2,18 @@
 
     $(document).ready(function () {
 
+        function clearPagamento() {
+
+            $('#vencimento').val('');
+            $('#pessoa_id').val('').trigger('change');
+            $('#categoria_id').val('');
+            $('#pagamento_total').val('');
+
+            $('#modal-pagamento').modal('toggle');
+
+            $('#table-pagamentos').DataTable().ajax.reload();
+        }
+
         let table = $("#table-pagamentos");
 
         $('#data_inicial, #data_final, #categoria, #fornecedor').on('change', function () {
@@ -35,15 +47,16 @@
                     width: '10%',
                     'searchable': false
                 },
-                {
+                /*{
                     data: 'pagamento',
                     name: 'pagamentos.pagamento',
                     className: 'text-center',
                     width: '10%',
                     'searchable': false
-                },
-                {data: 'categoria.nome', name: 'categoria.nome', width: '20%'},
-                {data: 'pessoa.nome', name: 'pessoa.nome', width: '40%', defaultContent: ''},
+                },*/
+                {data: 'categoria.nome', name: 'categoria.nome', width: '10%'},
+                {data: 'pessoa.nome', name: 'pessoa.nome', width: '25%', defaultContent: ''},
+                {data: 'obs', name: 'pagamentos.obs', width: '25%', defaultContent: ''},
                 {data: 'pagamentos.total', name: 'pagamentos.total', className: 'text-right', width: '10%'},
                 {data: 'total', name: 'sum', className: 'hidden'}
             ],
@@ -57,5 +70,54 @@
             }
         });
 
-    });
+        $('#form-pagamento').on('submit', function (e) {
+
+            e.preventDefault();
+
+            if ($(this).parsley().isValid()) {
+
+                let url = '{{  route('financeiro.pagamentos.store') }}';
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        vencimento: $("#vencimento").val(),
+                        pessoa_id: $("#pessoa_id option:selected").val(),
+                        categoria_id: $("#categoria_id option:selected").val(),
+                        total: formatMoney($("#pagamento_total").val()),
+                        obs: $("#obs").val(),
+                    },
+                    success: function (data) {
+
+                        let alertType;
+
+                        (data['title'] == '{{__('views.admin.notify.success')}}') ? alertType = 'green' : alertType = 'red';
+
+                        $.alert({
+                            backgroundDismiss: true,
+                            type: alertType,
+                            typeAnimated: true,
+                            title: data['title'],
+                            content: data['message'],
+                        });
+
+                        clearPagamento();
+                    },
+                    error: function () {
+
+                        $.alert({
+                            backgroundDismiss: true,
+                            type: 'red',
+                            typeAnimated: true,
+                            title: '{{__('views.admin.notify.error')}}',
+                            content: '{{ __('views.admin.notify.error.message') }}',
+                        });
+                    }
+                });
+            }
+        });
+
+    })
 </script>

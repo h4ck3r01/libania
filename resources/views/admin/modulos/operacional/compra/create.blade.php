@@ -82,12 +82,47 @@
 
         <div class="col-xs-4 col-lg-3">
             <div class="x_panel">
-                <div class="x_title">
-                    <h2><i class="fa fa-money"></i> {{__('views.admin.compra.total')}}</h2>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="x_content">
+
                     <div class="form-group col-xs-12">
+                        {!! Form::label('subtotal', __('views.admin.compra.subtotal'), ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            {!! Form::tel('subtotal', 0, [
+                                'id' => 'subtotal',
+                                'class' => 'form-control money',
+                                'readonly' => 'readonly',
+                                ]
+                            ) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        {!! Form::label('desconto', __('views.admin.compra.desconto'), ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            {!! Form::tel('desconto', 0, [
+                                'id' => 'desconto',
+                                'class' => 'form-control money',
+                                ]
+                            ) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        {!! Form::label('juros', __('views.admin.compra.juros'), ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            {!! Form::tel('juros', 0, [
+                                'id' => 'juros',
+                                'class' => 'form-control money',
+                                ]
+                            ) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        {!! Form::label('total', __('views.admin.compra.total'), ['class' => 'control-label']) !!}
                         <div class="input-group">
                             <span class="input-group-addon">R$</span>
                             {!! Form::tel('total', 0, [
@@ -109,7 +144,7 @@
 
             <div class="x_panel">
                 <div class="x_title">
-                    <h2><i class="fa fa-barcode"></i> {{__('views.admin.movimento.create.title_2')}}</h2>
+                    <h2><i class="fa fa-barcode"></i> {{__('views.admin.compra.create.title_2')}}</h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -118,7 +153,7 @@
 
                         <div id="{{$i}}" class="row @if($i != 0 ) hidden @endif">
                             <div class="form-group col-xs-4">
-                                {!! Form::label('produto', __('views.admin.movimento.nome'), ['class' => 'control-label']) !!}
+                                {!! Form::label('produto', __('views.admin.compra.nome'), ['class' => 'control-label']) !!}
                                 {!! Form::select('produto[' . $i . ']',
                                         [
                                             ''  =>  __('views.admin.select.default'),
@@ -132,7 +167,7 @@
                             </div>
 
                             <div class="form-group col-xs-2 col-lg-1">
-                                {!! Form::label('quantidade', __('views.admin.movimento.quantidade'), ['class' => 'control-label']) !!}
+                                {!! Form::label('quantidade', __('views.admin.compra.quantidade'), ['class' => 'control-label']) !!}
                                 {!! Form::number('quantidade[' . $i . ']', null, [
                                     'class' => 'form-control quantidade',
                                     'data-parsley-required-message' => "",

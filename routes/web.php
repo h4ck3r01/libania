@@ -86,9 +86,12 @@ Route::group(['prefix' => 'admin', 'as' => 'operacional.', 'namespace' => 'Admin
 
 Route::group(['prefix' => 'admin', 'as' => 'administrativo.', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
 
-    Route::get('relacao_produtos', 'AdminController@productsRelation')->name('relacao_produtos');
-    Route::get('relacao_vendas', 'AdminController@salesRelation')->name('relacao_vendas');
-    Route::get('relacao_compras', 'AdminController@purchasesRelation')->name('relacao_compras');
+
+    Route::get('relacao_vendas', 'AdminController@relacaoVendas')->name('relacao_vendas');
+    Route::get('ajax/table-relacao_vendas', 'AdminController@getRelacaoVendasDataTable')->name('ajax.table-relacao-vendas');
+    Route::get('relacao_produtos', 'AdminController@relacaoProdutos')->name('relacao_produtos');
+    Route::get('ajax/table-relacao_produtos', 'AdminController@getRelacaoProdutosDataTable')->name('ajax.table-relacao-produtos');
+    Route::get('balanco', 'AdminController@balanco')->name('balanco');
 
 });
 
@@ -107,6 +110,11 @@ Route::group(['prefix' => 'admin', 'as' => 'financeiro.', 'namespace' => 'Admin'
     Route::get('ajax/table-fiado-vendas', 'FiadoPessoasController@getVendasDataTable')->name('ajax.table-fiado-vendas');
     Route::get('ajax/table-fiado-recebimentos', 'FiadoPessoasController@getRecebimentosDataTable')->name('ajax.table-fiado-recebimentos');
     Route::get('ajax/table-fiado-recebimentos/destroy/{id}', 'FiadoPessoasController@recebimentoDestroy')->name('ajax.table-fiado-recebimentos.destroy');
+    Route::resource('fechamento', 'FechamentoController');
+
+    Route::get('ajax/table-fechamento-dinheiro', 'RecebimentosController@getFechamentoDinheiro')->name('ajax.table-fechamento-dinheiro');
+    Route::get('ajax/table-fechamento-cartao', 'RecebimentosController@getFechamentoCartao')->name('ajax.table-fechamento-cartao');
+    Route::get('ajax/table-fechamento-pagamentos', 'PagamentosController@getFechamentoPagamentos')->name('ajax.table-fechamento-pagamentos');
 
 });
 

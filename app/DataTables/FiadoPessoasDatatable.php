@@ -69,7 +69,7 @@ class FiadoPessoasDatatable extends Datatable
                     ]
                 ]
             ],
-            'order' => [0, 'desc']
+            'order' => [0, 'asc']
         ];
     }
 
@@ -103,8 +103,8 @@ class FiadoPessoasDatatable extends Datatable
                 return '<a href="' . route('financeiro.fiado.show', $query->id) . '" class="btn btn-xs btn-success"><i class="fa fa-eye"></i> ' . __('views.admin.fiado.index.button.show') . '</a>';
             })
             ->editColumn('data_ultimo', function ($query) {
-                if ($query->data != '')
-                    return $query->data->format('d/m/Y');
+                if ($query->data_ultimo != '')
+                    return $query->data_ultimo->format('d/m/Y');
             })
             ->editColumn('total_ultimo', function ($query) {
                 return parseMoney($query->total_ultimo);

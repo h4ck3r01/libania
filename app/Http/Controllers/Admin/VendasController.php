@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\FiadoPessoa;
+use App\FiadoVendas;
 use App\Http\Controllers\Controller;
 use App\Pessoa;
 use App\Produto;
@@ -57,7 +58,8 @@ class VendasController extends Controller
 
         DB::transaction(function () use ($request) {
 
-            $venda = Venda::create($request->only('pessoa_id', 'data', 'forma_id', 'desconto', 'total'));
+
+            $venda = Venda::create($request->only('pessoa_id', 'data', 'forma_id', 'desconto', 'total', 'forma_id_opcional'));
 
             if ($request->forma_id != 4) {
 
@@ -65,15 +67,49 @@ class VendasController extends Controller
                 $recebimento['venda_id'] = $venda->id;
                 $recebimento['categoria_id'] = 1;
                 $recebimento['data'] = $request->data;
-                $recebimento['total'] = $request->total;
+                $recebimento['total'] = $request->total_1;
                 $recebimento['forma_id'] = $request->forma_id;
 
                 Recebimento::create($recebimento);
             } else {
 
                 $fiado = FiadoPessoa::wherePessoaId($venda->pessoa_id)->firstOrFail();
-                $total = $fiado->total + $request->total;
+                $total = $fiado->total + $request->total_1;
                 $fiado->update(['total' => $total]);
+
+                $fiadoVenda['pessoa_id'] = $venda->pessoa_id;
+                $fiadoVenda['venda_id'] = $venda->id;
+                $fiadoVenda['data'] = $request->data;
+                $fiadoVenda['total'] = $request->total_1;
+
+                FiadoVendas::create($fiadoVenda);
+            }
+
+            if ($request->forma_id_opcional != '') {
+
+                if ($request->forma_id_opcional != 4) {
+
+                    $recebimento['pessoa_id'] = $venda->pessoa_id;
+                    $recebimento['venda_id'] = $venda->id;
+                    $recebimento['categoria_id'] = 1;
+                    $recebimento['data'] = $request->data;
+                    $recebimento['total'] = $request->total_2;
+                    $recebimento['forma_id'] = $request->forma_id_opcional;
+
+                    Recebimento::create($recebimento);
+                } else {
+
+                    $fiado = FiadoPessoa::wherePessoaId($venda->pessoa_id)->firstOrFail();
+                    $total = $fiado->total + $request->total_2;
+                    $fiado->update(['total' => $total]);
+
+                    $fiadoVenda['pessoa_id'] = $venda->pessoa_id;
+                    $fiadoVenda['venda_id'] = $venda->id;
+                    $fiadoVenda['data'] = $request->data;
+                    $fiadoVenda['total'] = $request->total_2;
+
+                    FiadoVendas::create($fiadoVenda);
+                }
             }
 
             $estoque = new EstoqueProdutosController();
@@ -104,7 +140,9 @@ class VendasController extends Controller
 
         $venda = Venda::findOrFail($id);
 
-        return view('admin.modulos.operacional.venda.show', compact('venda'));
+        $recebimentos = Recebimento::whereVendaId($venda->id)->get();
+
+        return view('admin.modulos.operacional.venda.show', compact('venda', 'recebimentos'));
     }
 
     /**
@@ -115,7 +153,15 @@ class VendasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $venda = Venda::findOrFail($id);
+
+        $produtos = Produto::orderBy('nome')->pluck('nome', 'id')->all();
+
+        $formas = VendaForma::pluck('nome', 'id')->all();
+
+        $pessoas = Pessoa::where('tipo_id', 1)->orderBy('nome')->pluck('nome', 'id')->all();
+
+        return view('admin.modulos.operacional.venda.edit', compact('venda', 'produtos', 'formas', 'pessoas'));
     }
 
     /**

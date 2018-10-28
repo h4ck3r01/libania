@@ -39,9 +39,4 @@ class Recebimento extends Model
     {
         return $this->belongsTo(Pessoa::class);
     }
-
-    protected function setTotalAttribute($total)
-    {
-        return $this->attributes['total'] = formatMoney($total);
-    }
 }

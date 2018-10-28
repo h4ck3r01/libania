@@ -25,6 +25,20 @@
 
         }
 
+        function calcTotal(){
+
+            let subtotal = formatMoney($('#subtotal').val());
+            let desconto = formatMoney($('#desconto').val());
+            let juros = formatMoney($('#juros').val());
+
+            let total = (subtotal - desconto) + juros;
+
+            if (total < 0)
+                total = 0;
+
+            $('#total').val(total);
+        }
+
         $("#add").on('click', function () {
 
             count++;
@@ -79,7 +93,9 @@
                 }
             });
 
-            $('#total').val(total);
+            $('#subtotal').val(total);
+
+            calcTotal();
 
         });
 
@@ -100,6 +116,11 @@
             let input = $("input[name='preco[" + id + "]']");
 
             getProdutoPreco($(this).val(), input);
+        });
+
+        $('#desconto, #juros').on('blur', function () {
+
+            calcTotal();
         });
 
     });

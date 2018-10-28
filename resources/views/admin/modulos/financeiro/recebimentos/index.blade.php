@@ -80,6 +80,14 @@
                                                ['class' => 'form-control select2',
                                                'id' => 'cliente']) !!}
                                 </div>
+
+                                <div class="form-group col-xs-8 col-sm-4 col-lg-3">
+                                    {!! Form::label('forma', __('views.admin.recebimentos.forma') . ':', ['class' => 'control-label']) !!}
+                                    {!! Form::select('forma', [''=> __('views.admin.select.default')] + $formas,
+                                              null,
+                                               ['class' => 'form-control select2',
+                                               'id' => 'forma']) !!}
+                                </div>
                             </div>
 
                         </div>

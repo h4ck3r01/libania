@@ -34,35 +34,30 @@ class EstoqueProdutosDatatable extends Datatable
                 'width' => '10%',
                 'className' => 'text-center',
                 'searchable' => false,
-                'orderable' => false,
             ],
             'movimento_saida' => [
                 'title' => __('views.admin.estoque.index.table_header_4'),
                 'width' => '10%',
                 'className' => 'text-center',
                 'searchable' => false,
-                'orderable' => false,
             ],
             'compra' => [
                 'title' => __('views.admin.estoque.index.table_header_5'),
                 'width' => '10%',
                 'className' => 'text-center',
                 'searchable' => false,
-                'orderable' => false,
             ],
             'venda' => [
                 'title' => __('views.admin.estoque.index.table_header_6'),
                 'width' => '10%',
                 'className' => 'text-center',
                 'searchable' => false,
-                'orderable' => false,
             ],
             'total' => [
                 'title' => __('views.admin.estoque.index.table_header_7'),
                 'width' => '10%',
                 'className' => 'text-center',
                 'searchable' => false,
-                'orderable' => false,
             ]
         ];
     }

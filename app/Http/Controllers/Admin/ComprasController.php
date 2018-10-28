@@ -51,7 +51,7 @@ class ComprasController extends Controller
 
         DB::transaction(function () use ($request) {
 
-            $compra_input = $request->except('produto', 'quantidade', 'preco', 'produto_total');
+            $compra_input = $request->except('subtotal', 'produto', 'quantidade', 'preco', 'produto_total');
 
             $compra = Compra::create($compra_input);
 

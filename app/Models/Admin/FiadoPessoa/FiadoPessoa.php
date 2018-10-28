@@ -13,17 +13,11 @@ class FiadoPessoa extends Model
         'total_ultimo'
     ];
 
+    protected $dates = [
+        'data_ultimo'
+    ];
+
     public function pessoa(){
         return $this->belongsTo(Pessoa::class);
-    }
-
-    protected function setTotalAttribute($total)
-    {
-        return $this->attributes['total'] = formatMoney($total);
-    }
-
-    protected function setTotalUltimoAttribute($total_ultimo)
-    {
-        return $this->attributes['total_ultimo'] = formatMoney($total_ultimo);
     }
 }

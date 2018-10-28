@@ -89,6 +89,16 @@
 
             <div class="x_panel">
                 <div class="x_title">
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-6 text-right">
+                            <button id="pagamento_insert" class="btn btn-success" data-toggle="modal"
+                                    data-target="#modal-pagamento"><i class="fa fa-plus-square"></i></button>
+                            <button id="pagamento_update" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#modal-pagamento" disabled><i class="fa fa-edit"></i></button>
+                            <button id="pagamento_delete" class="btn btn-danger" disabled><i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -99,11 +109,12 @@
                             <tr>
                                 <th class="hidden"></th>
                                 <th>{{ __('views.admin.pagamentos.index.table_header_0') }}</th>
-                                <th>{{ __('views.admin.pagamentos.index.table_header_1') }}</th>
+                                <!--<th>{{ __('views.admin.pagamentos.index.table_header_1') }}</th>-->
                                 <th>{{ __('views.admin.pagamentos.index.table_header_2') }}</th>
                                 <th>{{ __('views.admin.pagamentos.index.table_header_3') }}</th>
                                 <th>{{ __('views.admin.pagamentos.index.table_header_4') }}</th>
                                 <th>{{ __('views.admin.pagamentos.index.table_header_5') }}</th>
+                                <th>{{ __('views.admin.pagamentos.index.table_header_6') }}</th>
                                 <th class="hidden"></th>
                             </tr>
                             </thead>

@@ -47,12 +47,14 @@
 
         });
 
-        $("#forma_id").change(function () {
+        $("#forma_id, #forma_id_opcional").change(function () {
 
-            if ($("option:selected", this).val() == 4) {
+            if ($("#forma_id option:selected").val() == 4
+                || $("#forma_id_opcional option:selected").val() == 4) {
                 $("#pessoa_id").prop('required', true);
             } else {
                 $("#pessoa_id").prop('required', false);
+                $("#add_forma").prop('disabled', false);
             }
 
             $('#form-finalizar').parsley().reset();
@@ -78,9 +80,8 @@
 
                 $("#subtotal").val(subtotal);
                 $("#total").val(total);
-
-                $("#recebido").val('0');
-                $("#troco").val('0');
+                $("#total_1").val(total);
+                $('#total_2').val('0');
 
                 $('#table-produtos tbody').append(
                     `<tr>
@@ -124,6 +125,8 @@
                 total = 0;
 
             $("#total").val(total);
+            $("#total_1").val(total);
+            $('#total_2').val('0');
 
             $(this).closest('tr').remove();
 
@@ -143,80 +146,105 @@
                 total = 0;
 
             $('#total').val(total);
+            $('#total_1').val(total);
+            $('#total_2').val('0');
 
         });
 
         $('#form-finalizar').on('submit', function (e) {
 
-            e.preventDefault();
+                e.preventDefault();
 
-            if ($(this).parsley().isValid()) {
-
-                let produtos = [];
-
-                $('#table-produtos > tbody > tr').each(function () {
-                    let produto_id = $.trim($(this).find('td:eq(0)').text());
-                    let produto_quantidade = $.trim($(this).find('td:eq(2)').text());
-                    let produto_total = formatMoney($.trim($(this).find('td:eq(3)').text()));
-
-                    produtos.push({
-                        'produto_id': produto_id,
-                        'produto_quantidade': produto_quantidade,
-                        'produto_total': produto_total
-                    });
-
-                });
-
-                let pessoa_id = $('#pessoa_id option:selected').val();
-
-                let data = $('#data').val();
                 let total = formatMoney($('#total').val());
-                let desconto = formatMoney($('#desconto').val());
-                let forma_id = $('#forma_id').val();
 
-                let url = '{{  route('operacional.venda.store') }}';
+                let total_1 = formatMoney($("#total_1").val());
+                let total_2 = formatMoney($("#total_2").val());
 
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        produtos: produtos,
-                        pessoa_id: pessoa_id,
-                        data: data,
-                        total: total,
-                        desconto: desconto,
-                        forma_id: forma_id,
-                    },
-                    success: function (data) {
+                let validate = total_1 + total_2;
 
-                        let alertType;
+                if ($(this).parsley().isValid()) {
 
-                        (data['title'] == '{{__('views.admin.notify.success')}}') ? alertType = 'green' : alertType = 'red';
+                    if (total == validate) {
 
-                        $.alert({
-                            backgroundDismiss: true,
-                            type: alertType,
-                            typeAnimated: true,
-                            title: data['title'],
-                            content: data['message'],
+                        let produtos = [];
+
+                        $('#table-produtos > tbody > tr').each(function () {
+                            let produto_id = $.trim($(this).find('td:eq(0)').text());
+                            let produto_quantidade = $.trim($(this).find('td:eq(2)').text());
+                            let produto_total = formatMoney($.trim($(this).find('td:eq(3)').text()));
+
+                            produtos.push({
+                                'produto_id': produto_id,
+                                'produto_quantidade': produto_quantidade,
+                                'produto_total': produto_total
+                            });
+
                         });
 
-                        clearVenda();
-                    },
-                    error: function () {
+                        let pessoa_id = $('#pessoa_id option:selected').val();
+                        let data = $('#data').val();
+                        let desconto = formatMoney($('#desconto').val());
+                        let forma_id = $('#forma_id option:selected').val();
+                        let forma_id_opcional = $('#forma_id_opcional option:selected').val();
 
+
+                        let url = '{{  route('operacional.venda.store') }}';
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                produtos: produtos,
+                                pessoa_id: pessoa_id,
+                                data: data,
+                                total: total,
+                                desconto: desconto,
+                                forma_id: forma_id,
+                                forma_id_opcional: forma_id_opcional,
+                                total_1: total_1,
+                                total_2: total_2
+                            },
+                            success: function (data) {
+
+                                let alertType;
+
+                                (data['title'] == '{{__('views.admin.notify.success')}}') ? alertType = 'green' : alertType = 'red';
+
+                                $.alert({
+                                    backgroundDismiss: true,
+                                    type: alertType,
+                                    typeAnimated: true,
+                                    title: data['title'],
+                                    content: data['message'],
+                                });
+
+                                clearVenda();
+                            },
+                            error: function () {
+
+                                $.alert({
+                                    backgroundDismiss: true,
+                                    type: 'red',
+                                    typeAnimated: true,
+                                    title: '{{__('views.admin.notify.error')}}',
+                                    content: '{{ __('views.admin.notify.error.message') }}',
+                                });
+                            }
+                        });
+                    }
+                    else {
                         $.alert({
                             backgroundDismiss: true,
                             type: 'red',
                             typeAnimated: true,
-                            title: '{{__('views.admin.notify.error')}}',
-                            content: '{{ __('views.admin.notify.error.message') }}',
+                            title: '{{__('views.admin.venda.alert.valor.title')}}',
+                            content: '{{ __('views.admin.venda.alert.valor.message') }}',
                         });
                     }
-                });
+                }
             }
-        });
+        );
 
         function clearVenda() {
 
@@ -241,42 +269,25 @@
             $("#subtotal").val('0');
             $("#desconto").val('0');
             $("#total").val('0');
-            $("#forma_id").val('');
 
-            $('#div_troco').addClass('hidden');
-            $("#recebido").val('0');
-            $('#troco').val('0');
+            $("#forma_id").val('');
+            $("#total_1").val('');
+
+            $("#forma_id_opcional").val('');
+            $("#total_2").val('');
+
+            $("#forma_2").addClass("hidden");
+            $("#forma_id_opcional").prop('required', false);
+            $("#total_2").prop('required', false);
+
+            $("#remove_forma_div").addClass("hidden");
+            $("#add_forma_div").removeClass("hidden");
 
             $("#finalizar").attr('disabled', true);
 
             $('#table-produtos tbody').empty();
 
-            $('#recebido').attr('required', false);
         }
-
-        $('#forma_id').on('change', function () {
-
-            if ($(this).val() == 1) {
-                $('#div_troco').removeClass('hidden');
-                $('#recebido').attr('required', true);
-            }
-            else {
-                $('#div_troco').addClass('hidden');
-                $("#recebido").attr('required', false);
-            }
-        });
-
-        $('#recebido').on('blur', function () {
-
-            let total = formatMoney($('#total').val());
-            let recebido = formatMoney($(this).val());
-            let troco = recebido - total;
-
-            if (troco > 0)
-                $('#troco').val(troco);
-            else
-                $('#troco').val('0');
-        });
 
         $('#form-delete').on('submit', function (e, done) {
 
@@ -301,6 +312,64 @@
                 });
             }
         });
+
+        $("#add_forma").on('click', function () {
+
+            $("#forma_2").removeClass("hidden");
+            $("#add_forma_div").addClass("hidden");
+            $("#remove_forma_div").removeClass("hidden");
+            $("#forma_id_opcional").prop('required', true);
+            $("#total_2").prop('required', true);
+
+            calcTotal_2();
+        });
+
+        $("#remove_forma").on('click', function () {
+
+            $("#forma_2").addClass("hidden");
+            $("#remove_forma_div").addClass("hidden");
+            $("#add_forma_div").removeClass("hidden");
+            $("#forma_id_opcional").val('');
+            $("#forma_id_opcional").prop('required', false);
+            $("#total_2").val('0');
+            $("#total_2").prop('required', false);
+
+            calcTotal_1();
+        });
+
+        $("#total_1").on('change', function () {
+
+            if (!$("#forma_2").hasClass("hidden")) {
+
+                calcTotal_2();
+            }
+        });
+
+        $("#total_2").on('change', function () {
+
+            calcTotal_1();
+        });
+
+        function calcTotal_1() {
+
+            let total = formatMoney($("#total").val());
+            let total_2 = formatMoney($("#total_2").val());
+
+            let total_1 = total - total_2;
+
+            $("#total_1").val(total_1);
+        }
+
+
+        function calcTotal_2() {
+
+            let total = formatMoney($("#total").val());
+            let total_1 = formatMoney($("#total_1").val());
+
+            let total_2 = total - total_1;
+
+            $("#total_2").val(total_2);
+        }
 
     });
 

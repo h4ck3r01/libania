@@ -32,9 +32,9 @@
 
                     <div class="row">
                         <div class="form-group col-xs-6 col-sm-2">
-                            {!! Form::label('data', __('views.admin.compra.data'), ['class' => 'control-label']) !!}
+                            {!! Form::label('vencimento', __('views.admin.compra.vencimento'), ['class' => 'control-label']) !!}
                             <div class="input-group">
-                                {!! Form::date('data', $compra->data, [
+                                {!! Form::date('vencimento', $compra->vencimento, [
                                     'class' => 'form-control',
                                     'readonly' => 'readonly',
                                     ]
@@ -79,13 +79,49 @@
 
         <div class="col-xs-4 col-lg-3">
             <div class="x_panel">
-                <div class="x_title">
-                    <h2><i class="fa fa-money"></i> {{__('views.admin.compra.total')}}</h2>
-                    <div class="clearfix"></div>
-                </div>
                 <div class="x_content">
 
                     <div class="form-group col-xs-12">
+                        {!! Form::label('subtotal', __('views.admin.compra.subtotal'), ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            {!! Form::tel('subtotal', ($compra->total + $compra->desconto - $compra->juros), [
+                                'id' => 'subtotal',
+                                'class' => 'form-control money',
+                                'readonly' => 'readonly',
+                                ]
+                            ) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        {!! Form::label('desconto', __('views.admin.compra.desconto'), ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            {!! Form::tel('desconto', $compra->desconto, [
+                                'id' => 'desconto',
+                                'class' => 'form-control money',
+                                'readonly' => 'readonly'
+                                ]
+                            ) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        {!! Form::label('juros', __('views.admin.compra.juros'), ['class' => 'control-label']) !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            {!! Form::tel('juros', $compra->juros, [
+                                'id' => 'juros',
+                                'class' => 'form-control money',
+                                'readonly' => 'readonly'
+                                ]
+                            ) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        {!! Form::label('total', __('views.admin.compra.total'), ['class' => 'control-label']) !!}
                         <div class="input-group">
                             <span class="input-group-addon">R$</span>
                             {!! Form::text('total', $compra->total, [

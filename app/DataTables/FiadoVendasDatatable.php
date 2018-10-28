@@ -21,17 +21,8 @@ class FiadoVendasDatatable extends Datatable
             ->editColumn('data', function ($query) {
                 return $query->data->format('d/m/Y');
             })
-            ->editColumn('vendas.desconto', function ($query) {
-                return parseMoney($query->desconto);
-            })
-            ->filterColumn('vendas.desconto', function ($query, $keyword) {
-                $query->whereRaw("vendas.desconto like ?", ["%" . formatMoney($keyword) . "%"]);
-            })
-            ->editColumn('vendas.total', function ($query) {
+            ->editColumn('total', function ($query) {
                 return parseMoney($query->total);
-            })
-            ->filterColumn('vendas.total', function ($query, $keyword) {
-                $query->whereRaw("vendas.total like ?", ["%" . formatMoney($keyword) . "%"]);
             })
             ->make(true);
     }
@@ -41,7 +32,7 @@ class FiadoVendasDatatable extends Datatable
      */
     public function query()
     {
-        $vendas = Venda::select('vendas.*')->with(['forma']);
+        $vendas = FiadoVendas::select('fiado_vendas.*');
 
         return $this->applyScopes($vendas);
     }

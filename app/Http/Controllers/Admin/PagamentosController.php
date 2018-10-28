@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\Scopes\FechamentoScope;
 use App\DataTables\Scopes\PagamentosScope;
 use App\FinanceiroCategoria;
 use App\Http\Controllers\Controller;
+use App\Pagamento;
 use App\PagamentosDatatable;
 use App\Pessoa;
+use DB;
 use Illuminate\Http\Request;
 
 class PagamentosController extends Controller
@@ -45,7 +48,13 @@ class PagamentosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        DB::transaction(function () use ($request) {
+
+            Pagamento::create($request->only('vencimento', 'categoria_id', 'pessoa_id', 'total', 'obs'));
+        });
+
+        return ['status' => 'sucesso', 'title' => __('views.admin.notify.success'), 'message' => __('views.admin.venda.create.success.message')];
     }
 
     /**
@@ -106,5 +115,13 @@ class PagamentosController extends Controller
         $fornecedor = $request->fornecedor;
 
         return $dataTable->addScope(new PagamentosScope($data_inicial, $data_final, $categoria, $fornecedor))->render('admin.modulos.financeiro.pagamentos.index');
+    }
+
+    public function getFechamentoPagamentos(Request $request, PagamentosDatatable $dataTable)
+    {
+        $data = $request->data;
+        $relation_1 = 'pagamentos.vencimento';
+
+        return $dataTable->addScope(new FechamentoScope($data, $relation_1))->render('admin.modulos.financeiro.fechamento.index');
     }
 }

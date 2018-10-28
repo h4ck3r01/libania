@@ -107,24 +107,27 @@ class VendasDatatable extends Datatable
             ->editColumn('data', function ($query) {
                 return $query->data->format('d/m/Y');
             })
-            ->editColumn('desconto', function($query){
+            ->editColumn('desconto', function ($query) {
                 return parseMoney($query->desconto);
             })
-            ->filterColumn('desconto', function($query, $keyword) {
-                $query->whereRaw("vendas.desconto like ?", ["%". formatMoney($keyword). "%"]);
+            ->filterColumn('desconto', function ($query, $keyword) {
+                $query->whereRaw("vendas.desconto like ?", ["%" . formatMoney($keyword) . "%"]);
             })
-            ->editColumn('total', function($query){
+            ->editColumn('total', function ($query) {
                 return parseMoney($query->total);
             })
-            ->filterColumn('total', function($query, $keyword) {
-                $query->whereRaw("vendas.total like ?", ["%". formatMoney($keyword) . "%"]);
+            ->filterColumn('total', function ($query, $keyword) {
+                $query->whereRaw("vendas.total like ?", ["%" . formatMoney($keyword) . "%"]);
+            })
+            ->addColumn('mergeForma', function ($query) {
+                return $query->total;
             })
             ->make(true);
     }
 
     public function query()
     {
-        $venda = Venda::select('vendas.*')->with(['forma', 'pessoa']);
+        $venda = Venda::select('vendas.*')->with(['forma', 'pessoa', 'forma_opcional']);
 
         return $this->applyScopes($venda);
     }

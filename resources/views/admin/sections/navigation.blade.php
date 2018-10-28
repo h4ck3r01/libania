@@ -75,7 +75,7 @@
                                 <a href="{{ route('administrativo.relacao_vendas') }}">{{__('views.backend.section.navigation.menu_2_3')}}</a>
                             </li>
                             <li>
-                                <a href="{{ route('administrativo.relacao_compras') }}">{{__('views.backend.section.navigation.menu_2_4')}}</a>
+                                <a href="{{ route('administrativo.balanco') }}">{{__('views.backend.section.navigation.menu_2_4')}}</a>
                             </li>
                         </ul>
                     </li>
@@ -100,6 +100,9 @@
                             </li>
                             <li>
                                 <a href="{{ route('financeiro.fiado.index') }}">{{__('views.backend.section.navigation.menu_3_7')}}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('financeiro.fechamento.index') }}">{{__('views.backend.section.navigation.menu_3_8')}}</a>
                             </li>
                         </ul>
                     </li>

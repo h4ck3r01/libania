@@ -81,11 +81,12 @@
                 <div class="x_content">
 
                     @foreach($movimento->produtos as $key => $produto)
-                        <div class="row">
 
-                            @if($key != 0)
-                                <hr/>
-                            @endif
+                        @if($key != 0)
+                            <hr/>
+                        @endif
+
+                        <div class="row">
 
                             <div class="form-group col-xs-6">
                                 {!! Form::label('produto', __('views.admin.movimento.nome'), ['class' => 'control-label']) !!}

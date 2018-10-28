@@ -128,37 +128,24 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-xs-4 col-lg-12">
-                            <hr/>
-                            {!! Form::label('forma_id', __('views.admin.venda.forma'), ['class' => 'control-label']) !!}
-                            {!! Form::text('forma_id', $venda->forma->nome, [
-                                    'id' => 'forma',
-                                    'class' => 'form-control',
-                                    'readonly' => 'readonly'
-                                    ]
-                                ) !!}
-                        </div>
-
-                        <div id="div_troco" class="hidden">
+                        @foreach($recebimentos as $recebimento)
 
                             <div class="form-group col-xs-4 col-lg-12">
-                                {!! Form::label('recebido', __('views.admin.venda.recebido'), ['class' => 'control-label']) !!}
-                                <div class="input-group">
-                                    <span class="input-group-addon">R$</span>
-                                    {!! Form::text('recebido', '0', [
-                                        'id' => 'recebido',
-                                        'class' => 'form-control money',
+                                <hr/>
+                                {!! Form::label('forma_id', __('views.admin.venda.forma'), ['class' => 'control-label']) !!}
+                                {!! Form::text('forma_id', $recebimento->forma->nome, [
+                                        'class' => 'form-control',
+                                        'readonly' => 'readonly'
                                         ]
                                     ) !!}
-                                </div>
                             </div>
 
                             <div class="form-group col-xs-4 col-lg-12">
-                                {!! Form::label('troco', __('views.admin.venda.troco'), ['class' => 'control-label']) !!}
+                                <hr class="hidden-lg"/>
+                                {!! Form::label('total', __('views.admin.venda.total'), ['class' => 'control-label']) !!}
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    {!! Form::text('troco', '0', [
-                                        'id' => 'troco',
+                                    {!! Form::tel('total', $recebimento->total, [
                                         'class' => 'form-control money',
                                         'readonly' => 'readonly'
                                         ]
@@ -166,13 +153,11 @@
                                 </div>
                             </div>
 
-                        </div>
-
+                        @endforeach
                     </div>
 
-                    <hr/>
-
                     <div class="row">
+                        <hr/>
                         {!! Form::open(['id' => 'form-delete', 'method'=>'DELETE', 'action'=> ['Admin\VendasController@destroy', $venda->id]]) !!}
                         <div class="col-xs-6">
                             {!! link_to(route('operacional.venda.index'), __('views.admin.button.back'), ['class' => 'btn btn-primary col-xs-12']) !!}

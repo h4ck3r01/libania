@@ -14,7 +14,8 @@ class Pagamento extends Model
         'pessoa_id',
         'vencimento',
         'pagamento',
-        'total'
+        'total',
+        'obs'
     ];
 
     protected $dates = [

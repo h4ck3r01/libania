@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\Scopes\FechamentoScope;
 use App\DataTables\Scopes\RecebimentosScope;
 use App\FinanceiroCategoria;
 use App\Http\Controllers\Controller;
@@ -25,7 +26,7 @@ class RecebimentosController extends Controller
 
         $pessoas = Pessoa::where('tipo_id', 1)->orderBy('nome')->pluck('nome', 'id')->all();
 
-        $formas = VendaForma::orderBy('nome')->pluck('nome', 'id')->all();
+        $formas = VendaForma::where('id', '!=', '4')->orderBy('nome')->pluck('nome', 'id')->all();
 
         return $dataTable->render('admin.modulos.financeiro.recebimentos.index', compact('categorias', 'pessoas', 'formas'));
     }
@@ -111,5 +112,25 @@ class RecebimentosController extends Controller
         $forma = $request->forma;
 
         return $dataTable->addScope(new RecebimentosScope($data_inicial, $data_final, $categoria, $cliente, $forma))->render('admin.modulos.financeiro.recebimentos.index');
+    }
+
+    public function getFechamentoDinheiro(Request $request, RecebimentosDatatable $dataTable)
+    {
+        $data = $request->data;
+        $forma = [1];
+        $relation_1 = 'recebimentos.data';
+        $relation_2 = 'recebimentos.forma_id';
+
+        return $dataTable->addScope(new FechamentoScope($data, $relation_1, $forma, $relation_2))->render('admin.modulos.financeiro.fechamento.index');
+    }
+
+    public function getFechamentoCartao(Request $request, RecebimentosDatatable $dataTable)
+    {
+        $data = $request->data;
+        $relation_1 = 'recebimentos.data';
+        $relation_2 = 'recebimentos.forma_id';
+        $forma = [2, 3];
+
+        return $dataTable->addScope(new FechamentoScope($data, $relation_1, $forma, $relation_2))->render('admin.modulos.financeiro.fechamento.index');
     }
 }

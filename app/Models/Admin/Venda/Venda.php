@@ -12,7 +12,8 @@ class Venda extends Model
         'forma_id',
         'desconto',
         'total',
-        'data'
+        'data',
+        'forma_id_opcional',
     ];
 
     protected $dates = [
@@ -32,5 +33,10 @@ class Venda extends Model
     public function forma()
     {
         return $this->belongsTo(VendaForma::class, 'forma_id');
+    }
+
+    public function forma_opcional()
+    {
+        return $this->belongsTo(VendaForma::class, 'forma_id_opcional', 'id');
     }
 }

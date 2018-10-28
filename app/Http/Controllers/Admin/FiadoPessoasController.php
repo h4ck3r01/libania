@@ -56,11 +56,11 @@ class FiadoPessoasController extends Controller
     {
         DB::transaction(function () use ($request, $id) {
 
-            $total = formatMoney($request->total) - formatMoney($request->pagar);
+            $total = $request->total - formatMoney($request->pagar);
 
-            FiadoPessoa::findOrFail($id)->update(['total' => $total, 'total_ultimo' => $request->pagar, 'data_ultimo' => $request->data]);
+            FiadoPessoa::findOrFail($id)->update(['total' => $total, 'total_ultimo' => formatMoney($request->pagar), 'data_ultimo' => $request->data]);
 
-            Recebimento::create(['categoria_id' => $request->categoria_id, 'pessoa_id' => $request->pessoa_id, 'data' => $request->data, 'total' => $request->pagar, 'forma_id' => $request->forma_id]);
+            Recebimento::create(['categoria_id' => $request->categoria_id, 'pessoa_id' => $request->pessoa_id, 'data' => $request->data, 'total' => formatMoney($request->pagar), 'forma_id' => $request->forma_id]);
 
         });
 
@@ -76,6 +76,7 @@ class FiadoPessoasController extends Controller
      */
     public function getVendasDataTable(Request $request, FiadoVendasDatatable $dataTable)
     {
+
         $id = $request->id;
 
         return $dataTable->addScope(new FiadoVendasScope($id))->render('admin.modulos.financeiro.fiado.show');
@@ -104,7 +105,7 @@ class FiadoPessoasController extends Controller
 
         DB::transaction(function () use ($recebimento, $fiado) {
 
-            $total = formatMoney($fiado->total) + formatMoney($recebimento->total);
+            $total = $fiado->total + $recebimento->total;
 
             $fiado->update(['total' => $total]);
 

@@ -15,7 +15,7 @@ class AlterTableRecebimentosChangeColumnVendaId extends Migration
     public function up()
     {
         Schema::table('recebimentos', function (Blueprint $table) {
-            $table->integer('venda_id')->nullable()->change();
+            $table->integer('venda_id')->unsigned()->nullable()->change();
         });
     }
 

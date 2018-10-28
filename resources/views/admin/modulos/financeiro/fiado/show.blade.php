@@ -52,12 +52,12 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-xs-3 col-lg-6">
+                        <div class="form-group col-xs-4 col-lg-6">
                             {!! Form::label('data_ultimo', __('views.admin.fiado.data_ultimo'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 <span class="input-group-addon"><i
                                             class="fa fa-calendar-o"></i></span>
-                                {!! Form::date('data_ultimo', (!empty($fiado->data_ultimo)) ? $fiado->data_ultimo : '' , [
+                                {!! Form::date('data_ultimo', $fiado->data_ultimo , [
                                         'id' => 'data_ultimo',
                                         'class' => 'form-control',
                                         'readonly' => 'readonly'
@@ -97,7 +97,7 @@
                     {!! Form::hidden('categoria_id', '3') !!}
 
                     <div class="row">
-                        <div class="form-group col-xs-3 col-lg-6">
+                        <div class="form-group col-xs-4 col-lg-6">
                             {!! Form::label('data', __('views.admin.fiado.data'), ['class' => 'control-label']) !!}
                             <div class="input-group">
                                 <span class="input-group-addon"><i
@@ -179,7 +179,6 @@
                             <tr>
                                 <th>{{ __('views.admin.fiado.show.table_1.header_0') }}</th>
                                 <th>{{ __('views.admin.fiado.show.table_1.header_1') }}</th>
-                                <th>{{ __('views.admin.fiado.show.table_1.header_2') }}</th>
                                 <th>{{ __('views.admin.fiado.show.table_1.header_3') }}</th>
                             </tr>
                             </thead>
@@ -206,6 +205,7 @@
                                width="100%">
                             <thead>
                             <tr>
+                                <th class="hidden"></th>
                                 <th>{{ __('views.admin.fiado.show.table_2.header_1') }}</th>
                                 <th>{{ __('views.admin.fiado.show.table_2.header_2') }}</th>
                                 <th>{{ __('views.admin.fiado.show.table_2.header_3') }}</th>
@@ -224,6 +224,5 @@
 @stop
 
 @push('page-scripts')
-
     @include('admin.modulos.financeiro.fiado.scripts.app')
 @endpush

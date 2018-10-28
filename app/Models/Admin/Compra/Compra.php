@@ -11,6 +11,8 @@ class Compra extends Model
         'vencimento',
         'pessoa_id',
         'obs',
+        'desconto',
+        'juros',
         'total',
     ];
 
@@ -26,6 +28,16 @@ class Compra extends Model
     public function produtos()
     {
         return $this->hasMany(CompraProduto::class);
+    }
+
+    public function setDescontoAttribute($desconto)
+    {
+        $this->attributes['desconto'] = formatMoney($desconto);
+    }
+
+    public function setJurosAttribute($juros)
+    {
+        $this->attributes['juros'] = formatMoney($juros);
     }
 
     public function setTotalAttribute($total)

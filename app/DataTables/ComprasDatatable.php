@@ -34,10 +34,20 @@ class ComprasDatatable extends Datatable
             ],
             'obs' => [
                 'title' => __('views.admin.compra.index.table_header_3'),
-                'width' => '30%',
+                'width' => '20%',
+            ],
+            'desconto' => [
+                'title' => __('views.admin.compra.index.table_header_4'),
+                'width' => '10%',
+                'className' => 'text-right',
+            ],
+            'juros' => [
+                'title' => __('views.admin.compra.index.table_header_5'),
+                'width' => '10%',
+                'className' => 'text-right',
             ],
             'total' => [
-                'title' => __('views.admin.compra.index.table_header_4'),
+                'title' => __('views.admin.compra.index.table_header_6'),
                 'width' => '10%',
                 'className' => 'text-right',
             ],
@@ -106,6 +116,18 @@ class ComprasDatatable extends Datatable
             })
             ->editColumn('vencimento', function ($query) {
                 return $query->vencimento->format('d/m/Y');
+            })
+            ->editColumn('desconto', function($query){
+                return parseMoney($query->desconto);
+            })
+            ->filterColumn('desconto', function($query, $keyword) {
+                $query->whereRaw("compras.desconto like ?", ["%". formatMoney($keyword) . "%"]);
+            })
+            ->editColumn('juros', function($query){
+                return parseMoney($query->juros);
+            })
+            ->filterColumn('juros', function($query, $keyword) {
+                $query->whereRaw("compras.juros like ?", ["%". formatMoney($keyword) . "%"]);
             })
             ->editColumn('total', function($query){
                 return parseMoney($query->total);
